@@ -1,0 +1,3 @@
+Hunter Freeman; personal notes.
+
+I've never worked with Python, so I'm tracking any 'realizations' I find useful.
