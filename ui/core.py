@@ -1,35 +1,17 @@
-from collections import namedtuple
-import tkinter as tk
 import json
-import Theme 
+import tkinter as tk
+import ThemeModule
+import LayoutModule
 
 def main():
-
-    screen_measurements = get_curr_screen_width_height_tuple()
-
-    # geometry variables
-    width = 1280
-    height = 960
-    left = 800
-    top = 150
-
-    # validate: width, height
-    width = min(width, screen_measurements.width)
-    height = min(height, screen_measurements.height)
-
-    # valid : left, top
-    if (width + left >= screen_measurements.width):
-        left = 0
-    if (height + top >= screen_measurements.height):
-        top = 0
-
     root = tk.Tk()
-    root.geometry(f'{width}x{height}+{left}+{top}')
 
-    canvas = tk.Canvas(root, bg=Theme.theme_current.background_color)
+    render_ui(root)
+
+    canvas = tk.Canvas(root, bg=ThemeModule.theme_current.background_color)
     canvas.pack(expand=1, fill=tk.BOTH)
 
-    for loop_theme in Theme.theme_list:
+    for loop_theme in ThemeModule.theme_list:
         # capture the theme from the 'for' iterations by creating a lambda within a lambda.
         button = tk.Button(
             canvas,
@@ -40,26 +22,30 @@ def main():
 
     root.mainloop()
 
-def get_curr_screen_width_height_tuple():
-    """
-    Workaround to get the size of the current screen in a multi-screen setup.
+def render_ui(root):
+    # geometry variables
+    width = 1280
+    height = 960
+    left = 800
+    top = 150
 
-    Returns:
-        geometry (str): The standard Tk geometry string.
-            [width]x[height]+[left]+[top]
+    #Get the current screen width and height
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
 
-    https://stackoverflow.com/questions/3129322/how-do-i-get-monitor-resolution-in-python/56913005#56913005
-    """
-    root = tk.Tk()
-    root.update_idletasks()
-    root.attributes('-fullscreen', True)
-    root.state('iconic')
+    # validate: width, height
+    width = min(width, screen_width)
+    height = min(height, screen_height)
 
-    ScreenMeasurements = namedtuple('WidthHeight', ['width', 'height',])
+    # valid : left, top
+    if (width + left >= screen_width):
+        left = 0
+    if (height + top >= screen_height):
+        top = 0
+    
+    root.geometry(f'{width}x{height}+{left}+{top}')
 
-    screen_measurements = ScreenMeasurements(root.winfo_width(), root.winfo_height())
-    root.destroy()
-    return screen_measurements
+    LayoutModule.LayoutDisplay(root)
 
 if __name__ == '__main__':
     main()
