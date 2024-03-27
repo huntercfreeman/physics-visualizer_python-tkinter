@@ -8,17 +8,17 @@ def main():
 
     render_ui(root)
 
-    canvas = tk.Canvas(root, bg=ThemeModule.theme_current.background_color)
-    canvas.pack(expand=1, fill=tk.BOTH)
+    # canvas = tk.Canvas(root, bg=ThemeModule.theme_current.background_color)
+    # canvas.pack(expand=1, fill=tk.BOTH)
 
-    for loop_theme in ThemeModule.theme_list:
-        # capture the theme from the 'for' iterations by creating a lambda within a lambda.
-        button = tk.Button(
-            canvas,
-            text="abc",
-            command=(lambda x_theme: (lambda : print(json.dumps(x_theme.__dict__))))(loop_theme))
+    # for loop_theme in ThemeModule.theme_list:
+    #     # capture the theme from the 'for' iterations by creating a lambda within a lambda.
+    #     button = tk.Button(
+    #         canvas,
+    #         text="abc",
+    #         command=(lambda x_theme: (lambda : print(json.dumps(x_theme.__dict__))))(loop_theme))
 
-        button.pack()
+    #     button.pack()
 
     root.mainloop()
 
@@ -45,7 +45,12 @@ def render_ui(root):
     
     root.geometry(f'{width}x{height}+{left}+{top}')
 
-    LayoutModule.LayoutDisplay(root)
+    # If the red background of 'root' is visible, then something is wrong.
+    # The inner frames should cover 100% of the 'root', and their background color
+    # therefore should be rendered instead of the root's red background color.
+    root["bg"]='red'
+
+    LayoutModule.InitializeLayout(root)
 
 if __name__ == '__main__':
     main()
