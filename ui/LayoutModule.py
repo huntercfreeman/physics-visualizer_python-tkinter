@@ -2,53 +2,56 @@ import tkinter as tk
 import ThemeModule
 from varname import nameof
 
-def InitializeLayout(master):
-    rowIndex = 0
-
-    AppHeaderDisplay(master, rowIndex)
-    rowIndex += 1
-
-    AppBodyDisplay(master, rowIndex)
-    rowIndex += 1
-
-    AppFooterDisplay(master, rowIndex)
-    rowIndex += 1
+def InitializeLayout(root: tk.Tk):
+    AppHeaderDisplay(root)
+    AppBodyDisplay(root)
+    AppFooterDisplay(root)
 
 class AppHeaderDisplay(tk.Frame):
     """Render the 'header' aka: 'navigation bar', or 'toolbar'."""
 
-    def __init__(self, master, rowIndex):
-        super().__init__(master)
+    def __init__(self, root: tk.Tk):
+        super().__init__(root, bg=ThemeModule.theme_current.primary_background_color)
+        self.pack_propagate(tk.FALSE)
+        self.place(relx=0, rely=0, relwidth=1, relheight=0.2)
         
-        text = tk.Text(self)
-        text.insert(tk.INSERT, nameof(AppHeaderDisplay))
-        text.pack()
+        button = tk.Button(self, text="settings")
+        button.pack()
 
-        self["bg"]=ThemeModule.theme_current.background_color
-        self.grid(row=rowIndex, column=0, sticky='nsew')
+        label = tk.Label(
+            self,
+            text=nameof(AppHeaderDisplay),
+            bg=ThemeModule.theme_current.primary_background_color,
+            fg=ThemeModule.theme_current.primary_foreground_color)
+        label.pack()
 
 class AppBodyDisplay(tk.Frame):
     """TODO: docstring"""
 
-    def __init__(self, master, rowIndex):
-        super().__init__(master)
+    def __init__(self, root: tk.Tk):
+        super().__init__(root, bg=ThemeModule.theme_current.primary_background_color)
+        self.pack_propagate(tk.FALSE)
+        self.place(relx=0, rely=0.2, relwidth=1, relheight=0.6)
 
-        text = tk.Text(self)
-        text.insert(tk.INSERT, nameof(AppBodyDisplay))
-        text.pack()
-
-        self["bg"]=ThemeModule.theme_current.background_color
-        self.grid(row=rowIndex, column=0, sticky='nsew')
+        label = tk.Label(
+            self,
+            text=nameof(AppBodyDisplay),
+            bg=ThemeModule.theme_current.primary_background_color,
+            fg=ThemeModule.theme_current.primary_foreground_color)
+        label.pack()
 
 class AppFooterDisplay(tk.Frame):
     """TODO: docstring"""
 
-    def __init__(self, master, rowIndex):
-        super().__init__(master)
-
-        text = tk.Text(self)
-        text.insert(tk.INSERT, nameof(AppFooterDisplay))
-        text.pack()
-
-        self["bg"]=ThemeModule.theme_current.background_color
-        self.grid(row=rowIndex, column=0, sticky='nsew')
+    def __init__(self, root: tk.Tk):
+        super().__init__(root, bg=ThemeModule.theme_current.primary_background_color)
+        self.pack_propagate(tk.FALSE)
+        self.place(relx=0, rely=0.8, relwidth=1, relheight=0.2)
+        
+        label = tk.Label(
+            self,
+            text=nameof(AppFooterDisplay),
+            bg=ThemeModule.theme_current.primary_background_color,
+            fg=ThemeModule.theme_current.primary_foreground_color)
+        label.pack()
+        

@@ -5,32 +5,12 @@ import LayoutModule
 
 def main():
     root = tk.Tk()
-
-    root.grid_columnconfigure(0, weight=1)
-    root.grid_columnconfigure(1, weight=1)
-    root.grid_columnconfigure(2, weight=1)
-
-    root.grid_rowconfigure(0, weight=1)
-    root.grid_rowconfigure(1, weight=1)
-    root.grid_rowconfigure(2, weight=1)
-
+    
     render_ui(root)
-
-    # canvas = tk.Canvas(root, bg=ThemeModule.theme_current.background_color)
-    # canvas.pack(expand=1, fill=tk.BOTH)
-
-    # for loop_theme in ThemeModule.theme_list:
-    #     # capture the theme from the 'for' iterations by creating a lambda within a lambda.
-    #     button = tk.Button(
-    #         canvas,
-    #         text="abc",
-    #         command=(lambda x_theme: (lambda : print(json.dumps(x_theme.__dict__))))(loop_theme))
-
-    #     button.pack()
 
     root.mainloop()
 
-def render_ui(root):
+def render_ui(root: tk.Tk):
     # geometry variables
     width = 1280
     height = 960
@@ -52,6 +32,7 @@ def render_ui(root):
         top = 0
     
     root.geometry(f'{width}x{height}+{left}+{top}')
+    root.pack_propagate(tk.FALSE)
 
     # If the red background of 'root' is visible, then something is wrong.
     # The inner frames should cover 100% of the 'root', and their background color
@@ -63,3 +44,15 @@ def render_ui(root):
 if __name__ == '__main__':
     main()
 
+
+    # canvas = tk.Canvas(root, bg=ThemeModule.theme_current.background_color)
+    # canvas.pack(expand=1, fill=tk.BOTH)
+
+    # for loop_theme in ThemeModule.theme_list:
+    #     # capture the theme from the 'for' iterations by creating a lambda within a lambda.
+    #     button = tk.Button(
+    #         canvas,
+    #         text="abc",
+    #         command=(lambda x_theme: (lambda : print(json.dumps(x_theme.__dict__))))(loop_theme))
+
+    #     button.pack()
