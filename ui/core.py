@@ -6,6 +6,14 @@ import LayoutModule
 def main():
     root = tk.Tk()
 
+    root.grid_columnconfigure(0, weight=1)
+    root.grid_columnconfigure(1, weight=1)
+    root.grid_columnconfigure(2, weight=1)
+
+    root.grid_rowconfigure(0, weight=1)
+    root.grid_rowconfigure(1, weight=1)
+    root.grid_rowconfigure(2, weight=1)
+
     render_ui(root)
 
     # canvas = tk.Canvas(root, bg=ThemeModule.theme_current.background_color)
@@ -49,7 +57,7 @@ def render_ui(root):
     # The inner frames should cover 100% of the 'root', and their background color
     # therefore should be rendered instead of the root's red background color.
     root["bg"]='red'
-
+    
     LayoutModule.InitializeLayout(root)
 
 if __name__ == '__main__':
