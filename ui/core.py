@@ -2,15 +2,16 @@ import json
 import tkinter as tk
 import ThemeModule
 import LayoutModule
+import DynamicUiModule
 
 def main():
     root = tk.Tk()
     
-    render_ui(root)
+    initialize_ui(root)
 
     root.mainloop()
 
-def render_ui(root: tk.Tk):
+def initialize_ui(root: tk.Tk):
     # geometry variables
     width = 1280
     height = 960
@@ -40,6 +41,7 @@ def render_ui(root: tk.Tk):
     root["bg"]='red'
     
     LayoutModule.InitializeLayout(root)
+    DynamicUiModule.InitializeDynamicUi(root)
 
 if __name__ == '__main__':
     main()
