@@ -56,6 +56,7 @@ class DialogDisplay(tk.Frame):
 
             DestroyDialogModule()
             InitializeDialogModule(existing_root)
+            dialog_service.register_dialog("Settings")
 
         for loop_theme in ThemeModule.theme_list:
             # Capture the theme from the 'for' iterations by creating a lambda within a lambda.

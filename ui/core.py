@@ -5,9 +5,7 @@ import DialogModule
 
 def main():
     root = tk.Tk()
-    
     initialize_ui(root)
-
     root.mainloop()
 
 def initialize_ui(root: tk.Tk):
@@ -45,8 +43,6 @@ def initialize_ui(root: tk.Tk):
 if __name__ == '__main__':
     main()
 
-
     # canvas = tk.Canvas(root, bg=ThemeModule.theme_current.background_color)
     # canvas.pack(expand=1, fill=tk.BOTH)
-
     
