@@ -61,5 +61,7 @@ class VisualizationDisplay(tk.Canvas):
             canvas_height_halfway,
             canvas_width_halfway + vector.components[0],
             canvas_height_halfway + -1 * vector.components[1],
-            fill='red',
+            fill=ThemeModule.theme_current.primary_foreground_color,
+            arrow='last',
+            width=2,
             tags=self.canvas_tags_vector)
