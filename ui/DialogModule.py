@@ -29,15 +29,15 @@ class DialogDisplay(tk.Frame):
         label.pack()
 
     class TitleDisplay(tk.Frame):
-        def __init__(self, root: tk.Tk):
-            super().__init__(root, bg=ThemeModule.theme_current.secondary_background_color)
-            self.pack()
-            self.pack_propagate(tk.FALSE)
+        def __init__(self, parent: tk.Tk):
+            super().__init__(parent, bg='red')#bg=ThemeModule.theme_current.secondary_background_color)
+            self.pack(side='top', anchor='e', fill='x')
+            # self.pack_propagate(tk.FALSE)
 
             label = tk.Label(
                 self,
-                text=nameof(DialogDisplay),
-                bg=ThemeModule.theme_current.secondary_background_color,
+                text=nameof(DialogDisplay.TitleDisplay),
+                bg='blue',# bg=ThemeModule.theme_current.secondary_background_color,
                 fg=ThemeModule.theme_current.secondary_foreground_color)
             label.pack()
 
