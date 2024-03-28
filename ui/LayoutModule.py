@@ -1,6 +1,8 @@
 import tkinter as tk
 import ThemeModule
 import DialogModule
+import VisualizationModule
+import HorizontalRuleModule
 from varname import nameof
 
 def InitializeLayoutModule(root: tk.Tk):
@@ -53,13 +55,11 @@ class AppBodyDisplay(tk.Frame):
         super().__init__(root, bg=ThemeModule.theme_current.primary_background_color)
         self.place(relx=0, rely=0.1, relwidth=1, relheight=0.8)
         self.pack_propagate(tk.FALSE)
+        
+        HorizontalRuleModule.HorizontalRuleDisplay(self, anchor='n')
+        VisualizationModule.VisualizationDisplay(self)
+        HorizontalRuleModule.HorizontalRuleDisplay(self, anchor='s')
 
-        label = tk.Label(
-            self,
-            text=nameof(AppBodyDisplay),
-            bg=ThemeModule.theme_current.primary_background_color,
-            fg=ThemeModule.theme_current.primary_foreground_color)
-        label.pack()
 
 class AppFooterDisplay(tk.Frame):
     """TODO: docstring"""

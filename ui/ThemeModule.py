@@ -8,7 +8,8 @@ class ThemeDisplay:
                  secondary_foreground_color: str,
                  header_background_color: str,
                  footer_background_color: str,
-                 dialog_toolbar_background_color: str):
+                 dialog_toolbar_background_color: str,
+                 primary_border_background_color: str,):
         self.display_name = display_name
         self.primary_background_color = primary_background_color
         self.primary_foreground_color = primary_foreground_color
@@ -17,6 +18,7 @@ class ThemeDisplay:
         self.header_background_color = header_background_color
         self.footer_background_color = footer_background_color
         self.dialog_toolbar_background_color = dialog_toolbar_background_color
+        self.primary_border_background_color = primary_border_background_color
 
 theme_list = [
     ThemeDisplay(
@@ -27,7 +29,8 @@ theme_list = [
         secondary_foreground_color='#dcdcdc',
         header_background_color='#2a2a2e',
         footer_background_color='#2a2a2e',
-        dialog_toolbar_background_color='#071c57'),
+        dialog_toolbar_background_color='#071c57',
+        primary_border_background_color='#d7d7d7'),
     ThemeDisplay(
         display_name='light',
         primary_background_color='#fdfdfd',
@@ -36,7 +39,8 @@ theme_list = [
         secondary_foreground_color='black',
         header_background_color='#cad5eb',
         footer_background_color='#cad5eb',
-        dialog_toolbar_background_color='#aac1ee'),
+        dialog_toolbar_background_color='#aac1ee',
+        primary_border_background_color='black'),
 ]
 
 theme_current = theme_list[0]
