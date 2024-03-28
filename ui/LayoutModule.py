@@ -86,13 +86,20 @@ class AppFooterDisplay(tk.Frame):
             global vector_under_edit
             global vector_editor_display
 
-            vector_editor_display.Submit()
-            vector_editor_display.destroy()
+            try:
+                x = int(vector_editor_display.x_string_var.get())
+                y = int(vector_editor_display.y_string_var.get())
 
-            visualization_display.AddVector(vector_under_edit)
+                vector_editor_display.Submit()
+                vector_editor_display.destroy()
 
-            vector_under_edit = VectorModule.VectorModel([5, 5])
-            vector_editor_display = VectorModule.VectorEditorDisplay(self, vector_under_edit)
+                visualization_display.AddVector(VectorModule.VectorModel([x, y]))
+
+                vector_under_edit = VectorModule.VectorModel([5, 5])
+                vector_editor_display = VectorModule.VectorEditorDisplay(self, vector_under_edit)
+            except ValueError:
+                print("some_variable did not contain a number!")
+                
         button = tk.Button(frame, text="Submit", command=SubmitFormOnClick)
         button.pack(side="top")
         
