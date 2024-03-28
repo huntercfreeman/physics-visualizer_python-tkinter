@@ -1,6 +1,5 @@
 import tkinter as tk
 import ThemeModule
-from varname import nameof
 
 class VectorModel:
     """Stores the vector-components as a list.

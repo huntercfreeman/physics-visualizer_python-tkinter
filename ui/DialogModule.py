@@ -1,5 +1,4 @@
 import tkinter as tk
-import json
 import ThemeModule
 import LayoutModule
 from varname import nameof

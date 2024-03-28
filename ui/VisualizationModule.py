@@ -1,7 +1,6 @@
 import tkinter as tk
 import ThemeModule
 import VectorModule
-from varname import nameof
 
 class VisualizationDisplay(tk.Canvas):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
