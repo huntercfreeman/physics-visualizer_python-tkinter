@@ -58,7 +58,7 @@ class AppBodyDisplay(tk.Frame):
         self.pack_propagate(tk.FALSE)
         
         HorizontalRuleModule.HorizontalRuleDisplay(self, anchor='n')
-        VisualizationModule.VisualizationDisplay(self)
+        VisualizationModule.VisualizationDisplay(self, root)
         HorizontalRuleModule.HorizontalRuleDisplay(self, anchor='s')
 
 class AppFooterDisplay(tk.Frame):
