@@ -1,5 +1,6 @@
 import tkinter as tk
 import ThemeModule
+import VectorModule
 from varname import nameof
 
 class VisualizationDisplay(tk.Canvas):
@@ -15,11 +16,14 @@ class VisualizationDisplay(tk.Canvas):
         self.InitializeCoordinateSystem()
 
     def InitializeCoordinateSystem(self):
+        self.canvas_tags_axis_y = "axis_y"
+        self.canvas_tags_axis_x = "axis_x"
+        self.canvas_tags_vector = "vector"
+
+        self.vector_list = []
+
         canvas_width = self.winfo_width()
         canvas_height = self.winfo_height()
-
-        print(canvas_height)
-        print(canvas_width)
         
         def InitializeAxisX():
             canvas_height_halfway = canvas_height / 2.0
@@ -28,7 +32,8 @@ class VisualizationDisplay(tk.Canvas):
                 canvas_height_halfway,
                 canvas_width,
                 canvas_height_halfway,
-                fill=ThemeModule.theme_current.coordinate_system_axis_fill_color)
+                fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
+                tags=self.canvas_tags_axis_x)
         InitializeAxisX()
 
         def InitializeAxisY():
@@ -38,5 +43,23 @@ class VisualizationDisplay(tk.Canvas):
                 0,
                 canvas_width_halfway,
                 canvas_height,
-                fill=ThemeModule.theme_current.coordinate_system_axis_fill_color)
+                fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
+                tags=self.canvas_tags_axis_y)
         InitializeAxisY()
+
+    def AddVector(self, vector: VectorModule.VectorModel):
+        self.vector_list.append(vector)
+
+        canvas_width = self.winfo_width()
+        canvas_height = self.winfo_height()
+
+        canvas_width_halfway = canvas_width / 2.0
+        canvas_height_halfway = canvas_height / 2.0
+
+        self.create_line(
+            canvas_width_halfway,
+            canvas_height_halfway,
+            canvas_width_halfway + vector.components[0],
+            canvas_height_halfway + -1 * vector.components[1],
+            fill='red',
+            tags=self.canvas_tags_vector)

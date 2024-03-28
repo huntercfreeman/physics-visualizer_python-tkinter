@@ -51,18 +51,18 @@ class AppHeaderDisplay(tk.Frame):
         label.pack(side="left")
 
 class AppBodyDisplay(tk.Frame):
-    """TODO: docstring"""
     def __init__(self, root: tk.Tk):
         super().__init__(root, bg=ThemeModule.theme_current.primary_background_color)
         self.place(relx=0, rely=0.1, relwidth=1, relheight=0.8)
         self.pack_propagate(tk.FALSE)
         
+        global visualization_display
+
         HorizontalRuleModule.HorizontalRuleDisplay(self, anchor='n')
-        VisualizationModule.VisualizationDisplay(self, root)
+        visualization_display = VisualizationModule.VisualizationDisplay(self, root)
         HorizontalRuleModule.HorizontalRuleDisplay(self, anchor='s')
 
 class AppFooterDisplay(tk.Frame):
-    """TODO: docstring"""
     def __init__(self, root: tk.Tk):
         super().__init__(root, bg=ThemeModule.theme_current.footer_background_color)
         self.place(relx=0, rely=0.9, relwidth=1, relheight=0.1)
@@ -89,6 +89,8 @@ class AppFooterDisplay(tk.Frame):
             vector_editor_display.Submit()
             vector_editor_display.destroy()
 
+            visualization_display.AddVector(vector_under_edit)
+
             vector_under_edit = VectorModule.VectorModel([5, 5])
             vector_editor_display = VectorModule.VectorEditorDisplay(self, vector_under_edit)
         button = tk.Button(frame, text="Submit", command=SubmitFormOnClick)
@@ -104,5 +106,7 @@ app_header_display: AppHeaderDisplay = None
 app_body_display: AppBodyDisplay = None
 app_footer_display: AppFooterDisplay = None
 
-vector_under_edit: VectorModule.VectorModel = VectorModule.VectorModel([5, 5])
+visualization_display: VisualizationModule.VisualizationDisplay = None
+
+vector_under_edit: VectorModule.VectorModel = VectorModule.VectorModel([50, 50])
 vector_editor_display: VectorModule.VectorEditorDisplay = None
