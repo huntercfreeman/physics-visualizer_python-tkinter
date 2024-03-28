@@ -1,10 +1,22 @@
 import tkinter as tk
+import json
 import ThemeModule
+import LayoutModule
 from varname import nameof
 
-def InitializeDialog(root: tk.Tk):
+def InitializeDialogModule(root: tk.Tk):
+    global existing_root
     global dialog_service
+
+    existing_root = root
+
     dialog_service = DialogService(root)
+
+def DestroyDialogModule():
+    global existing_root
+    global dialog_service
+
+    dialog_service = DialogService(existing_root)
 
 class DialogService:
     """Provides API to render a dialog"""
@@ -36,6 +48,23 @@ class DialogDisplay(tk.Frame):
             fg=ThemeModule.theme_current.secondary_foreground_color)
         label.pack()
 
+        def SetThemeOnClick(x_theme: ThemeModule.ThemeDisplay):
+            ThemeModule.SetTheme(x_theme)
+
+            LayoutModule.DestroyLayoutModule()
+            LayoutModule.InitializeLayoutModule(LayoutModule.existing_root)
+
+            DestroyDialogModule()
+            InitializeDialogModule(existing_root)
+
+        for loop_theme in ThemeModule.theme_list:
+            # Capture the theme from the 'for' iterations by creating a lambda within a lambda.
+            button = tk.Button(
+                self,
+                text=loop_theme.display_name,
+                command=(lambda x_theme: lambda: SetThemeOnClick(x_theme))(loop_theme))
+            button.pack()
+
     class TitleDisplay(tk.Frame):
         def __init__(self, parent: tk.Tk, display_name: str):
             super().__init__(parent, bg=ThemeModule.theme_current.dialog_toolbar_background_color)
@@ -57,5 +86,6 @@ class DialogDisplay(tk.Frame):
                 command=lambda: dialog_service.dispose_dialog(display_name))
             close_button.pack(side='right', fill='y')
 
+existing_root: tk.Tk = None
 # Create an instance of the 'DialogService()' class once the 'InitializeDynamicUi(...)' function is ran
-dialog_service = None
+dialog_service: DialogService = None

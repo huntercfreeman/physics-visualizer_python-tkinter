@@ -1,4 +1,3 @@
-import json
 import tkinter as tk
 import ThemeModule
 import LayoutModule
@@ -40,8 +39,8 @@ def initialize_ui(root: tk.Tk):
     # therefore should be rendered instead of the root's red background color.
     root["bg"]='red'
     
-    LayoutModule.InitializeLayout(root)
-    DialogModule.InitializeDialog(root)
+    LayoutModule.InitializeLayoutModule(root)
+    DialogModule.InitializeDialogModule(root)
 
 if __name__ == '__main__':
     main()
@@ -50,11 +49,4 @@ if __name__ == '__main__':
     # canvas = tk.Canvas(root, bg=ThemeModule.theme_current.background_color)
     # canvas.pack(expand=1, fill=tk.BOTH)
 
-    # for loop_theme in ThemeModule.theme_list:
-    #     # capture the theme from the 'for' iterations by creating a lambda within a lambda.
-    #     button = tk.Button(
-    #         canvas,
-    #         text="abc",
-    #         command=(lambda x_theme: (lambda : print(json.dumps(x_theme.__dict__))))(loop_theme))
-
-    #     button.pack()
+    

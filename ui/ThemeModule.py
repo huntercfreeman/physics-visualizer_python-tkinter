@@ -40,3 +40,7 @@ theme_list = [
 ]
 
 theme_current = theme_list[0]
+
+def SetTheme(theme: ThemeDisplay):
+    global theme_current
+    theme_current = theme
