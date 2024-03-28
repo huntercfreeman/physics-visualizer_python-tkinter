@@ -3,6 +3,7 @@ import ThemeModule
 import DialogModule
 import VisualizationModule
 import HorizontalRuleModule
+import VectorModule
 from varname import nameof
 
 def InitializeLayoutModule(root: tk.Tk):
@@ -60,22 +61,48 @@ class AppBodyDisplay(tk.Frame):
         VisualizationModule.VisualizationDisplay(self)
         HorizontalRuleModule.HorizontalRuleDisplay(self, anchor='s')
 
-
 class AppFooterDisplay(tk.Frame):
     """TODO: docstring"""
     def __init__(self, root: tk.Tk):
         super().__init__(root, bg=ThemeModule.theme_current.footer_background_color)
         self.place(relx=0, rely=0.9, relwidth=1, relheight=0.1)
         self.pack_propagate(tk.FALSE)
+
+        frame = tk.Frame(self)
+        frame.pack(side="left")
         
-        label = tk.Label(
-            self,
-            text=nameof(AppFooterDisplay),
-            bg=ThemeModule.theme_current.footer_background_color,
-            fg=ThemeModule.theme_current.primary_foreground_color)
-        label.pack()
+        def NewVectorOnClick():
+            global vector_under_edit
+            global vector_editor_display
+
+            vector_editor_display.destroy()
+
+            vector_under_edit = VectorModule.VectorModel([5, 5])
+            vector_editor_display = VectorModule.VectorEditorDisplay(self, vector_under_edit)
+        button = tk.Button(frame, text="New Vector", command=NewVectorOnClick)
+        button.pack(side="top")
+
+        def SubmitFormOnClick():
+            global vector_under_edit
+            global vector_editor_display
+
+            vector_editor_display.Submit()
+            vector_editor_display.destroy()
+
+            vector_under_edit = VectorModule.VectorModel([5, 5])
+            vector_editor_display = VectorModule.VectorEditorDisplay(self, vector_under_edit)
+        button = tk.Button(frame, text="Submit", command=SubmitFormOnClick)
+        button.pack(side="top")
+        
+        global vector_under_edit
+        global vector_editor_display
+
+        vector_editor_display = VectorModule.VectorEditorDisplay(self, vector_under_edit)
 
 existing_root: tk.Tk = None
 app_header_display: AppHeaderDisplay = None
 app_body_display: AppBodyDisplay = None
 app_footer_display: AppFooterDisplay = None
+
+vector_under_edit: VectorModule.VectorModel = VectorModule.VectorModel([5, 5])
+vector_editor_display: VectorModule.VectorEditorDisplay = None
