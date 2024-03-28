@@ -2,7 +2,7 @@ import json
 import tkinter as tk
 import ThemeModule
 import LayoutModule
-import DynamicUiModule
+import DialogModule
 
 def main():
     root = tk.Tk()
@@ -41,7 +41,7 @@ def initialize_ui(root: tk.Tk):
     root["bg"]='red'
     
     LayoutModule.InitializeLayout(root)
-    DynamicUiModule.InitializeDynamicUi(root)
+    DialogModule.InitializeDialog(root)
 
 if __name__ == '__main__':
     main()
