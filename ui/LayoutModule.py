@@ -57,9 +57,16 @@ class AppBodyDisplay(tk.Frame):
         self.pack_propagate(tk.FALSE)
         
         global visualization_display
+        past_visualization_display = visualization_display
 
         HorizontalRuleModule.HorizontalRuleDisplay(self, anchor='n')
+
         visualization_display = VisualizationModule.VisualizationDisplay(self, root)
+
+        if past_visualization_display != None:
+            for vector in past_visualization_display.vector_list:
+                visualization_display.AddVector(vector)
+
         HorizontalRuleModule.HorizontalRuleDisplay(self, anchor='s')
 
 class AppFooterDisplay(tk.Frame):
@@ -99,7 +106,7 @@ class AppFooterDisplay(tk.Frame):
                 vector_editor_display = VectorModule.VectorEditorDisplay(self, vector_under_edit)
             except ValueError:
                 print("some_variable did not contain a number!")
-                
+
         button = tk.Button(frame, text="Submit", command=SubmitFormOnClick)
         button.pack(side="top")
         
