@@ -16,7 +16,7 @@ class AppHeaderDisplay(tk.Frame):
         self.pack_propagate(tk.FALSE)
         
         def show_settings_dialog():
-            DialogModule.dialog_service.register_dialog()
+            DialogModule.dialog_service.register_dialog("Settings")
 
         button = tk.Button(self, text="settings", command=show_settings_dialog)
         button.pack()
