@@ -13,13 +13,34 @@ class VectorVisualization:
         self.components = vector.components
         self.coordinates = coordinates.coordinates
 
-class VisualizationDisplay(tk.Canvas):
+class VisualizationDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
         super().__init__(
             parent,
             bg=ThemeModule.theme_current.primary_background_color,
             highlightthickness=0)
-        self.pack(side='top', fill='both', expand=1)
+        
+        self.visualization_toolbar_display = VisualizationToolbarDisplay(parent, self)
+        self.visualization_canvas_display = VisualizationCanvasDisplay(parent, root, self)
+
+class VisualizationToolbarDisplay(tk.Frame):
+    def __init__(self, parent: tk.Tk, visualization_display: VisualizationDisplay):
+        super().__init__(
+            parent,
+            bg='red',#bg=ThemeModule.theme_current.secondary_background_color,
+            width="100")
+        self.visualization_display = visualization_display
+        self.pack(side='left', fill='y')
+
+class VisualizationCanvasDisplay(tk.Canvas):
+    def __init__(self, parent: tk.Tk, root: tk.Tk, visualization_display: VisualizationDisplay):
+        super().__init__(
+            parent,
+            bg=ThemeModule.theme_current.primary_background_color,
+            highlightthickness=0)
+        self.visualization_display = visualization_display
+
+        self.pack(side='left', fill='both', expand=1)
         self.root = root
         
         self.update()
