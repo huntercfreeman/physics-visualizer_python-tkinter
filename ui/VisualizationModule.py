@@ -57,17 +57,28 @@ class VisualizationDisplay(tk.Canvas):
                     tick_pos_x,
                     height_midpoint + tick_height + height_of_text,
                     text=f'{int(offset)}',
-                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,)
+                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color)
 
             # Create 'ticks' for negative-values along the axis for visually determining coordinate positions
-            # for x in range(2, 2, 3):
-            #     self.create_line(
-            #         0,
-            #         canvas_height_halfway,
-            #         canvas_width,
-            #         canvas_height_halfway,
-            #         fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
-            #         tags=self.canvas_tags_axis_x)
+            counter_magnitude = (canvas_width / 2) * 0.1
+            tick_height = 10
+            for counter in range(0, 10):
+                offset = -1 * ((counter + 1) * counter_magnitude)
+                tick_pos_x = width_midpoint + offset
+                # TODO: Calculate height of text
+                height_of_text = 10
+                self.create_line(
+                    tick_pos_x,
+                    height_midpoint - tick_height,
+                    tick_pos_x,
+                    height_midpoint + tick_height,
+                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
+                    tags=self.canvas_tags_axis_x)
+                self.create_text(
+                    tick_pos_x,
+                    height_midpoint + tick_height + height_of_text,
+                    text=f'{int(offset)}',
+                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color)
         InitializeAxisX()
 
         def InitializeAxisY():
