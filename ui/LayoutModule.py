@@ -64,8 +64,8 @@ class AppBodyDisplay(tk.Frame):
         visualization_display = VisualizationModule.VisualizationDisplay(self, root)
 
         if past_visualization_display != None:
-            visualization_display.SetVectorVisualizationList(
-                past_visualization_display.vector_visualization_list)
+            visualization_display.visualization_canvas_display.SetVectorVisualizationList(
+                past_visualization_display.visualization_canvas_display.vector_visualization_list)
 
         HorizontalRuleModule.HorizontalRuleDisplay(self, anchor='s')
 
@@ -88,7 +88,7 @@ class AppFooterDisplay(tk.Frame):
                 coordinate_x = int(coordinates_editor_display.x_string_var.get())
                 coordinate_y = int(coordinates_editor_display.y_string_var.get())
 
-                visualization_display.AddVector(
+                visualization_display.visualization_canvas_display.AddVector(
                     VectorModule.VectorModel([component_x, component_y]),
                     VisualizationModule.CoordinatesVisualization([coordinate_x, coordinate_y]))
             except ValueError:
