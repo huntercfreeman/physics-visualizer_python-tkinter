@@ -28,8 +28,7 @@ class VisualizationDisplay(tk.Canvas):
         height_midpoint = canvas_height / 2.0
         
         def InitializeAxisX():
-
-            # Create axis itself
+            # Create the axis itself
             self.create_line(
                 0,
                 height_midpoint,
@@ -82,6 +81,7 @@ class VisualizationDisplay(tk.Canvas):
         InitializeAxisX()
 
         def InitializeAxisY():
+            # Create the axis itself
             self.create_line(
                 width_midpoint,
                 0,
@@ -89,6 +89,48 @@ class VisualizationDisplay(tk.Canvas):
                 canvas_height,
                 fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
                 tags=self.canvas_tags_axis_y)
+            
+            # Create 'ticks' for positive-values along the axis for visually determining coordinate positions
+            counter_magnitude = (canvas_height / 2) * 0.1
+            tick_width = 10
+            for counter in range(0, 10):
+                offset = (counter + 1) * counter_magnitude
+                tick_pos_y = height_midpoint - offset
+                # TODO: Calculate width of text
+                text_offset = 20
+                self.create_line(
+                    width_midpoint - tick_width,
+                    tick_pos_y,
+                    width_midpoint + tick_width,
+                    tick_pos_y,
+                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
+                    tags=self.canvas_tags_axis_x)
+                self.create_text(
+                    width_midpoint + tick_width + text_offset,
+                    tick_pos_y,
+                    text=f'{int(offset)}',
+                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color)
+                
+            # Create 'ticks' for negative-values along the axis for visually determining coordinate positions
+            counter_magnitude = (canvas_height / 2) * 0.1
+            tick_width = 10
+            for counter in range(0, 10):
+                offset = -1 * ((counter + 1) * counter_magnitude)
+                tick_pos_y = height_midpoint - offset
+                # TODO: Calculate width of text
+                text_offset = 20
+                self.create_line(
+                    width_midpoint - tick_width,
+                    tick_pos_y,
+                    width_midpoint + tick_width,
+                    tick_pos_y,
+                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
+                    tags=self.canvas_tags_axis_x)
+                self.create_text(
+                    width_midpoint + tick_width + text_offset,
+                    tick_pos_y,
+                    text=f'{int(offset)}',
+                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color)
         InitializeAxisY()
 
     def AddVector(self, vector: VectorModule.VectorModel):
