@@ -43,13 +43,21 @@ class VisualizationDisplay(tk.Canvas):
             tick_height = 10
             for counter in range(0, 10):
                 offset = (counter + 1) * counter_magnitude
+                tick_pos_x = width_midpoint + offset
+                # TODO: Calculate height of text
+                height_of_text = 10
                 self.create_line(
-                    width_midpoint + offset,
+                    tick_pos_x,
                     height_midpoint - tick_height,
-                    width_midpoint + offset,
+                    tick_pos_x,
                     height_midpoint + tick_height,
                     fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
                     tags=self.canvas_tags_axis_x)
+                self.create_text(
+                    tick_pos_x,
+                    height_midpoint + tick_height + height_of_text,
+                    text=f'{int(offset)}',
+                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,)
 
             # Create 'ticks' for negative-values along the axis for visually determining coordinate positions
             # for x in range(2, 2, 3):
