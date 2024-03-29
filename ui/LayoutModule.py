@@ -64,8 +64,8 @@ class AppBodyDisplay(tk.Frame):
         visualization_display = VisualizationModule.VisualizationDisplay(self, root)
 
         if past_visualization_display != None:
-            for vector in past_visualization_display.vector_list:
-                visualization_display.AddVector(vector)
+            visualization_display.SetVectorVisualizationList(
+                past_visualization_display.vector_visualization_list)
 
         HorizontalRuleModule.HorizontalRuleDisplay(self, anchor='s')
 
@@ -78,17 +78,6 @@ class AppFooterDisplay(tk.Frame):
         frame = tk.Frame(self)
         frame.pack(side="left")
         
-        def NewVectorOnClick():
-            global vector_under_edit
-            global vector_editor_display
-
-            vector_editor_display.destroy()
-
-            vector_under_edit = VectorModule.VectorModel([5, 5])
-            vector_editor_display = VectorModule.VectorEditorDisplay(self, vector_under_edit)
-        button = tk.Button(frame, text="New Vector", command=NewVectorOnClick)
-        button.pack(side="top")
-
         def SubmitFormOnClick():
             global vector_under_edit
             global vector_editor_display
@@ -101,13 +90,10 @@ class AppFooterDisplay(tk.Frame):
                 vector_editor_display.destroy()
 
                 visualization_display.AddVector(VectorModule.VectorModel([x, y]))
-
-                vector_under_edit = VectorModule.VectorModel([5, 5])
                 vector_editor_display = VectorModule.VectorEditorDisplay(self, vector_under_edit)
             except ValueError:
                 print("some_variable did not contain a number!")
-
-        button = tk.Button(frame, text="Submit", command=SubmitFormOnClick)
+        button = tk.Button(frame, text="New Vector", command=SubmitFormOnClick)
         button.pack(side="top")
         
         global vector_under_edit

@@ -2,6 +2,17 @@ import tkinter as tk
 import ThemeModule
 import VectorModule
 
+class CoordinatesVisualization:
+    """Stores coordinates as a list.
+    Index 0 corresponds to the x-axis, 1 to the y-axis, 2 to the z-axis, etc..."""
+    def __init__(self, coordinates: list):
+        self.coordinates = coordinates
+
+class VectorVisualization:
+    def __init__(self, vector: VectorModule.VectorModel, coordinates: CoordinatesVisualization):
+        self.components = vector.components
+        self.coordinates = coordinates.coordinates
+
 class VisualizationDisplay(tk.Canvas):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
         super().__init__(
@@ -19,7 +30,7 @@ class VisualizationDisplay(tk.Canvas):
         self.canvas_tags_axis_x = "axis_x"
         self.canvas_tags_vector = "vector"
 
-        self.vector_list = []
+        self.vector_visualization_list = []
 
         canvas_width = self.winfo_width()
         canvas_height = self.winfo_height()
@@ -134,20 +145,32 @@ class VisualizationDisplay(tk.Canvas):
         InitializeAxisY()
 
     def AddVector(self, vector: VectorModule.VectorModel):
-        self.vector_list.append(vector)
-
+        vector_visualization = VectorVisualization(vector, CoordinatesVisualization([0, 0]))
+        self.vector_visualization_list.append(vector_visualization)
+        self.DrawVectorVisualization(vector_visualization)
+        
+    def DrawVectorVisualization(self, vector_visualization: VectorVisualization):
         canvas_width = self.winfo_width()
         canvas_height = self.winfo_height()
 
         canvas_width_halfway = canvas_width / 2.0
         canvas_height_halfway = canvas_height / 2.0
 
+        initial_x = canvas_width_halfway + vector_visualization.coordinates[0]
+        initial_y = canvas_height_halfway + vector_visualization.coordinates[1]
+
         self.create_line(
-            canvas_width_halfway,
-            canvas_height_halfway,
-            canvas_width_halfway + vector.components[0],
-            canvas_height_halfway + -1 * vector.components[1],
+            initial_x,
+            initial_y,
+            initial_x + vector_visualization.components[0],
+            initial_y + (-1 * vector_visualization.components[1]),
             fill=ThemeModule.theme_current.primary_foreground_color,
             arrow='last',
             width=2,
             tags=self.canvas_tags_vector)
+
+    def SetVectorVisualizationList(self, vector_visualization_list: list):
+        self.vector_visualization_list = vector_visualization_list
+        
+        for vector_visualization in self.vector_visualization_list:
+            self.DrawVectorVisualization(vector_visualization)
