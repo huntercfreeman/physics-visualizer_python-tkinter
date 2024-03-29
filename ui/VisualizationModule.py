@@ -23,24 +23,50 @@ class VisualizationDisplay(tk.Canvas):
 
         canvas_width = self.winfo_width()
         canvas_height = self.winfo_height()
+
+        width_midpoint = canvas_width / 2.0
+        height_midpoint = canvas_height / 2.0
         
         def InitializeAxisX():
-            canvas_height_halfway = canvas_height / 2.0
+
+            # Create axis itself
             self.create_line(
                 0,
-                canvas_height_halfway,
+                height_midpoint,
                 canvas_width,
-                canvas_height_halfway,
+                height_midpoint,
                 fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
                 tags=self.canvas_tags_axis_x)
+
+            # Create 'ticks' for positive-values along the axis for visually determining coordinate positions
+            counter_magnitude = (canvas_width / 2) * 0.1
+            tick_height = 10
+            for counter in range(0, 10):
+                offset = (counter + 1) * counter_magnitude
+                self.create_line(
+                    width_midpoint + offset,
+                    height_midpoint - tick_height,
+                    width_midpoint + offset,
+                    height_midpoint + tick_height,
+                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
+                    tags=self.canvas_tags_axis_x)
+
+            # Create 'ticks' for negative-values along the axis for visually determining coordinate positions
+            # for x in range(2, 2, 3):
+            #     self.create_line(
+            #         0,
+            #         canvas_height_halfway,
+            #         canvas_width,
+            #         canvas_height_halfway,
+            #         fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
+            #         tags=self.canvas_tags_axis_x)
         InitializeAxisX()
 
         def InitializeAxisY():
-            canvas_width_halfway = canvas_width / 2.0
             self.create_line(
-                canvas_width_halfway,
+                width_midpoint,
                 0,
-                canvas_width_halfway,
+                width_midpoint,
                 canvas_height,
                 fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
                 tags=self.canvas_tags_axis_y)
