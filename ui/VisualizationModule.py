@@ -160,7 +160,7 @@ class VisualizationDisplay(tk.Canvas):
         canvas_height_halfway = canvas_height / 2.0
 
         initial_x = canvas_width_halfway + vector_visualization.coordinates[0]
-        initial_y = canvas_height_halfway + vector_visualization.coordinates[1]
+        initial_y = canvas_height_halfway - vector_visualization.coordinates[1]
 
         self.create_line(
             initial_x,
