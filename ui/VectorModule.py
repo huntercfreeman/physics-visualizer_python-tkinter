@@ -19,28 +19,45 @@ class VectorEditorDisplay(tk.Frame):
         self.y_string_var.set(self.vector.components[1])
         
         componentsLength = len(self.vector.components)
+
+        header_frame = tk.Frame(self)
+        body_frame = tk.Frame(self)
+
+        header_frame.pack(side='left')
+        body_frame.pack(side='left')
+
+        # Header content
+        label = tk.Label(
+            header_frame,
+            text='Vector Components:',
+            bg=ThemeModule.theme_current.footer_background_color,
+            fg=ThemeModule.theme_current.primary_foreground_color)
+        label.pack()
         
+        # Body content
         if componentsLength != 2:
             label = tk.Label(
-                self,
+                body_frame,
                 text=f'{componentsLength} dimensions are not supported.',
                 bg=ThemeModule.theme_current.footer_background_color,
                 fg=ThemeModule.theme_current.primary_foreground_color)
             label.pack()
         else:
             x_label = tk.Label(
-                self,
-                text='x',
+                body_frame,
+                text='Ax',
                 bg=ThemeModule.theme_current.header_background_color,
                 fg=ThemeModule.theme_current.primary_foreground_color)
-            x_entry = tk.Entry(self, textvariable=self.x_string_var)
+            
+            x_entry = tk.Entry(body_frame, textvariable=self.x_string_var)
             
             y_label = tk.Label(
-                self,
-                text='y',
+                body_frame,
+                text='Ay',
                 bg=ThemeModule.theme_current.header_background_color,
                 fg=ThemeModule.theme_current.primary_foreground_color)
-            y_entry=tk.Entry(self, textvariable=self.y_string_var)
+            
+            y_entry=tk.Entry(body_frame, textvariable=self.y_string_var)
 
             x_label.grid(row=0,column=0)
             x_entry.grid(row=0,column=1)
