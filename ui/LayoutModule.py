@@ -75,31 +75,41 @@ class AppFooterDisplay(tk.Frame):
         self.place(relx=0, rely=0.9, relwidth=1, relheight=0.1)
         self.pack_propagate(tk.FALSE)
 
-        frame = tk.Frame(self)
-        frame.pack(side="left")
-        
         def SubmitFormOnClick():
             global vector_under_edit
             global vector_editor_display
+            global coordinates_under_edit
+            global coordinates_editor_display
 
             try:
-                x = int(vector_editor_display.x_string_var.get())
-                y = int(vector_editor_display.y_string_var.get())
+                component_x = int(vector_editor_display.x_string_var.get())
+                component_y = int(vector_editor_display.y_string_var.get())
 
-                vector_editor_display.Submit()
+                coordinate_x = int(coordinates_editor_display.x_string_var.get())
+                coordinate_y = int(coordinates_editor_display.y_string_var.get())
+
+                visualization_display.AddVector(
+                    VectorModule.VectorModel([component_x, component_y]),
+                    VisualizationModule.CoordinatesVisualization([coordinate_x, coordinate_y]))
+
                 vector_editor_display.destroy()
+                coordinates_editor_display.destroy()
 
-                visualization_display.AddVector(VectorModule.VectorModel([x, y]))
                 vector_editor_display = VectorModule.VectorEditorDisplay(self, vector_under_edit)
+                coordinates_editor_display = VisualizationModule.CoordinatesEditorDisplay(self, coordinates_under_edit)
             except ValueError:
                 print("some_variable did not contain a number!")
-        button = tk.Button(frame, text="New Vector", command=SubmitFormOnClick)
-        button.pack(side="top")
+        button = tk.Button(self, text="New Vector", command=SubmitFormOnClick)
+        button.pack(side="left")
         
         global vector_under_edit
         global vector_editor_display
+        
+        global coordinates_under_edit
+        global coordinates_editor_display
 
         vector_editor_display = VectorModule.VectorEditorDisplay(self, vector_under_edit)
+        coordinates_editor_display = VisualizationModule.CoordinatesEditorDisplay(self, coordinates_under_edit)
 
 existing_root: tk.Tk = None
 app_header_display: AppHeaderDisplay = None
@@ -110,3 +120,6 @@ visualization_display: VisualizationModule.VisualizationDisplay = None
 
 vector_under_edit: VectorModule.VectorModel = VectorModule.VectorModel([50, 50])
 vector_editor_display: VectorModule.VectorEditorDisplay = None
+
+coordinates_under_edit: VisualizationModule.CoordinatesVisualization = VisualizationModule.CoordinatesVisualization([0, 0])
+coordinates_editor_display: VisualizationModule.CoordinatesEditorDisplay = None

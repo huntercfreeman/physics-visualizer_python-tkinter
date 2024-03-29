@@ -47,10 +47,3 @@ class VectorEditorDisplay(tk.Frame):
             
             y_label.grid(row=1,column=0)
             y_entry.grid(row=1,column=1)
-
-    def Submit(self):
-        print(f'x: {self.x_string_var.get()}')
-        print(f'y: {self.y_string_var.get()}')
-        
-        self.x_string_var.set("")
-        self.y_string_var.set("")

@@ -144,8 +144,11 @@ class VisualizationDisplay(tk.Canvas):
                     fill=ThemeModule.theme_current.coordinate_system_axis_fill_color)
         InitializeAxisY()
 
-    def AddVector(self, vector: VectorModule.VectorModel):
-        vector_visualization = VectorVisualization(vector, CoordinatesVisualization([0, 0]))
+    def AddVector(self,
+                  vector: VectorModule.VectorModel,
+                  coordinates: CoordinatesVisualization = CoordinatesVisualization([0, 0])):
+        
+        vector_visualization = VectorVisualization(vector, coordinates)
         self.vector_visualization_list.append(vector_visualization)
         self.DrawVectorVisualization(vector_visualization)
         
@@ -171,6 +174,47 @@ class VisualizationDisplay(tk.Canvas):
 
     def SetVectorVisualizationList(self, vector_visualization_list: list):
         self.vector_visualization_list = vector_visualization_list
-        
+
         for vector_visualization in self.vector_visualization_list:
             self.DrawVectorVisualization(vector_visualization)
+
+class CoordinatesEditorDisplay(tk.Frame):
+    def __init__(self, parent: tk.Tk, coordinates: CoordinatesVisualization):
+        super().__init__(parent, bg=ThemeModule.theme_current.footer_background_color)
+        self.pack(side="left", fill="both", expand=1)
+        self.coordinates = coordinates
+        self.x_string_var=tk.StringVar()
+        self.y_string_var=tk.StringVar()
+
+        self.x_string_var.set(self.coordinates.coordinates[0])
+        self.y_string_var.set(self.coordinates.coordinates[1])
+        
+        coordinatesLength = len(self.coordinates.coordinates)
+        
+        if coordinatesLength != 2:
+            label = tk.Label(
+                self,
+                text=f'{coordinatesLength} dimensions are not supported.',
+                bg=ThemeModule.theme_current.footer_background_color,
+                fg=ThemeModule.theme_current.primary_foreground_color)
+            label.pack()
+        else:
+            x_label = tk.Label(
+                self,
+                text='x',
+                bg=ThemeModule.theme_current.header_background_color,
+                fg=ThemeModule.theme_current.primary_foreground_color)
+            x_entry = tk.Entry(self, textvariable=self.x_string_var)
+            
+            y_label = tk.Label(
+                self,
+                text='y',
+                bg=ThemeModule.theme_current.header_background_color,
+                fg=ThemeModule.theme_current.primary_foreground_color)
+            y_entry=tk.Entry(self, textvariable=self.y_string_var)
+
+            x_label.grid(row=0,column=0)
+            x_entry.grid(row=0,column=1)
+            
+            y_label.grid(row=1,column=0)
+            y_entry.grid(row=1,column=1)
