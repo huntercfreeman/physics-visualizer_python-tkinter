@@ -26,8 +26,8 @@ class AppFooterDisplay(tk.Frame):
         button = tk.Button(self, text="New Vector", command=SubmitFormOnClick)
         button.pack(side="left")
         
-        layout_service.vector_editor_display = Vectors.VectorEditorDisplay(self, layout_service.vector_under_edit)
-        layout_service.coordinates_editor_display = Visualizations.CoordinatesEditorDisplay(self, layout_service.coordinates_under_edit)
+        vector_editor_display = Vectors.VectorEditorDisplayModule.VectorEditorDisplay(self, Vectors.VectorModelModule.VectorModel([50, 50]))
+        coordinates_editor_display = Visualizations.CoordinatesEditorDisplayModule.CoordinatesEditorDisplay(self, Visualizations.CoordinatesVisualizationModule.CoordinatesVisualization([0, 0]))
 
 def InjectLayoutService(injectedLayoutService: LayoutServiceModule.LayoutService):
     global layout_service

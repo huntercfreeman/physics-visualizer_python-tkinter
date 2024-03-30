@@ -10,17 +10,11 @@ class AppBodyDisplay(tk.Frame):
         self.place(relx=0, rely=0.1, relwidth=1, relheight=0.8)
         self.pack_propagate(tk.FALSE)
         
-        past_main_display = layout_service.main_display
+        HorizontalRules.HorizontalRuleDisplayModule.HorizontalRuleDisplay(self, anchor='n')
 
-        HorizontalRules.HorizontalRuleDisplay(self, anchor='n')
+        main_display = Visualizations.MainDisplayModule.MainDisplay(self, root)
 
-        layout_service.main_display = Visualizations.MainDisplay(self, root)
-
-        if past_main_display != None:
-            layout_service.main_display.visualization_canvas_display.SetVectorVisualizationList(
-                past_main_display.visualization_canvas_display.vector_visualization_list)
-
-        HorizontalRules.HorizontalRuleDisplay(self, anchor='s')
+        HorizontalRules.HorizontalRuleDisplayModule.HorizontalRuleDisplay(self, anchor='s')
 
 def InjectLayoutService(injectedLayoutService: LayoutServiceModule.LayoutService):
     global layout_service
