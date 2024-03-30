@@ -1,6 +1,6 @@
 import tkinter as tk
-import LayoutModule
-import DialogModule
+import Layouts
+import Dialogs
 
 def main():
     root = tk.Tk()
@@ -35,9 +35,6 @@ def initialize_ui(root: tk.Tk):
     # The inner frames should cover 100% of the 'root', and their background color
     # therefore should be rendered instead of the root's red background color.
     root["bg"]='red'
-    
-    LayoutModule.InitializeLayoutModule(root)
-    DialogModule.InitializeDialogModule(root)
 
 if __name__ == '__main__':
     main()

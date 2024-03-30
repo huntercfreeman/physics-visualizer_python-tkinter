@@ -1,44 +1,16 @@
 import tkinter as tk
-import ThemeModule
-import VectorModule
+import VisualizationServiceModule
+import CoordinatesVisualizationModule
+import VectorVisualizationModule
+import Themes
+import Vectors
 
-class CoordinatesVisualization:
-    """Stores coordinates as a list.
-    Index 0 corresponds to the x-axis, 1 to the y-axis, 2 to the z-axis, etc..."""
-    def __init__(self, coordinates: list):
-        self.coordinates = coordinates
-
-class VectorVisualization:
-    def __init__(self, vector: VectorModule.VectorModel, coordinates: CoordinatesVisualization):
-        self.components = vector.components
-        self.coordinates = coordinates.coordinates
-
-class VisualizationDisplay(tk.Frame):
+class CanvasDisplay(tk.Canvas):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
         super().__init__(
             parent,
-            bg=ThemeModule.theme_current.primary_background_color,
+            bg=Themes.theme_service.theme_current.primary_background_color,
             highlightthickness=0)
-        
-        self.visualization_toolbar_display = VisualizationToolbarDisplay(parent, self)
-        self.visualization_canvas_display = VisualizationCanvasDisplay(parent, root, self)
-
-class VisualizationToolbarDisplay(tk.Frame):
-    def __init__(self, parent: tk.Tk, visualization_display: VisualizationDisplay):
-        super().__init__(
-            parent,
-            bg='red',#bg=ThemeModule.theme_current.secondary_background_color,
-            width="100")
-        self.visualization_display = visualization_display
-        self.pack(side='left', fill='y')
-
-class VisualizationCanvasDisplay(tk.Canvas):
-    def __init__(self, parent: tk.Tk, root: tk.Tk, visualization_display: VisualizationDisplay):
-        super().__init__(
-            parent,
-            bg=ThemeModule.theme_current.primary_background_color,
-            highlightthickness=0)
-        self.visualization_display = visualization_display
 
         self.pack(side='left', fill='both', expand=1)
         self.root = root
@@ -51,7 +23,7 @@ class VisualizationCanvasDisplay(tk.Canvas):
         self.canvas_tags_axis_x = "axis_x"
         self.canvas_tags_vector = "vector"
 
-        self.vector_visualization_list = []
+        self.vector_visualization_list: list[VectorVisualizationModule.VectorVisualization] = []
 
         canvas_width = self.winfo_width()
         canvas_height = self.winfo_height()
@@ -66,7 +38,7 @@ class VisualizationCanvasDisplay(tk.Canvas):
                 height_midpoint,
                 canvas_width,
                 height_midpoint,
-                fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
+                fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color,
                 tags=self.canvas_tags_axis_x)
 
             # Create 'ticks' for positive-values along the axis for visually determining coordinate positions
@@ -82,13 +54,13 @@ class VisualizationCanvasDisplay(tk.Canvas):
                     height_midpoint - tick_height,
                     tick_pos_x,
                     height_midpoint + tick_height,
-                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
+                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color,
                     tags=self.canvas_tags_axis_x)
                 self.create_text(
                     tick_pos_x,
                     height_midpoint + tick_height + height_of_text,
                     text=f'{int(offset)}',
-                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color)
+                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color)
 
             # Create 'ticks' for negative-values along the axis for visually determining coordinate positions
             counter_magnitude = (canvas_width / 2) * 0.1
@@ -103,13 +75,13 @@ class VisualizationCanvasDisplay(tk.Canvas):
                     height_midpoint - tick_height,
                     tick_pos_x,
                     height_midpoint + tick_height,
-                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
+                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color,
                     tags=self.canvas_tags_axis_x)
                 self.create_text(
                     tick_pos_x,
                     height_midpoint + tick_height + height_of_text,
                     text=f'{int(offset)}',
-                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color)
+                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color)
         InitializeAxisX()
 
         def InitializeAxisY():
@@ -119,7 +91,7 @@ class VisualizationCanvasDisplay(tk.Canvas):
                 0,
                 width_midpoint,
                 canvas_height,
-                fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
+                fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color,
                 tags=self.canvas_tags_axis_y)
             
             # Create 'ticks' for positive-values along the axis for visually determining coordinate positions
@@ -135,13 +107,13 @@ class VisualizationCanvasDisplay(tk.Canvas):
                     tick_pos_y,
                     width_midpoint + tick_width,
                     tick_pos_y,
-                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
+                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color,
                     tags=self.canvas_tags_axis_x)
                 self.create_text(
                     width_midpoint + tick_width + text_offset,
                     tick_pos_y,
                     text=f'{int(offset)}',
-                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color)
+                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color)
                 
             # Create 'ticks' for negative-values along the axis for visually determining coordinate positions
             counter_magnitude = (canvas_height / 2) * 0.1
@@ -156,24 +128,24 @@ class VisualizationCanvasDisplay(tk.Canvas):
                     tick_pos_y,
                     width_midpoint + tick_width,
                     tick_pos_y,
-                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color,
+                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color,
                     tags=self.canvas_tags_axis_x)
                 self.create_text(
                     width_midpoint + tick_width + text_offset,
                     tick_pos_y,
                     text=f'{int(offset)}',
-                    fill=ThemeModule.theme_current.coordinate_system_axis_fill_color)
+                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color)
         InitializeAxisY()
 
     def AddVector(self,
-                  vector: VectorModule.VectorModel,
-                  coordinates: CoordinatesVisualization = CoordinatesVisualization([0, 0])):
+                  vector: Vectors.VectorModelModule.VectorModel,
+                  coordinates: CoordinatesVisualizationModule.CoordinatesVisualization = CoordinatesVisualizationModule.CoordinatesVisualization([0, 0])):
         
-        vector_visualization = VectorVisualization(vector, coordinates)
+        vector_visualization = VectorVisualizationModule.VectorVisualization(vector, coordinates)
         self.vector_visualization_list.append(vector_visualization)
         self.DrawVectorVisualization(vector_visualization)
         
-    def DrawVectorVisualization(self, vector_visualization: VectorVisualization):
+    def DrawVectorVisualization(self, vector_visualization: VectorVisualizationModule.VectorVisualization):
         canvas_width = self.winfo_width()
         canvas_height = self.winfo_height()
 
@@ -188,7 +160,7 @@ class VisualizationCanvasDisplay(tk.Canvas):
             initial_y,
             initial_x + vector_visualization.components[0],
             initial_y + (-1 * vector_visualization.components[1]),
-            fill=ThemeModule.theme_current.primary_foreground_color,
+            fill=Themes.theme_service.theme_current.primary_foreground_color,
             arrow='last',
             width=2,
             tags=self.canvas_tags_vector)
@@ -199,60 +171,8 @@ class VisualizationCanvasDisplay(tk.Canvas):
         for vector_visualization in self.vector_visualization_list:
             self.DrawVectorVisualization(vector_visualization)
 
-class CoordinatesEditorDisplay(tk.Frame):
-    def __init__(self, parent: tk.Tk, coordinates: CoordinatesVisualization):
-        super().__init__(parent, bg=ThemeModule.theme_current.footer_background_color)
-        self.pack(side="left", fill="both", expand=1)
-        self.coordinates = coordinates
-        self.x_string_var=tk.StringVar()
-        self.y_string_var=tk.StringVar()
+def InjectVisualizationService(injectedVisualizationService: VisualizationServiceModule.VisualizationService):
+    global visualization_service
+    visualization_service = injectedVisualizationService
 
-        self.x_string_var.set(self.coordinates.coordinates[0])
-        self.y_string_var.set(self.coordinates.coordinates[1])
-        
-        coordinatesLength = len(self.coordinates.coordinates)
-        
-        header_frame = tk.Frame(self)
-        body_frame = tk.Frame(self)
-
-        header_frame.pack(side='left')
-        body_frame.pack(side='left')
-
-        # Header content
-        label = tk.Label(
-            header_frame,
-            text='Coordinates:',
-            bg=ThemeModule.theme_current.footer_background_color,
-            fg=ThemeModule.theme_current.primary_foreground_color)
-        label.pack()
-        
-        # Body content
-        if coordinatesLength != 2:
-            label = tk.Label(
-                body_frame,
-                text=f'{coordinatesLength} dimensions are not supported.',
-                bg=ThemeModule.theme_current.footer_background_color,
-                fg=ThemeModule.theme_current.primary_foreground_color)
-            label.pack()
-        else:
-            x_label = tk.Label(
-                body_frame,
-                text='x',
-                bg=ThemeModule.theme_current.header_background_color,
-                fg=ThemeModule.theme_current.primary_foreground_color)
-            
-            x_entry = tk.Entry(body_frame, textvariable=self.x_string_var)
-            
-            y_label = tk.Label(
-                body_frame,
-                text='y',
-                bg=ThemeModule.theme_current.header_background_color,
-                fg=ThemeModule.theme_current.primary_foreground_color)
-            
-            y_entry=tk.Entry(body_frame, textvariable=self.y_string_var)
-
-            x_label.grid(row=0,column=0)
-            x_entry.grid(row=0,column=1)
-            
-            y_label.grid(row=1,column=0)
-            y_entry.grid(row=1,column=1)
+visualization_service: VisualizationServiceModule.VisualizationService = None
