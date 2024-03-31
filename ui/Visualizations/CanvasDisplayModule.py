@@ -1,9 +1,7 @@
 import tkinter as tk
 import VisualizationServiceModule
-import CoordinatesVisualizationModule
 import VectorVisualizationModule
 import Themes
-import Vectors
 
 class CanvasDisplay(tk.Canvas):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
@@ -18,12 +16,15 @@ class CanvasDisplay(tk.Canvas):
         self.update()
         self.InitializeCoordinateSystem()
 
+        visualization_service.state_changed.addListener(self.Render)
+
+        # Force initial rendering of the vectors
+        self.Render()
+
     def InitializeCoordinateSystem(self):
         self.canvas_tags_axis_y = "axis_y"
         self.canvas_tags_axis_x = "axis_x"
         self.canvas_tags_vector = "vector"
-
-        self.vector_visualization_list: list[VectorVisualizationModule.VectorVisualization] = []
 
         canvas_width = self.winfo_width()
         canvas_height = self.winfo_height()
@@ -137,14 +138,11 @@ class CanvasDisplay(tk.Canvas):
                     fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color)
         InitializeAxisY()
 
-    def AddVector(self,
-                  vector: Vectors.VectorModelModule.VectorModel,
-                  coordinates: CoordinatesVisualizationModule.CoordinatesVisualization = CoordinatesVisualizationModule.CoordinatesVisualization([0, 0])):
-        
-        vector_visualization = VectorVisualizationModule.VectorVisualization(vector, coordinates)
-        self.vector_visualization_list.append(vector_visualization)
-        self.DrawVectorVisualization(vector_visualization)
-        
+    def Render(self):
+        self.delete(self.canvas_tags_vector)
+        for vector_visualization in visualization_service.vector_visualization_list:
+            self.DrawVectorVisualization(vector_visualization)
+
     def DrawVectorVisualization(self, vector_visualization: VectorVisualizationModule.VectorVisualization):
         canvas_width = self.winfo_width()
         canvas_height = self.winfo_height()
@@ -164,12 +162,19 @@ class CanvasDisplay(tk.Canvas):
             arrow='last',
             width=2,
             tags=self.canvas_tags_vector)
+        
+    def __del__(self):
+        """The usage of '__del__()' can have some quirks as described in this link:
+        https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
 
-    def SetVectorVisualizationList(self, vector_visualization_list: list):
-        self.vector_visualization_list = vector_visualization_list
+        local_visualization_service = visualization_service
 
-        for vector_visualization in self.vector_visualization_list:
-            self.DrawVectorVisualization(vector_visualization)
+        if local_visualization_service != None:
+            if hasattr(local_visualization_service, 'state_changed'):
+                if hasattr(local_visualization_service.state_changed, 'removeListener'):
+                    local_visualization_service.state_changed.removeListener(self.Render)
+
+        self.destroy()
 
 def InjectVisualizationService(injectedVisualizationService: VisualizationServiceModule.VisualizationService):
     global visualization_service

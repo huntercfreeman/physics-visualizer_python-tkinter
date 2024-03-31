@@ -12,10 +12,17 @@ class MainDisplay(tk.Frame):
             highlightthickness=0)
         
         self.visualization_toolbar_display = ToolbarDisplayModule.ToolbarDisplay(parent)
-        self.visualization_canvas_display = CanvasDisplayModule.CanvasDisplay(parent, root)
+
+        global visualization_canvas_display
+
+        if (visualization_canvas_display != None):
+            visualization_canvas_display.__del__()
+            
+        visualization_canvas_display = CanvasDisplayModule.CanvasDisplay(parent, root)
 
 def InjectVisualizationService(injectedVisualizationService: VisualizationServiceModule.VisualizationService):
     global visualization_service
     visualization_service = injectedVisualizationService
 
+visualization_canvas_display: CanvasDisplayModule.CanvasDisplay = None
 visualization_service: VisualizationServiceModule.VisualizationService = None

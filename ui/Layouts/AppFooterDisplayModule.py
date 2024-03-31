@@ -19,8 +19,8 @@ class AppFooterDisplay(tk.Frame):
                 coordinate_y = int(layout_service.coordinates_editor_y_string_var.get())
 
                 Visualizations.visualization_service.AddVector(
-                    Vectors.VectorModel([component_x, component_y]),
-                    Visualizations.CoordinatesVisualization([coordinate_x, coordinate_y]))
+                    Vectors.VectorModelModule.VectorModel([component_x, component_y]),
+                    Visualizations.CoordinatesVisualizationModule.CoordinatesVisualization([coordinate_x, coordinate_y]))
             except ValueError:
                 print("some_variable did not contain a number!")
         button = tk.Button(self, text="New Vector", command=SubmitFormOnClick)

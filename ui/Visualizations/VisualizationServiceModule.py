@@ -12,10 +12,10 @@ class VisualizationService:
                   vector: Vectors.VectorModelModule.VectorModel,
                   coordinates: CoordinatesVisualizationModule.CoordinatesVisualization):
         
-        self.vector_visualization_list.append(VectorVisualizationModule.VectorVisualization(
-            vector, coordinates))
-        
-        self.state_changed.trigger((vector, coordinates))
+        vector_visualization = VectorVisualizationModule.VectorVisualization(vector, coordinates)
+        self.vector_visualization_list.append(vector_visualization)
+
+        self.state_changed.trigger(vector_visualization)
 
 def InjectVisualizationService(injectedVisualizationService: VisualizationService):
     global visualization_service
