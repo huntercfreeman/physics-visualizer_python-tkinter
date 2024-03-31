@@ -21,14 +21,7 @@ class DialogDisplay(tk.Frame):
         label.pack()
 
         def SetThemeOnClick(x_theme: Themes.ThemeModelModule.ThemeModel):
-            Themes.SetTheme(x_theme)
-
-            Layouts.DestroyLayoutModule()
-            Layouts.InitializeLayoutModule(Layouts.existing_root)
-
-            dialog_service.DestroyDialogModule()
-            dialog_service.InitializeDialogModule(dialog_service.existing_root)
-            dialog_service.register_dialog("Settings")
+            Themes.theme_service.SetTheme(x_theme)
 
         for loop_theme in Themes.theme_service.theme_list:
             # Capture the theme from the 'for' iterations by creating a lambda within a lambda.

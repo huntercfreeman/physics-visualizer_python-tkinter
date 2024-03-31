@@ -1,7 +1,10 @@
 import ThemeModelModule
+import Events
 
 class ThemeService():
     def __init__(self) -> None:
+        self.state_changed: Events.EventModelModule.EventModel = Events.EventModelModule.EventModel()
+
         self.theme_list = [
             ThemeModelModule.ThemeModel(
                 display_name='dark',
@@ -35,6 +38,7 @@ class ThemeService():
 
     def SetTheme(self, theme: ThemeModelModule.ThemeModel):
         self.theme_current = theme
+        self.state_changed.trigger(theme)
 
 def InjectThemeService(injectedThemeService: ThemeService):
     global theme_service

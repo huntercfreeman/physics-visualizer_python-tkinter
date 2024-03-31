@@ -1,7 +1,6 @@
 import tkinter as tk
 import DialogModelModule
 import Events
-from varname import nameof
 
 class DialogService:
     """Provides API to render a dialog"""

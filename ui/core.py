@@ -1,13 +1,21 @@
 import tkinter as tk
 import Layouts
 import Dialogs
+import Themes
 
 def main():
+    global root
     root = tk.Tk()
-    initialize_ui(root)
+    style_root(root)
+
+    Themes.theme_service.state_changed.addListener(reload_ui)
+
+    render_ui(root)
     root.mainloop()
 
-def initialize_ui(root: tk.Tk):
+    Themes.theme_service.state_changed.removeListener(reload_ui)
+
+def style_root(root: tk.Tk):
     # geometry variables
     width = 1280
     height = 960
@@ -36,11 +44,38 @@ def initialize_ui(root: tk.Tk):
     # therefore should be rendered instead of the root's red background color.
     root["bg"]='red'
 
-    Dialogs.DialogInitializerDisplayModule.DialogInitializerDisplay(root)
+def render_ui(root: tk.Tk):
+    global dialog_initializer_display
+    if dialog_initializer_display == None:
+        Dialogs.DialogInitializerDisplayModule.DialogInitializerDisplay(root)
+    else:
+        dialog_initializer_display.Render()
 
-    Layouts.AppHeaderDisplayModule.AppHeaderDisplay(root)
-    Layouts.AppBodyDisplayModule.AppBodyDisplay(root)
-    Layouts.AppFooterDisplayModule.AppFooterDisplay(root)
+    global app_header_display
+    global app_body_display
+    global app_footer_display
+    app_header_display = Layouts.AppHeaderDisplayModule.AppHeaderDisplay(root)
+    app_body_display = Layouts.AppBodyDisplayModule.AppBodyDisplay(root)
+    app_footer_display = Layouts.AppFooterDisplayModule.AppFooterDisplay(root)
+
+def reload_ui():
+    destroy_ui()
+    render_ui(root)
+
+def destroy_ui():
+    if dialog_initializer_display != None: dialog_initializer_display.destroy()
+
+    if app_header_display != None: app_header_display.destroy()
+    if app_body_display != None: app_body_display.destroy()
+    if app_footer_display != None: app_footer_display.destroy()
+
+root: tk.Tk = None
+
+dialog_initializer_display: Dialogs.DialogInitializerDisplayModule.DialogInitializerDisplay = None
+app_header_display: Layouts.AppHeaderDisplayModule.AppHeaderDisplay = None
+app_body_display: Layouts.AppBodyDisplayModule.AppBodyDisplay = None
+app_footer_display: Layouts.AppFooterDisplayModule.AppFooterDisplay = None
 
 if __name__ == '__main__':
     main()
+
