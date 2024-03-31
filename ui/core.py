@@ -45,18 +45,19 @@ def style_root(root: tk.Tk):
     root["bg"]='red'
 
 def render_ui(root: tk.Tk):
-    global dialog_initializer_display
-    if dialog_initializer_display == None:
-        Dialogs.DialogInitializerDisplayModule.DialogInitializerDisplay(root)
-    else:
-        dialog_initializer_display.Render()
-
     global app_header_display
     global app_body_display
     global app_footer_display
     app_header_display = Layouts.AppHeaderDisplayModule.AppHeaderDisplay(root)
     app_body_display = Layouts.AppBodyDisplayModule.AppBodyDisplay(root)
     app_footer_display = Layouts.AppFooterDisplayModule.AppFooterDisplay(root)
+
+    global dialog_initializer_display
+    if dialog_initializer_display == None:
+        dialog_initializer_display = Dialogs.DialogInitializerDisplayModule.DialogInitializerDisplay(root)
+    else:
+        dialog_initializer_display.root = root
+        dialog_initializer_display.Render()
 
 def reload_ui():
     destroy_ui()

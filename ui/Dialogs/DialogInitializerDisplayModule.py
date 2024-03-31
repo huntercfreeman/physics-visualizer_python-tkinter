@@ -21,6 +21,7 @@ class DialogInitializerDisplay:
     def destroy(self):
         for dialog_display in self.__dialog_display_list:
             dialog_display.destroy()
+            self.__dialog_display_list.remove(dialog_display)
 
     def __del__(self):
         """The usage of '__del__()' can have some quirks as described in this link:
