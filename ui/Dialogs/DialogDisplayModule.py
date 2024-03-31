@@ -20,7 +20,7 @@ class DialogDisplay(tk.Frame):
             fg=Themes.theme_service.theme_current.secondary_foreground_color)
         label.pack()
 
-        def SetThemeOnClick(x_theme: Themes.ThemeModel):
+        def SetThemeOnClick(x_theme: Themes.ThemeModelModule.ThemeModel):
             Themes.SetTheme(x_theme)
 
             Layouts.DestroyLayoutModule()

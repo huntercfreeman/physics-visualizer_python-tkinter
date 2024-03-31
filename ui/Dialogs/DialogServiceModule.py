@@ -17,7 +17,6 @@ class DialogService:
 
     def dispose_dialog(self, display_name: str):
         if display_name in self.dialog_map:
-            self.dialog_map[display_name].destroy()
             del self.dialog_map[display_name]
             self.state_changed.trigger(display_name)
 
