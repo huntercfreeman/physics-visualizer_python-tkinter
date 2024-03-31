@@ -36,6 +36,8 @@ def initialize_ui(root: tk.Tk):
     # therefore should be rendered instead of the root's red background color.
     root["bg"]='red'
 
+    Dialogs.DialogInitializerDisplayModule.DialogInitializerDisplay(root)
+
     Layouts.AppHeaderDisplayModule.AppHeaderDisplay(root)
     Layouts.AppBodyDisplayModule.AppBodyDisplay(root)
     Layouts.AppFooterDisplayModule.AppFooterDisplay(root)
