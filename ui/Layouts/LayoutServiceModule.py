@@ -1,27 +1,17 @@
 import tkinter as tk
-import Visualizations
-import Vectors
+import Events
 
 class LayoutService:
     def __init__(self):
         self.existing_root: tk.Tk = None
 
-    def UiRender(self, root: tk.Tk):
-        self.existing_root = root
+        self.vector_editor_x_string_var: tk.StringVar = None
+        self.vector_editor_y_string_var: tk.StringVar = None
 
-    def UiStateHasChanged(self):
-        self.app_header_display.destroy()
-        self.app_body_display.destroy()
-        self.app_footer_display.destroy()
+        self.coordinates_editor_x_string_var: tk.StringVar = None
+        self.coordinates_editor_y_string_var: tk.StringVar = None
 
-        self.InitializeLayoutModule(self.existing_root)
-
-    def UiDestroy(self):
-        self.app_header_display.destroy()
-        self.app_body_display.destroy()
-        self.app_footer_display.destroy()
-
-        self.InitializeLayoutModule(self.existing_root)
+        self.state_changed: Events.EventModelModule.EventModel = Events.EventModelModule.EventModel()
 
 def InjectLayoutService(injectedLayoutService: LayoutService):
     global layout_service

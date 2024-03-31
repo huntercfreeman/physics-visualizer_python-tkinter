@@ -12,13 +12,13 @@ class AppFooterDisplay(tk.Frame):
 
         def SubmitFormOnClick():
             try:
-                component_x = int(layout_service.vector_editor_display.x_string_var.get())
-                component_y = int(layout_service.vector_editor_display.y_string_var.get())
+                component_x = int(layout_service.vector_editor_x_string_var.get())
+                component_y = int(layout_service.vector_editor_y_string_var.get())
 
-                coordinate_x = int(layout_service.coordinates_editor_display.x_string_var.get())
-                coordinate_y = int(layout_service.coordinates_editor_display.y_string_var.get())
+                coordinate_x = int(layout_service.coordinates_editor_x_string_var.get())
+                coordinate_y = int(layout_service.coordinates_editor_y_string_var.get())
 
-                layout_service.main_display.visualization_canvas_display.AddVector(
+                Visualizations.visualization_service.AddVector(
                     Vectors.VectorModel([component_x, component_y]),
                     Visualizations.CoordinatesVisualization([coordinate_x, coordinate_y]))
             except ValueError:

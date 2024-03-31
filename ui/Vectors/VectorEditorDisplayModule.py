@@ -1,17 +1,19 @@
 import tkinter as tk
 import VectorModelModule
 import Themes
+import Layouts
 
 class VectorEditorDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk, vector: VectorModelModule.VectorModel):
         super().__init__(parent, bg=Themes.theme_service.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
         self.vector = vector
-        self.x_string_var=tk.StringVar()
-        self.y_string_var=tk.StringVar()
 
-        self.x_string_var.set(self.vector.components[0])
-        self.y_string_var.set(self.vector.components[1])
+        Layouts.layout_service.vector_editor_x_string_var = tk.StringVar()
+        Layouts.layout_service.vector_editor_y_string_var = tk.StringVar()
+
+        Layouts.layout_service.vector_editor_x_string_var.set(self.vector.components[0])
+        Layouts.layout_service.vector_editor_y_string_var.set(self.vector.components[1])
         
         componentsLength = len(self.vector.components)
 
@@ -44,7 +46,7 @@ class VectorEditorDisplay(tk.Frame):
                 bg=Themes.theme_service.theme_current.header_background_color,
                 fg=Themes.theme_service.theme_current.primary_foreground_color)
             
-            x_entry = tk.Entry(body_frame, textvariable=self.x_string_var)
+            x_entry = tk.Entry(body_frame, textvariable = Layouts.layout_service.vector_editor_x_string_var)
             
             y_label = tk.Label(
                 body_frame,
@@ -52,7 +54,7 @@ class VectorEditorDisplay(tk.Frame):
                 bg=Themes.theme_service.theme_current.header_background_color,
                 fg=Themes.theme_service.theme_current.primary_foreground_color)
             
-            y_entry=tk.Entry(body_frame, textvariable=self.y_string_var)
+            y_entry=tk.Entry(body_frame, textvariable = Layouts.layout_service.vector_editor_y_string_var)
 
             x_label.grid(row=0,column=0)
             x_entry.grid(row=0,column=1)
