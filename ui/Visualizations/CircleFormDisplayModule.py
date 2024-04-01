@@ -5,6 +5,7 @@ import VisualizationServiceModule
 class CircleFormDisplay(tk.Frame):
     def __init__(self, root: tk.Tk):
         super().__init__(root, bg=Themes.theme_service.theme_current.footer_background_color)
+        self.pack(side="left", fill="both", expand=1)
 
         label = tk.Label(
             self,

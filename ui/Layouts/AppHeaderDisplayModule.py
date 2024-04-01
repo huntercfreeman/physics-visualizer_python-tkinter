@@ -2,7 +2,6 @@ import tkinter as tk
 import LayoutServiceModule
 import Themes
 import Dialogs
-from varname import nameof
 
 def InjectLayoutService(injectedLayoutService: LayoutServiceModule.LayoutService):
     global layout_service
@@ -25,13 +24,6 @@ class AppHeaderDisplay(tk.Frame):
             fg=Themes.theme_service.theme_current.button_foreground_color,
             command=show_settings_dialog)
         button.pack(side="left")
-
-        label = tk.Label(
-            self,
-            text=nameof(AppHeaderDisplay),
-            bg=Themes.theme_service.theme_current.header_background_color,
-            fg=Themes.theme_service.theme_current.primary_foreground_color)
-        label.pack(side="left")
 
 def InjectLayoutService(injectedLayoutService: LayoutServiceModule.LayoutService):
     global layout_service
