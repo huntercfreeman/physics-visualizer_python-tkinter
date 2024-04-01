@@ -9,7 +9,7 @@ from varname import nameof
 class AppFooterDisplay(tk.Frame):
     def __init__(self, root: tk.Tk):
         super().__init__(root, bg=Themes.theme_service.theme_current.footer_background_color)
-        self.place(relx=0, rely=0.9, relwidth=1, relheight=0.1)
+        self.place(relx=0, rely=0.88, relwidth=1, relheight=0.12)
         self.pack_propagate(tk.FALSE)
         
         self.panel_model_active: PanelModelModule.PanelModel = None

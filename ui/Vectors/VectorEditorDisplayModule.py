@@ -42,7 +42,7 @@ class VectorEditorDisplay(tk.Frame):
         else:
             x_label = tk.Label(
                 body_frame,
-                text='Ax',
+                text='Ax*i',
                 bg=Themes.theme_service.theme_current.header_background_color,
                 fg=Themes.theme_service.theme_current.primary_foreground_color)
             
@@ -50,7 +50,7 @@ class VectorEditorDisplay(tk.Frame):
             
             y_label = tk.Label(
                 body_frame,
-                text='Ay',
+                text='Ay*j',
                 bg=Themes.theme_service.theme_current.header_background_color,
                 fg=Themes.theme_service.theme_current.primary_foreground_color)
             
