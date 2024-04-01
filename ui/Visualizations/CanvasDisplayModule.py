@@ -9,8 +9,9 @@ class CanvasDisplay(tk.Canvas):
             parent,
             bg=Themes.theme_service.theme_current.primary_background_color,
             highlightthickness=0)
+        self.place(relx=0.15, rely=0, relwidth=0.85, relheight=1)
+        self.pack_propagate(tk.FALSE)
 
-        self.pack(side='left', fill='both', expand=1)
         self.root = root
         
         self.update()
