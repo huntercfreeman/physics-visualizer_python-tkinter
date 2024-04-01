@@ -18,7 +18,11 @@ class ThemeService():
                 primary_border_background_color='#d7d7d7',
                 coordinate_system_axis_fill_color='#78c8d2',
                 visualization_toolbar_background_color='#2b2937',
-                visualization_toolbar_foreground_color='#dcdcdc'),
+                visualization_toolbar_foreground_color='#dcdcdc',
+                button_background_color='#1e56a7',
+                button_foreground_color='#DCDCDC',
+                button_active_background_color='#753282',
+                button_active_foreground_color='#d2d2d2'),
             ThemeModelModule.ThemeModel(
                 display_name='light',
                 primary_background_color='#fdfdfd',
@@ -31,7 +35,11 @@ class ThemeService():
                 primary_border_background_color='black',
                 coordinate_system_axis_fill_color='#006e5a',
                 visualization_toolbar_background_color='#f6f4ee',
-                visualization_toolbar_foreground_color='black'),
+                visualization_toolbar_foreground_color='black',
+                button_background_color='#0b30c7',
+                button_foreground_color='#f0f0f0',
+                button_active_background_color='#d889e8',
+                button_active_foreground_color='black'),
         ]
 
         self.theme_current = self.theme_list[0]

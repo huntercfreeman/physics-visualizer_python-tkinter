@@ -45,7 +45,13 @@ class AppFooterDisplay(tk.Frame):
                     Visualizations.CoordinatesVisualizationModule.CoordinatesVisualization([coordinate_x, coordinate_y]))
             except ValueError:
                 print("some_variable did not contain a number!")
-        self.button = tk.Button(self, text="New Vector", command=SubmitFormOnClick)
+        
+        self.button = tk.Button(
+            self,
+            text="New Vector",
+            bg=Themes.theme_service.theme_current.button_background_color,
+            fg=Themes.theme_service.theme_current.button_foreground_color,
+            command=SubmitFormOnClick)
         self.button.pack(side="left")
 
         if self.tab_active == nameof(self.vector_editor_display):
@@ -67,18 +73,19 @@ class AppFooterDisplay(tk.Frame):
         self.tab_list: list[str] = (nameof(self.vector_editor_display), nameof(self.circle_form_display))
 
         for tab in self.tab_list:
-            print(tab + '==' + self.tab_active)
-
             is_active = tab == self.tab_active
-            active_styling = ''
-            
-            if is_active: active_styling += 'red'
-            else: active_styling += 'blue'
 
+            bg = Themes.theme_service.theme_current.button_background_color
+            if is_active: bg = Themes.theme_service.theme_current.button_active_background_color
+
+            fg = Themes.theme_service.theme_current.button_foreground_color
+            if is_active: fg = Themes.theme_service.theme_current.button_active_foreground_color
+            
             button = tk.Button(
                 self.tab_frame,
                 text=tab,
-                bg=active_styling,
+                bg=bg,
+                fg=fg,
                 command=(lambda t: lambda: self.SetActiveTab(t))(tab))
             button.pack(side="left")
 

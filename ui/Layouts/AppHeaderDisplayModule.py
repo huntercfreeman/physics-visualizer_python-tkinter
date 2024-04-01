@@ -18,7 +18,12 @@ class AppHeaderDisplay(tk.Frame):
         def show_settings_dialog():
             Dialogs.dialog_service.register_dialog("Settings")
 
-        button = tk.Button(self, text="settings", command=show_settings_dialog)
+        button = tk.Button(
+            self,
+            text="settings",
+            bg=Themes.theme_service.theme_current.button_background_color,
+            fg=Themes.theme_service.theme_current.button_foreground_color,
+            command=show_settings_dialog)
         button.pack(side="left")
 
         label = tk.Label(

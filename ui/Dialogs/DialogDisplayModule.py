@@ -28,6 +28,8 @@ class DialogDisplay(tk.Frame):
             button = tk.Button(
                 self,
                 text=loop_theme.display_name,
+                bg=Themes.theme_service.theme_current.button_background_color,
+                fg=Themes.theme_service.theme_current.button_foreground_color,
                 command=(lambda x_theme: lambda: SetThemeOnClick(x_theme))(loop_theme))
             button.pack()
 

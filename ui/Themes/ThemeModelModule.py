@@ -12,7 +12,11 @@ class ThemeModel:
                  primary_border_background_color: str,
                  coordinate_system_axis_fill_color: str,
                  visualization_toolbar_background_color: str,
-                 visualization_toolbar_foreground_color: str):
+                 visualization_toolbar_foreground_color: str,
+                 button_background_color: str,
+                 button_foreground_color: str,
+                 button_active_background_color: str,
+                 button_active_foreground_color: str):
         self.display_name = display_name
         self.primary_background_color = primary_background_color
         self.primary_foreground_color = primary_foreground_color
@@ -25,3 +29,7 @@ class ThemeModel:
         self.coordinate_system_axis_fill_color = coordinate_system_axis_fill_color
         self.visualization_toolbar_background_color = visualization_toolbar_background_color
         self.visualization_toolbar_foreground_color = visualization_toolbar_foreground_color
+        self.button_background_color = button_background_color
+        self.button_foreground_color = button_foreground_color
+        self.button_active_background_color = button_active_background_color
+        self.button_active_foreground_color = button_active_foreground_color
