@@ -9,6 +9,7 @@ import CoordinatesEditorDisplayModule
 import CanvasDisplayModule
 import MainDisplayModule
 import ToolbarDisplayModule
+import CircleFormDisplayModule
 
 visualization_service = VisualizationServiceModule.VisualizationService()
 VisualizationServiceModule.InjectVisualizationService(visualization_service)
@@ -16,3 +17,4 @@ CoordinatesEditorDisplayModule.InjectVisualizationService(visualization_service)
 CanvasDisplayModule.InjectVisualizationService(visualization_service)
 MainDisplayModule.InjectVisualizationService(visualization_service)
 ToolbarDisplayModule.InjectVisualizationService(visualization_service)
+CircleFormDisplayModule.InjectVisualizationService(visualization_service)
