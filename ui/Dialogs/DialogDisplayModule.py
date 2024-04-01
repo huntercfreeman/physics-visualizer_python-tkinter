@@ -49,8 +49,8 @@ class DialogDisplay(tk.Frame):
             close_button = tk.Button(
                 self,
                 text='x',
-                bg='red', # Themes.theme_service.theme_current.secondary_background_color,
-                fg=Themes.theme_service.theme_current.secondary_foreground_color,
+                bg=Themes.theme_service.theme_current.danger_background_color,
+                fg=Themes.theme_service.theme_current.button_foreground_color,
                 command=lambda: dialog_service.dispose_dialog(dialog.display_name))
             close_button.pack(side='right', fill='y')
 

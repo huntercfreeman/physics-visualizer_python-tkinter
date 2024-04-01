@@ -22,7 +22,8 @@ class ThemeService():
                 button_background_color='#1e56a7',
                 button_foreground_color='#DCDCDC',
                 button_active_background_color='#753282',
-                button_active_foreground_color='#d2d2d2'),
+                button_active_foreground_color='#d2d2d2',
+                danger_background_color='#b35252'),
             ThemeModelModule.ThemeModel(
                 display_name='light',
                 primary_background_color='#fdfdfd',
@@ -39,7 +40,8 @@ class ThemeService():
                 button_background_color='#0b30c7',
                 button_foreground_color='#f0f0f0',
                 button_active_background_color='#d889e8',
-                button_active_foreground_color='black'),
+                button_active_foreground_color='black',
+                danger_background_color='#b35252'),
         ]
 
         self.theme_current = self.theme_list[0]
