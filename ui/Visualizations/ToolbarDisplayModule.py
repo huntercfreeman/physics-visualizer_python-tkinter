@@ -18,7 +18,8 @@ class ToolbarDisplay(tk.Frame):
             self,
             text='Vectors:',
             bg=Themes.theme_service.theme_current.visualization_toolbar_background_color,
-            fg=Themes.theme_service.theme_current.visualization_toolbar_foreground_color)
+            fg=Themes.theme_service.theme_current.visualization_toolbar_foreground_color,
+            font=("Monospace 20 underline"))
         label.pack()
 
         visualization_service.state_changed.addListener(self.Render)
@@ -33,12 +34,15 @@ class ToolbarDisplay(tk.Frame):
         for vector_visualization in visualization_service.vector_visualization_list:
             label = tk.Label(
                 self,
-                text=f'{vector_visualization.components[0]},'
-                     f'{vector_visualization.components[1]},'
-                     f'{vector_visualization.coordinates[0]},'
-                     f'{vector_visualization.coordinates[1]},',
+                # TODO: https://www.compart.com/en/unicode/U+0134
+                #       Use the i-hat, j-hat, k-hat; characters
+                text=f'{vector_visualization.components[0]}i,'
+                     f'{vector_visualization.components[1]}j,'
+                     f'{vector_visualization.coordinates[0]}x,'
+                     f'{vector_visualization.coordinates[1]}y,',
                 bg=Themes.theme_service.theme_current.visualization_toolbar_background_color,
-                fg=Themes.theme_service.theme_current.visualization_toolbar_foreground_color)
+                fg=Themes.theme_service.theme_current.visualization_toolbar_foreground_color,
+                font=("Monospace", 18))
             label.pack()
             self.vector_visualization_label_list.append(label)
 

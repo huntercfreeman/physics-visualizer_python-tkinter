@@ -23,14 +23,14 @@ class ThemeService():
                 display_name='light',
                 primary_background_color='#fdfdfd',
                 primary_foreground_color='black',
-                secondary_background_color='#fafaf4',
+                secondary_background_color='#f6f4ee',
                 secondary_foreground_color='black',
                 header_background_color='#cad5eb',
                 footer_background_color='#cad5eb',
                 dialog_toolbar_background_color='#aac1ee',
                 primary_border_background_color='black',
                 coordinate_system_axis_fill_color='#006e5a',
-                visualization_toolbar_background_color='#f8f8ee',
+                visualization_toolbar_background_color='#f6f4ee',
                 visualization_toolbar_foreground_color='black'),
         ]
 
