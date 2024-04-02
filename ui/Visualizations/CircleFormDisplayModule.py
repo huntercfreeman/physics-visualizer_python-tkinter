@@ -12,8 +12,8 @@ class CircleFormDisplay(tk.Frame):
 
         label = tk.Label(
             self,
-            text='CircleFormDisplay',
+            text='(x-h)^2 + (y-k)^2 = R^2',
             bg=theme_state.theme_current.visualization_toolbar_background_color,
             fg=theme_state.theme_current.visualization_toolbar_foreground_color,
-            font=("Monospace 20 underline"))
+            font=("Monospace 20"))
         label.pack()

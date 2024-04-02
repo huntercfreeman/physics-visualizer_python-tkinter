@@ -1,7 +1,7 @@
 from Vectors.VectorModelModule import VectorModel
-from CoordinatesVisualizationModule import CoordinatesVisualization
+from CoordinatesModelModule import CoordinatesModel
 
 class VectorVisualization:
-    def __init__(self, vector: VectorModel, coordinates: CoordinatesVisualization):
+    def __init__(self, vector: VectorModel, coordinates: CoordinatesModel):
         self.components = vector.components
         self.coordinates = coordinates.coordinates

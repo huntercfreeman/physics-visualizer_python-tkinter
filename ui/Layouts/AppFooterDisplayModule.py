@@ -3,7 +3,7 @@ from varname import nameof
 from LayoutStateModule import LayoutState
 from Themes.ThemeStateModule import ThemeState
 from Visualizations.VisualizationStateModule import VisualizationState
-from Visualizations.CoordinatesVisualizationModule import CoordinatesVisualization
+from Visualizations.CoordinatesModelModule import CoordinatesModel
 from Visualizations.CoordinatesEditorDisplayModule import CoordinatesEditorDisplay
 from Visualizations.CircleFormDisplayModule import CircleFormDisplay 
 from Vectors.VectorEditorDisplayModule import VectorEditorDisplay
@@ -56,7 +56,7 @@ class AppFooterDisplay(tk.Frame):
 
                 visualization_state.AddVector(
                     VectorModel([component_x, component_y]),
-                    CoordinatesVisualization([coordinate_x, coordinate_y]))
+                    CoordinatesModel([coordinate_x, coordinate_y]))
             except ValueError:
                 print("some_variable did not contain a number!")
         
@@ -112,8 +112,10 @@ class AppFooterDisplay(tk.Frame):
         self.Render()
 
     def CreateVectorForm(self):
-        self.vector_editor_display = VectorEditorDisplay(self, VectorModel([50, 50]))
-        self.coordinates_editor_display = CoordinatesEditorDisplay(self, CoordinatesVisualization([0, 0]))
+        visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
+
+        self.vector_editor_display = VectorEditorDisplay(self, visualization_state.vector_editor_target)
+        self.coordinates_editor_display = CoordinatesEditorDisplay(self, visualization_state.coordinates_editor_target)
     
     def DestroyVectorForm(self):
         if self.vector_editor_display != None:

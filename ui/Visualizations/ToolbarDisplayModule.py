@@ -41,16 +41,15 @@ class ToolbarDisplay(tk.Frame):
         for vector_visualization in visualization_state.vector_visualization_list:
             label = tk.Label(
                 self,
-                # TODO: https://www.compart.com/en/unicode/U+0134
-                #       Use the i-hat, j-hat, k-hat; characters
-                text=f'{vector_visualization.components[0]}i,'
-                     f'{vector_visualization.components[1]}j,'
-                     f'{vector_visualization.coordinates[0]}x,'
-                     f'{vector_visualization.coordinates[1]}y,',
+                text='('
+                     f'{vector_visualization.components[0]}, '
+                     f'{vector_visualization.components[1]}'
+                     ')',
                 bg=theme_state.theme_current.visualization_toolbar_background_color,
                 fg=theme_state.theme_current.visualization_toolbar_foreground_color,
                 font=("Monospace", 18))
             label.pack()
+
             self.vector_visualization_label_list.append(label)
 
     def __del__(self):

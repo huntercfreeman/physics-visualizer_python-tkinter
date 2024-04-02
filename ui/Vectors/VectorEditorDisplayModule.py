@@ -40,10 +40,14 @@ class VectorEditorDisplay(tk.Frame):
         layout_state.vector_editor_x_string_var = tk.StringVar()
         layout_state.vector_editor_y_string_var = tk.StringVar()
 
-        layout_state.vector_editor_x_string_var.set(self.vector.components[0])
-        layout_state.vector_editor_y_string_var.set(self.vector.components[1])
-        
-        componentsLength = len(self.vector.components)
+        if self.vector is None:
+            layout_state.vector_editor_x_string_var.set(50)
+            layout_state.vector_editor_y_string_var.set(50)
+            componentsLength = 2
+        elif self.vector is not None:
+            layout_state.vector_editor_x_string_var.set(self.vector.components[0])
+            layout_state.vector_editor_y_string_var.set(self.vector.components[1])
+            componentsLength = len(self.vector.components)
 
         header_frame = tk.Frame(self)
         body_frame = tk.Frame(self)
@@ -70,22 +74,27 @@ class VectorEditorDisplay(tk.Frame):
         else:
             x_label = tk.Label(
                 body_frame,
-                text='Ax*i',
+                text='(',
                 bg=theme_state.theme_current.header_background_color,
                 fg=theme_state.theme_current.primary_foreground_color)
+            x_label.pack(side='left')
             
             x_entry = tk.Entry(body_frame, textvariable = layout_state.vector_editor_x_string_var)
-            
+            x_entry.pack(side='left')
+
             y_label = tk.Label(
                 body_frame,
-                text='Ay*j',
+                text=', ',
                 bg=theme_state.theme_current.header_background_color,
                 fg=theme_state.theme_current.primary_foreground_color)
+            y_label.pack(side='left')
             
             y_entry=tk.Entry(body_frame, textvariable = layout_state.vector_editor_y_string_var)
+            y_entry.pack(side='left')
 
-            x_label.grid(row=0,column=0)
-            x_entry.grid(row=0,column=1)
-            
-            y_label.grid(row=1,column=0)
-            y_entry.grid(row=1,column=1)
+            x_label = tk.Label(
+                body_frame,
+                text=')',
+                bg=theme_state.theme_current.header_background_color,
+                fg=theme_state.theme_current.primary_foreground_color)
+            x_label.pack(side='left')

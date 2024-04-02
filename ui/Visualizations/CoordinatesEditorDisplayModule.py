@@ -1,11 +1,11 @@
 import tkinter as tk
-from CoordinatesVisualizationModule import CoordinatesVisualization
+from CoordinatesModelModule import CoordinatesModel
 from Themes.ThemeStateModule import ThemeState
 from Layouts.LayoutStateModule import LayoutState
 from Dispatchers import StoreModule
 
 class CoordinatesEditorDisplay(tk.Frame):
-    def __init__(self, parent: tk.Tk, coordinates: CoordinatesVisualization | None):
+    def __init__(self, parent: tk.Tk, coordinates: CoordinatesModel | None):
         """
         Constructor takes an existing coordinates object, or 'None'.
         
@@ -40,11 +40,15 @@ class CoordinatesEditorDisplay(tk.Frame):
         layout_state.coordinates_editor_x_string_var = tk.StringVar()
         layout_state.coordinates_editor_y_string_var = tk.StringVar()
 
-        layout_state.coordinates_editor_x_string_var.set(self.coordinates.coordinates[0])
-        layout_state.coordinates_editor_y_string_var.set(self.coordinates.coordinates[1])
-        
-        coordinatesLength = len(self.coordinates.coordinates)
-        
+        if self.coordinates is None:
+            layout_state.coordinates_editor_x_string_var.set(0)
+            layout_state.coordinates_editor_y_string_var.set(0)
+            coordinatesLength= 2
+        elif self.coordinates is not None:
+            layout_state.coordinates_editor_x_string_var.set(self.coordinates.coordinates[0])
+            layout_state.coordinates_editor_y_string_var.set(self.coordinates.coordinates[1])
+            coordinatesLength = len(self.coordinates.coordinates)
+
         header_frame = tk.Frame(self)
         body_frame = tk.Frame(self)
 
@@ -54,7 +58,7 @@ class CoordinatesEditorDisplay(tk.Frame):
         # Header content
         label = tk.Label(
             header_frame,
-            text='Coordinates:',
+            text='Drawing Position:',
             bg=theme_state.theme_current.footer_background_color,
             fg=theme_state.theme_current.primary_foreground_color)
         label.pack()
