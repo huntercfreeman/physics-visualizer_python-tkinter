@@ -19,7 +19,7 @@ class DialogDisplay(tk.Frame):
 
         label = tk.Label(
             self,
-            text=nameof(DialogDisplay),
+            text='Theme:',
             bg=theme_state.theme_current.secondary_background_color,
             fg=theme_state.theme_current.secondary_foreground_color)
         label.pack()
@@ -28,12 +28,20 @@ class DialogDisplay(tk.Frame):
             theme_state.SetTheme(x_theme)
 
         for loop_theme in theme_state.theme_list:
+
+            bg = theme_state.theme_current.button_background_color
+            fg = theme_state.theme_current.button_foreground_color
+
+            if theme_state.theme_current == loop_theme:
+                bg = theme_state.theme_current.button_active_background_color
+                fg = theme_state.theme_current.button_active_foreground_color
+
             # Capture the theme from the 'for' iterations by creating a lambda within a lambda.
             button = tk.Button(
                 self,
                 text=loop_theme.display_name,
-                bg=theme_state.theme_current.button_background_color,
-                fg=theme_state.theme_current.button_foreground_color,
+                bg=bg,
+                fg=fg,
                 command=(lambda x_theme: lambda: SetThemeOnClick(x_theme))(loop_theme))
             button.pack()
 
