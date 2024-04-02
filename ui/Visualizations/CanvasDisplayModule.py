@@ -1,7 +1,7 @@
 import tkinter as tk
-from VisualizationServiceModule import VisualizationService
+from VisualizationServiceModule import visualization_service
 from VectorVisualizationModule import VectorVisualization
-from Themes import theme_service
+from Themes.ThemeServiceModule import theme_service
 
 class CanvasDisplay(tk.Canvas):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
@@ -176,9 +176,3 @@ class CanvasDisplay(tk.Canvas):
                     local_visualization_service.state_changed.removeListener(self.Render)
 
         self.destroy()
-
-def InjectVisualizationService(injectedVisualizationService: VisualizationService):
-    global visualization_service
-    visualization_service = injectedVisualizationService
-
-visualization_service: VisualizationService = None

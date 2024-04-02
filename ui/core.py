@@ -1,19 +1,21 @@
 import tkinter as tk
-import Layouts
-import Dialogs
-import Themes
+from Layouts.AppHeaderDisplayModule import AppHeaderDisplay
+from Layouts.AppBodyDisplayModule import AppBodyDisplay
+from Layouts.AppFooterDisplayModule import AppFooterDisplay
+from Dialogs.DialogInitializerDisplayModule import DialogInitializerDisplay
+from Themes.ThemeServiceModule import theme_service
 
 def main():
     global root
     root = tk.Tk()
     style_root(root)
 
-    Themes.theme_service.state_changed.addListener(reload_ui)
+    theme_service.state_changed.addListener(reload_ui)
 
     render_ui(root)
     root.mainloop()
 
-    Themes.theme_service.state_changed.removeListener(reload_ui)
+    theme_service.state_changed.removeListener(reload_ui)
 
 def style_root(root: tk.Tk):
     # geometry variables
@@ -48,13 +50,13 @@ def render_ui(root: tk.Tk):
     global app_header_display
     global app_body_display
     global app_footer_display
-    app_header_display = Layouts.AppHeaderDisplayModule.AppHeaderDisplay(root)
-    app_body_display = Layouts.AppBodyDisplayModule.AppBodyDisplay(root)
-    app_footer_display = Layouts.AppFooterDisplayModule.AppFooterDisplay(root)
+    app_header_display = AppHeaderDisplay(root)
+    app_body_display = AppBodyDisplay(root)
+    app_footer_display = AppFooterDisplay(root)
 
     global dialog_initializer_display
     if dialog_initializer_display == None:
-        dialog_initializer_display = Dialogs.DialogInitializerDisplayModule.DialogInitializerDisplay(root)
+        dialog_initializer_display = DialogInitializerDisplay(root)
     else:
         dialog_initializer_display.root = root
         dialog_initializer_display.Render()
@@ -72,10 +74,10 @@ def destroy_ui():
 
 root: tk.Tk = None
 
-dialog_initializer_display: Dialogs.DialogInitializerDisplayModule.DialogInitializerDisplay = None
-app_header_display: Layouts.AppHeaderDisplayModule.AppHeaderDisplay = None
-app_body_display: Layouts.AppBodyDisplayModule.AppBodyDisplay = None
-app_footer_display: Layouts.AppFooterDisplayModule.AppFooterDisplay = None
+dialog_initializer_display: DialogInitializerDisplay = None
+app_header_display: AppHeaderDisplay = None
+app_body_display: AppBodyDisplay = None
+app_footer_display: AppFooterDisplay = None
 
 if __name__ == '__main__':
     main()

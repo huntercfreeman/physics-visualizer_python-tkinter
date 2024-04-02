@@ -1,8 +1,7 @@
 import tkinter as tk
-import VisualizationServiceModule
 from CoordinatesVisualizationModule import CoordinatesVisualization
-import Themes
-import Layouts
+from Themes.ThemeServiceModule import theme_service
+from Layouts.LayoutServiceModule import layout_service
 
 class CoordinatesEditorDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk, coordinates: CoordinatesVisualization | None):
@@ -28,15 +27,15 @@ class CoordinatesEditorDisplay(tk.Frame):
                     -To update, one can either overwrite the existing coordinates object
                         or construct a new coordinates object.
         """
-        super().__init__(parent, bg=Themes.theme_service.theme_current.footer_background_color)
+        super().__init__(parent, bg=theme_service.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
         self.coordinates = coordinates
 
-        Layouts.layout_service.coordinates_editor_x_string_var = tk.StringVar()
-        Layouts.layout_service.coordinates_editor_y_string_var = tk.StringVar()
+        layout_service.coordinates_editor_x_string_var = tk.StringVar()
+        layout_service.coordinates_editor_y_string_var = tk.StringVar()
 
-        Layouts.layout_service.coordinates_editor_x_string_var.set(self.coordinates.coordinates[0])
-        Layouts.layout_service.coordinates_editor_y_string_var.set(self.coordinates.coordinates[1])
+        layout_service.coordinates_editor_x_string_var.set(self.coordinates.coordinates[0])
+        layout_service.coordinates_editor_y_string_var.set(self.coordinates.coordinates[1])
         
         coordinatesLength = len(self.coordinates.coordinates)
         
@@ -50,8 +49,8 @@ class CoordinatesEditorDisplay(tk.Frame):
         label = tk.Label(
             header_frame,
             text='Coordinates:',
-            bg=Themes.theme_service.theme_current.footer_background_color,
-            fg=Themes.theme_service.theme_current.primary_foreground_color)
+            bg=theme_service.theme_current.footer_background_color,
+            fg=theme_service.theme_current.primary_foreground_color)
         label.pack()
         
         # Body content
@@ -59,34 +58,28 @@ class CoordinatesEditorDisplay(tk.Frame):
             label = tk.Label(
                 body_frame,
                 text=f'{coordinatesLength} dimensions are not supported.',
-                bg=Themes.theme_service.theme_current.footer_background_color,
-                fg=Themes.theme_service.theme_current.primary_foreground_color)
+                bg=theme_service.theme_current.footer_background_color,
+                fg=theme_service.theme_current.primary_foreground_color)
             label.pack()
         else:
             x_label = tk.Label(
                 body_frame,
                 text='x',
-                bg=Themes.theme_service.theme_current.header_background_color,
-                fg=Themes.theme_service.theme_current.primary_foreground_color)
+                bg=theme_service.theme_current.header_background_color,
+                fg=theme_service.theme_current.primary_foreground_color)
             
-            x_entry = tk.Entry(body_frame, textvariable = Layouts.layout_service.coordinates_editor_x_string_var)
+            x_entry = tk.Entry(body_frame, textvariable = layout_service.coordinates_editor_x_string_var)
             
             y_label = tk.Label(
                 body_frame,
                 text='y',
-                bg=Themes.theme_service.theme_current.header_background_color,
-                fg=Themes.theme_service.theme_current.primary_foreground_color)
+                bg=theme_service.theme_current.header_background_color,
+                fg=theme_service.theme_current.primary_foreground_color)
             
-            y_entry=tk.Entry(body_frame, textvariable = Layouts.layout_service.coordinates_editor_y_string_var)
+            y_entry=tk.Entry(body_frame, textvariable = layout_service.coordinates_editor_y_string_var)
 
             x_label.grid(row=0,column=0)
             x_entry.grid(row=0,column=1)
             
             y_label.grid(row=1,column=0)
             y_entry.grid(row=1,column=1)
-
-def InjectVisualizationService(injectedVisualizationService: VisualizationServiceModule.VisualizationService):
-    global visualization_service
-    visualization_service = injectedVisualizationService
-
-visualization_service: VisualizationServiceModule.VisualizationService = None

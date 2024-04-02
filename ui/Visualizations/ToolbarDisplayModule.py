@@ -1,6 +1,6 @@
 import tkinter as tk
-from VisualizationServiceModule import VisualizationService
-from Themes import theme_service
+from VisualizationServiceModule import visualization_service
+from Themes.ThemeServiceModule import theme_service
 
 class ToolbarDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk):
@@ -57,9 +57,4 @@ class ToolbarDisplay(tk.Frame):
                     local_visualization_service.state_changed.removeListener(self.Render)
 
         self.destroy()
-
-def InjectVisualizationService(injectedVisualizationService: VisualizationService):
-    global visualization_service
-    visualization_service = injectedVisualizationService
-
-visualization_service: VisualizationService = None
+        

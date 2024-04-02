@@ -1,11 +1,11 @@
 import tkinter as tk
 from DialogServiceModule import dialog_service
-import DialogDisplayModule
+from DialogDisplayModule import DialogDisplay
 
 class DialogInitializerDisplay:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.__dialog_display_list: list[DialogDisplayModule.DialogDisplay] = []
+        self.__dialog_display_list: list[DialogDisplay] = []
         dialog_service.state_changed.addListener(self.Render)
         
         # Force an initial render
@@ -15,7 +15,7 @@ class DialogInitializerDisplay:
         self.destroy()
 
         for value in dialog_service.dialog_map.values():
-            self.__dialog_display_list.append(DialogDisplayModule.DialogDisplay(
+            self.__dialog_display_list.append(DialogDisplay(
                 self.root, value))
             
     def destroy(self):

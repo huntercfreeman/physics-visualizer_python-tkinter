@@ -13,8 +13,4 @@ class LayoutService:
 
         self.state_changed: EventModel = EventModel()
 
-def InjectLayoutService(injectedLayoutService: LayoutService):
-    global layout_service
-    layout_service = injectedLayoutService
-
-layout_service: LayoutService = None
+layout_service: LayoutService = LayoutService()

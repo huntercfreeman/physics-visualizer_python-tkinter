@@ -1,7 +1,6 @@
 import tkinter as tk
-from LayoutServiceModule import LayoutService
-from Themes import theme_service
-from Dialogs import dialog_service
+from Themes.ThemeServiceModule import theme_service
+from Dialogs.DialogServiceModule import dialog_service
 
 class AppHeaderDisplay(tk.Frame):
     """Render the 'header' aka: 'navigation bar', or 'toolbar'."""
@@ -20,9 +19,3 @@ class AppHeaderDisplay(tk.Frame):
             fg=theme_service.theme_current.button_foreground_color,
             command=show_settings_dialog)
         button.pack(side="left")
-
-def InjectLayoutService(injectedLayoutService: LayoutService):
-    global layout_service
-    layout_service = injectedLayoutService
-    
-layout_service: LayoutService = None

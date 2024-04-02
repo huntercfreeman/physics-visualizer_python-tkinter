@@ -1,7 +1,7 @@
 from Events.EventModelModule import EventModel
 from VectorVisualizationModule import VectorVisualization
 from Vectors.VectorModelModule import VectorModel
-import CoordinatesVisualizationModule
+from CoordinatesVisualizationModule import CoordinatesVisualization
 
 class VisualizationService:
     def __init__(self):
@@ -10,15 +10,11 @@ class VisualizationService:
 
     def AddVector(self,
                   vector: VectorModel,
-                  coordinates: CoordinatesVisualizationModule.CoordinatesVisualization):
+                  coordinates: CoordinatesVisualization):
         
         vector_visualization = VectorVisualization(vector, coordinates)
         self.vector_visualization_list.append(vector_visualization)
 
         self.state_changed.trigger(vector_visualization)
 
-def InjectVisualizationService(injectedVisualizationService: VisualizationService):
-    global visualization_service
-    visualization_service = injectedVisualizationService
-
-visualization_service: VisualizationService = None
+visualization_service: VisualizationService = VisualizationService()

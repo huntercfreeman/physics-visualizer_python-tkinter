@@ -1,8 +1,7 @@
 import tkinter as tk
-from VisualizationServiceModule import VisualizationService
 from CanvasDisplayModule import CanvasDisplay
 from ToolbarDisplayModule import ToolbarDisplay
-from Themes import theme_service
+from Themes.ThemeServiceModule import theme_service
 
 class MainDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
@@ -23,10 +22,5 @@ class MainDisplay(tk.Frame):
             visualization_canvas_display.__del__()
         visualization_canvas_display = CanvasDisplay(parent, root)
 
-def InjectVisualizationService(injectedVisualizationService: VisualizationService):
-    global visualization_service
-    visualization_service = injectedVisualizationService
-
 visualization_toolbar_display: ToolbarDisplay = None
 visualization_canvas_display: CanvasDisplay = None
-visualization_service: VisualizationService = None

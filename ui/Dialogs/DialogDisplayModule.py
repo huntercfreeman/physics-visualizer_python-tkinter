@@ -1,9 +1,9 @@
 import tkinter as tk
-from Themes import theme_service
+from varname import nameof
+from Themes.ThemeServiceModule import theme_service
 from Themes.ThemeModelModule import ThemeModel
 from DialogModelModule import DialogModel
-from DialogServiceModule import DialogService
-from varname import nameof
+from DialogServiceModule import dialog_service
 
 class DialogDisplay(tk.Frame):
     def __init__(self, root: tk.Tk, dialog: DialogModel):
@@ -53,9 +53,3 @@ class DialogDisplay(tk.Frame):
                 fg=theme_service.theme_current.button_foreground_color,
                 command=lambda: dialog_service.dispose_dialog(dialog.display_name))
             close_button.pack(side='right', fill='y')
-
-def InjectDialogService(injectedDialogService: DialogService):
-    global dialog_service
-    dialog_service = injectedDialogService
-
-dialog_service: DialogService = None

@@ -1,5 +1,5 @@
 import tkinter as tk
-from Themes import theme_service
+from Themes.ThemeServiceModule import theme_service
 
 class HorizontalRuleDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk, anchor: str):

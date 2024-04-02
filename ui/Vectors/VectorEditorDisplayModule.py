@@ -1,7 +1,7 @@
 import tkinter as tk
 from VectorModelModule import VectorModel
-from Themes import theme_service
-from Layouts import layout_service
+from Themes.ThemeServiceModule import theme_service
+from Layouts.LayoutServiceModule import layout_service
 
 class VectorEditorDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk, vector: VectorModel | None):

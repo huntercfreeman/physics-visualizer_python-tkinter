@@ -1,6 +1,5 @@
 import tkinter as tk
-from Themes import theme_service
-from VisualizationServiceModule import VisualizationService
+from Themes.ThemeServiceModule import theme_service
 
 class CircleFormDisplay(tk.Frame):
     def __init__(self, root: tk.Tk):
@@ -14,9 +13,3 @@ class CircleFormDisplay(tk.Frame):
             fg=theme_service.theme_current.visualization_toolbar_foreground_color,
             font=("Monospace 20 underline"))
         label.pack()
-
-def InjectVisualizationService(injectedVisualizationService: VisualizationService):
-    global visualization_service
-    visualization_service = injectedVisualizationService
-
-visualization_service: VisualizationService = None

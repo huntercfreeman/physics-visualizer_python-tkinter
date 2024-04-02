@@ -50,8 +50,4 @@ class ThemeService():
         self.theme_current = theme
         self.state_changed.trigger(theme)
 
-def InjectThemeService(injectedThemeService: ThemeService):
-    global theme_service
-    theme_service = injectedThemeService
-
-theme_service: ThemeService = None
+theme_service: ThemeService = ThemeService()

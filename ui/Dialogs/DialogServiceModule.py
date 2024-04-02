@@ -22,8 +22,4 @@ class DialogService:
     def DestroyDialogModule(self):
         pass
 
-def InjectDialogService(injectedDialogService: DialogService):
-    global dialog_service
-    dialog_service = injectedDialogService
-
-dialog_service: DialogService = None
+dialog_service: DialogService = DialogService()

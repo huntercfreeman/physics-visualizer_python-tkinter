@@ -1,14 +1,14 @@
 import tkinter as tk
-from LayoutServiceModule import LayoutService
-from Themes import theme_service
-from Visualizations import visualization_service
+from varname import nameof
+from LayoutServiceModule import layout_service
+from Themes.ThemeServiceModule import theme_service
+from Visualizations.VisualizationServiceModule import visualization_service
 from Visualizations.CoordinatesVisualizationModule import CoordinatesVisualization
 from Visualizations.CoordinatesEditorDisplayModule import CoordinatesEditorDisplay
 from Visualizations.CircleFormDisplayModule import CircleFormDisplay 
 from Vectors.VectorEditorDisplayModule import VectorEditorDisplay
 from Vectors.VectorModelModule import VectorModel
-import PanelModelModule
-from varname import nameof
+from PanelModelModule import PanelModel
 
 class AppFooterDisplay(tk.Frame):
     def __init__(self, root: tk.Tk):
@@ -16,7 +16,7 @@ class AppFooterDisplay(tk.Frame):
         self.place(relx=0, rely=0.88, relwidth=1, relheight=0.12)
         self.pack_propagate(tk.FALSE)
         
-        self.panel_model_active: PanelModelModule.PanelModel = None
+        self.panel_model_active: PanelModel = None
         self.vector_editor_display: VectorEditorDisplay = None
         self.coordinates_editor_display: CoordinatesEditorDisplay= None
         self.circle_form_display: CircleFormDisplay = None
@@ -59,11 +59,11 @@ class AppFooterDisplay(tk.Frame):
         self.button.pack(side="left")
 
         if self.tab_active == nameof(self.vector_editor_display):
-            self.panel_model_active = PanelModelModule.PanelModel(
+            self.panel_model_active = PanelModel(
                 self.CreateVectorForm,
                 self.DestroyVectorForm)
         else:
-            self.panel_model_active = PanelModelModule.PanelModel(
+            self.panel_model_active = PanelModel(
                 self.CreateCircleForm,
                 self.DestroyCircleForm)
             
@@ -119,9 +119,3 @@ class AppFooterDisplay(tk.Frame):
         if self.circle_form_display != None:
             self.circle_form_display.destroy()
             self.circle_form_display = None
-
-def InjectLayoutService(injectedLayoutService: LayoutService):
-    global layout_service
-    layout_service = injectedLayoutService
-
-layout_service: LayoutService = None
