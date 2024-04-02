@@ -1,17 +1,17 @@
 import tkinter as tk
-from VisualizationServiceModule import VisualizationService
+from VisualizationStateModule import VisualizationState
 from VectorVisualizationModule import VectorVisualization
-from Themes.ThemeServiceModule import ThemeService
+from Themes.ThemeStateModule import ThemeState
 from Dispatchers import StoreModule
 
 class CanvasDisplay(tk.Canvas):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
 
-        theme_service: ThemeService = StoreModule.Get(ThemeService())
+        theme_state: ThemeState = StoreModule.Get(ThemeState())
 
         super().__init__(
             parent,
-            bg=theme_service.theme_current.primary_background_color,
+            bg=theme_state.theme_current.primary_background_color,
             highlightthickness=0)
         self.place(relx=0.15, rely=0, relwidth=0.85, relheight=1)
         self.pack_propagate(tk.FALSE)
@@ -21,9 +21,9 @@ class CanvasDisplay(tk.Canvas):
         self.update()
         self.InitializeCoordinateSystem()
 
-        visualization_service: VisualizationService = StoreModule.Get(VisualizationService())
+        visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
         
-        visualization_service.state_changed.addListener(self.Render)
+        visualization_state.state_changed.addListener(self.Render)
 
         # Force initial rendering of the vectors
         self.Render()
@@ -39,7 +39,7 @@ class CanvasDisplay(tk.Canvas):
         width_midpoint = canvas_width / 2.0
         height_midpoint = canvas_height / 2.0
         
-        theme_service: ThemeService = StoreModule.Get(ThemeService())
+        theme_state: ThemeState = StoreModule.Get(ThemeState())
 
         def InitializeAxisX():
             # Create the axis itself
@@ -48,7 +48,7 @@ class CanvasDisplay(tk.Canvas):
                 height_midpoint,
                 canvas_width,
                 height_midpoint,
-                fill=theme_service.theme_current.coordinate_system_axis_fill_color,
+                fill=theme_state.theme_current.coordinate_system_axis_fill_color,
                 tags=self.canvas_tags_axis_x)
 
             # Create 'ticks' for positive-values along the axis for visually determining coordinate positions
@@ -64,13 +64,13 @@ class CanvasDisplay(tk.Canvas):
                     height_midpoint - tick_height,
                     tick_pos_x,
                     height_midpoint + tick_height,
-                    fill=theme_service.theme_current.coordinate_system_axis_fill_color,
+                    fill=theme_state.theme_current.coordinate_system_axis_fill_color,
                     tags=self.canvas_tags_axis_x)
                 self.create_text(
                     tick_pos_x,
                     height_midpoint + tick_height + height_of_text,
                     text=f'{int(offset)}',
-                    fill=theme_service.theme_current.coordinate_system_axis_fill_color)
+                    fill=theme_state.theme_current.coordinate_system_axis_fill_color)
 
             # Create 'ticks' for negative-values along the axis for visually determining coordinate positions
             counter_magnitude = (canvas_width / 2) * 0.1
@@ -85,13 +85,13 @@ class CanvasDisplay(tk.Canvas):
                     height_midpoint - tick_height,
                     tick_pos_x,
                     height_midpoint + tick_height,
-                    fill=theme_service.theme_current.coordinate_system_axis_fill_color,
+                    fill=theme_state.theme_current.coordinate_system_axis_fill_color,
                     tags=self.canvas_tags_axis_x)
                 self.create_text(
                     tick_pos_x,
                     height_midpoint + tick_height + height_of_text,
                     text=f'{int(offset)}',
-                    fill=theme_service.theme_current.coordinate_system_axis_fill_color)
+                    fill=theme_state.theme_current.coordinate_system_axis_fill_color)
         InitializeAxisX()
 
         def InitializeAxisY():
@@ -101,7 +101,7 @@ class CanvasDisplay(tk.Canvas):
                 0,
                 width_midpoint,
                 canvas_height,
-                fill=theme_service.theme_current.coordinate_system_axis_fill_color,
+                fill=theme_state.theme_current.coordinate_system_axis_fill_color,
                 tags=self.canvas_tags_axis_y)
             
             # Create 'ticks' for positive-values along the axis for visually determining coordinate positions
@@ -117,13 +117,13 @@ class CanvasDisplay(tk.Canvas):
                     tick_pos_y,
                     width_midpoint + tick_width,
                     tick_pos_y,
-                    fill=theme_service.theme_current.coordinate_system_axis_fill_color,
+                    fill=theme_state.theme_current.coordinate_system_axis_fill_color,
                     tags=self.canvas_tags_axis_x)
                 self.create_text(
                     width_midpoint + tick_width + text_offset,
                     tick_pos_y,
                     text=f'{int(offset)}',
-                    fill=theme_service.theme_current.coordinate_system_axis_fill_color)
+                    fill=theme_state.theme_current.coordinate_system_axis_fill_color)
                 
             # Create 'ticks' for negative-values along the axis for visually determining coordinate positions
             counter_magnitude = (canvas_height / 2) * 0.1
@@ -138,21 +138,21 @@ class CanvasDisplay(tk.Canvas):
                     tick_pos_y,
                     width_midpoint + tick_width,
                     tick_pos_y,
-                    fill=theme_service.theme_current.coordinate_system_axis_fill_color,
+                    fill=theme_state.theme_current.coordinate_system_axis_fill_color,
                     tags=self.canvas_tags_axis_x)
                 self.create_text(
                     width_midpoint + tick_width + text_offset,
                     tick_pos_y,
                     text=f'{int(offset)}',
-                    fill=theme_service.theme_current.coordinate_system_axis_fill_color)
+                    fill=theme_state.theme_current.coordinate_system_axis_fill_color)
         InitializeAxisY()
 
     def Render(self):
         self.delete(self.canvas_tags_vector)
 
-        visualization_service: VisualizationService = StoreModule.Get(VisualizationService())
+        visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
         
-        for vector_visualization in visualization_service.vector_visualization_list:
+        for vector_visualization in visualization_state.vector_visualization_list:
             self.DrawVectorVisualization(vector_visualization)
 
     def DrawVectorVisualization(self, vector_visualization: VectorVisualization):
@@ -165,14 +165,14 @@ class CanvasDisplay(tk.Canvas):
         initial_x = canvas_width_halfway + vector_visualization.coordinates[0]
         initial_y = canvas_height_halfway - vector_visualization.coordinates[1]
 
-        theme_service: ThemeService = StoreModule.Get(ThemeService())
+        theme_state: ThemeState = StoreModule.Get(ThemeState())
 
         self.create_line(
             initial_x,
             initial_y,
             initial_x + vector_visualization.components[0],
             initial_y + (-1 * vector_visualization.components[1]),
-            fill=theme_service.theme_current.primary_foreground_color,
+            fill=theme_state.theme_current.primary_foreground_color,
             arrow='last',
             width=2,
             tags=self.canvas_tags_vector)
@@ -181,13 +181,13 @@ class CanvasDisplay(tk.Canvas):
         """The usage of '__del__()' can have some quirks as described in this link:
         https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
 
-        visualization_service: VisualizationService = StoreModule.Get(VisualizationService())
+        visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
         
-        local_visualization_service = visualization_service
+        local_visualization_state = visualization_state
 
-        if local_visualization_service != None:
-            if hasattr(local_visualization_service, 'state_changed'):
-                if hasattr(local_visualization_service.state_changed, 'removeListener'):
-                    local_visualization_service.state_changed.removeListener(self.Render)
+        if local_visualization_state != None:
+            if hasattr(local_visualization_state, 'state_changed'):
+                if hasattr(local_visualization_state.state_changed, 'removeListener'):
+                    local_visualization_state.state_changed.removeListener(self.Render)
 
         self.destroy()

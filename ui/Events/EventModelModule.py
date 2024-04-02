@@ -1,6 +1,6 @@
 class EventModel():
-    """Goal of this class: allow tkinter widgets to subscribe to state changes in
-    a service. On state change, the tkinter widget could then choose to re-render or etc...
+    """Goal of this class: allow tkinter widgets to subscribe to state changes of
+    a state. On state change, the tkinter widget could then choose to re-render or etc...
     https://stackoverflow.com/questions/70982565/how-do-i-make-an-event-listener-with-decorators-in-python"""
     def __init__(self):
         # Initialise a list of listeners

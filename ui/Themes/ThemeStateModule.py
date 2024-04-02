@@ -1,7 +1,7 @@
 from ThemeModelModule import ThemeModel
 from Events.EventModelModule import EventModel
 
-class ThemeService():
+class ThemeState():
     def __init__(self) -> None:
         self.state_changed: EventModel = EventModel()
 

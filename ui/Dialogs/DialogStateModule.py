@@ -2,7 +2,7 @@ import tkinter as tk
 from DialogModelModule import DialogModel
 from Events.EventModelModule import EventModel
 
-class DialogService:
+class DialogState:
     """Provides API to render a dialog"""
     def __init__(self):
         self.dialog_map = {}

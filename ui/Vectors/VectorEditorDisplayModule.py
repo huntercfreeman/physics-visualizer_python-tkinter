@@ -1,7 +1,7 @@
 import tkinter as tk
 from VectorModelModule import VectorModel
-from Themes.ThemeServiceModule import ThemeService
-from Layouts.LayoutServiceModule import LayoutService
+from Themes.ThemeStateModule import ThemeState
+from Layouts.LayoutStateModule import LayoutState
 from Dispatchers import StoreModule
 
 class VectorEditorDisplay(tk.Frame):
@@ -29,19 +29,19 @@ class VectorEditorDisplay(tk.Frame):
                         or construct a new vector object.
         """
 
-        theme_service: ThemeService = StoreModule.Get(ThemeService())
+        theme_state: ThemeState = StoreModule.Get(ThemeState())
 
-        super().__init__(parent, bg=theme_service.theme_current.footer_background_color)
+        super().__init__(parent, bg=theme_state.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
         self.vector = vector
 
-        layout_service: LayoutService = StoreModule.Get(LayoutService())
+        layout_state: LayoutState = StoreModule.Get(LayoutState())
 
-        layout_service.vector_editor_x_string_var = tk.StringVar()
-        layout_service.vector_editor_y_string_var = tk.StringVar()
+        layout_state.vector_editor_x_string_var = tk.StringVar()
+        layout_state.vector_editor_y_string_var = tk.StringVar()
 
-        layout_service.vector_editor_x_string_var.set(self.vector.components[0])
-        layout_service.vector_editor_y_string_var.set(self.vector.components[1])
+        layout_state.vector_editor_x_string_var.set(self.vector.components[0])
+        layout_state.vector_editor_y_string_var.set(self.vector.components[1])
         
         componentsLength = len(self.vector.components)
 
@@ -55,8 +55,8 @@ class VectorEditorDisplay(tk.Frame):
         label = tk.Label(
             header_frame,
             text='Vector Components:',
-            bg=theme_service.theme_current.footer_background_color,
-            fg=theme_service.theme_current.primary_foreground_color)
+            bg=theme_state.theme_current.footer_background_color,
+            fg=theme_state.theme_current.primary_foreground_color)
         label.pack()
         
         # Body content
@@ -64,25 +64,25 @@ class VectorEditorDisplay(tk.Frame):
             label = tk.Label(
                 body_frame,
                 text=f'{componentsLength} dimensions are not supported.',
-                bg=theme_service.theme_current.footer_background_color,
-                fg=theme_service.theme_current.primary_foreground_color)
+                bg=theme_state.theme_current.footer_background_color,
+                fg=theme_state.theme_current.primary_foreground_color)
             label.pack()
         else:
             x_label = tk.Label(
                 body_frame,
                 text='Ax*i',
-                bg=theme_service.theme_current.header_background_color,
-                fg=theme_service.theme_current.primary_foreground_color)
+                bg=theme_state.theme_current.header_background_color,
+                fg=theme_state.theme_current.primary_foreground_color)
             
-            x_entry = tk.Entry(body_frame, textvariable = layout_service.vector_editor_x_string_var)
+            x_entry = tk.Entry(body_frame, textvariable = layout_state.vector_editor_x_string_var)
             
             y_label = tk.Label(
                 body_frame,
                 text='Ay*j',
-                bg=theme_service.theme_current.header_background_color,
-                fg=theme_service.theme_current.primary_foreground_color)
+                bg=theme_state.theme_current.header_background_color,
+                fg=theme_state.theme_current.primary_foreground_color)
             
-            y_entry=tk.Entry(body_frame, textvariable = layout_service.vector_editor_y_string_var)
+            y_entry=tk.Entry(body_frame, textvariable = layout_state.vector_editor_y_string_var)
 
             x_label.grid(row=0,column=0)
             x_entry.grid(row=0,column=1)

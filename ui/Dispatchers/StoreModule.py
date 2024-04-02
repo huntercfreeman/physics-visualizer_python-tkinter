@@ -21,7 +21,7 @@ def fullname(o):
     """Goal of this function is to have a unique identifier for a type.
     https://stackoverflow.com/questions/2020014/get-fully-qualified-class-name-of-an-object-in-python"""
 
-    # I sometimes find usage of a module such as 'DialogServiceModule' will
+    # I sometimes find usage of a module such as 'DialogStateModule' will
     # have a different __module__ depending on how I access it(?)
     return o.__class__.__name__
 

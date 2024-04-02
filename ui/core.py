@@ -1,14 +1,14 @@
 import tkinter as tk
-from Layouts.LayoutServiceModule import LayoutService
+from Layouts.LayoutStateModule import LayoutState
 from Layouts.AppHeaderDisplayModule import AppHeaderDisplay
 from Layouts.AppBodyDisplayModule import AppBodyDisplay
 from Layouts.AppFooterDisplayModule import AppFooterDisplay
 from Dialogs.DialogInitializerDisplayModule import DialogInitializerDisplay
-from Themes.ThemeServiceModule import ThemeService
-from Dialogs.DialogServiceModule import DialogService
+from Themes.ThemeStateModule import ThemeState
+from Dialogs.DialogStateModule import DialogState
 from Dispatchers.DispatcherModule import Dispatcher
 from Dispatchers import StoreModule
-from Visualizations.VisualizationServiceModule import VisualizationService
+from Visualizations.VisualizationStateModule import VisualizationState
 
 def main():
 
@@ -18,14 +18,14 @@ def main():
     root = tk.Tk()
     style_root(root)
 
-    theme_service: ThemeService = StoreModule.Get(ThemeService())
+    theme_state: ThemeState = StoreModule.Get(ThemeState())
 
-    theme_service.state_changed.addListener(reload_ui)
+    theme_state.state_changed.addListener(reload_ui)
 
     render_ui(root)
     root.mainloop()
 
-    theme_service.state_changed.removeListener(reload_ui)
+    theme_state.state_changed.removeListener(reload_ui)
 
 def style_root(root: tk.Tk):
     # geometry variables
@@ -83,10 +83,10 @@ def destroy_ui():
     if app_footer_display != None: app_footer_display.destroy()
 
 def RegisterState():
-    StoreModule.Register(LayoutService())
-    StoreModule.Register(VisualizationService())
-    StoreModule.Register(ThemeService())
-    StoreModule.Register(DialogService())
+    StoreModule.Register(LayoutState())
+    StoreModule.Register(VisualizationState())
+    StoreModule.Register(ThemeState())
+    StoreModule.Register(DialogState())
 
 root: tk.Tk = None
 

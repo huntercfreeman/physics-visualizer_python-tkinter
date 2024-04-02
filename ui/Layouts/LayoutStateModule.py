@@ -1,7 +1,7 @@
 import tkinter as tk
 from Events.EventModelModule import EventModel
 
-class LayoutService:
+class LayoutState:
     def __init__(self):
         self.existing_root: tk.Tk = None
 

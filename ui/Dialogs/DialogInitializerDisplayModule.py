@@ -1,5 +1,5 @@
 import tkinter as tk
-from DialogServiceModule import DialogService
+from DialogStateModule import DialogState
 from DialogDisplayModule import DialogDisplay
 from Dispatchers import StoreModule
 
@@ -8,8 +8,8 @@ class DialogInitializerDisplay:
         self.root = root
         self.__dialog_display_list: list[DialogDisplay] = []
 
-        dialog_service: DialogService = StoreModule.Get(DialogService())
-        dialog_service.state_changed.addListener(self.Render)
+        dialog_state: DialogState = StoreModule.Get(DialogState())
+        dialog_state.state_changed.addListener(self.Render)
         
         # Force an initial render
         self.Render()
@@ -17,9 +17,9 @@ class DialogInitializerDisplay:
     def Render(self):
         self.destroy()
 
-        dialog_service: DialogService = StoreModule.Get(DialogService())
+        dialog_state: DialogState = StoreModule.Get(DialogState())
 
-        for value in dialog_service.dialog_map.values():
+        for value in dialog_state.dialog_map.values():
             self.__dialog_display_list.append(DialogDisplay(
                 self.root, value))
             
@@ -32,11 +32,11 @@ class DialogInitializerDisplay:
         """The usage of '__del__()' can have some quirks as described in this link:
         https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
         
-        dialog_service: DialogService = StoreModule.Get(DialogService())
+        dialog_state: DialogState = StoreModule.Get(DialogState())
 
-        local_dialog_service = dialog_service
+        local_dialog_state = dialog_state
 
-        if local_dialog_service != None:
-            if hasattr(local_dialog_service, 'state_changed'):
-                if hasattr(local_dialog_service.state_changed, 'removeListener'):
-                    local_dialog_service.state_changed.removeListener(self.Render)
+        if local_dialog_state != None:
+            if hasattr(local_dialog_state, 'state_changed'):
+                if hasattr(local_dialog_state.state_changed, 'removeListener'):
+                    local_dialog_state.state_changed.removeListener(self.Render)

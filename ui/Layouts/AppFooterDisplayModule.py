@@ -1,8 +1,8 @@
 import tkinter as tk
 from varname import nameof
-from LayoutServiceModule import LayoutService
-from Themes.ThemeServiceModule import ThemeService
-from Visualizations.VisualizationServiceModule import VisualizationService
+from LayoutStateModule import LayoutState
+from Themes.ThemeStateModule import ThemeState
+from Visualizations.VisualizationStateModule import VisualizationState
 from Visualizations.CoordinatesVisualizationModule import CoordinatesVisualization
 from Visualizations.CoordinatesEditorDisplayModule import CoordinatesEditorDisplay
 from Visualizations.CircleFormDisplayModule import CircleFormDisplay 
@@ -14,9 +14,9 @@ from Dispatchers import StoreModule
 class AppFooterDisplay(tk.Frame):
     def __init__(self, root: tk.Tk):
 
-        theme_service: ThemeService = StoreModule.Get(ThemeService())
+        theme_state: ThemeState = StoreModule.Get(ThemeState())
 
-        super().__init__(root, bg=theme_service.theme_current.footer_background_color)
+        super().__init__(root, bg=theme_state.theme_current.footer_background_color)
         self.place(relx=0, rely=0.88, relwidth=1, relheight=0.12)
         self.pack_propagate(tk.FALSE)
         
@@ -40,21 +40,21 @@ class AppFooterDisplay(tk.Frame):
 
         self.CreateTabFrame()
 
-        theme_service: ThemeService = StoreModule.Get(ThemeService())
+        theme_state: ThemeState = StoreModule.Get(ThemeState())
 
         def SubmitFormOnClick():
             try:
-                layout_service: LayoutService = StoreModule.Get(LayoutService())
+                layout_state: LayoutState = StoreModule.Get(LayoutState())
                 
-                component_x = int(layout_service.vector_editor_x_string_var.get())
-                component_y = int(layout_service.vector_editor_y_string_var.get())
+                component_x = int(layout_state.vector_editor_x_string_var.get())
+                component_y = int(layout_state.vector_editor_y_string_var.get())
 
-                coordinate_x = int(layout_service.coordinates_editor_x_string_var.get())
-                coordinate_y = int(layout_service.coordinates_editor_y_string_var.get())
+                coordinate_x = int(layout_state.coordinates_editor_x_string_var.get())
+                coordinate_y = int(layout_state.coordinates_editor_y_string_var.get())
 
-                visualization_service: VisualizationService = StoreModule.Get(VisualizationService())
+                visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
 
-                visualization_service.AddVector(
+                visualization_state.AddVector(
                     VectorModel([component_x, component_y]),
                     CoordinatesVisualization([coordinate_x, coordinate_y]))
             except ValueError:
@@ -63,8 +63,8 @@ class AppFooterDisplay(tk.Frame):
         self.button = tk.Button(
             self,
             text="New Vector",
-            bg=theme_service.theme_current.button_background_color,
-            fg=theme_service.theme_current.button_foreground_color,
+            bg=theme_state.theme_current.button_background_color,
+            fg=theme_state.theme_current.button_foreground_color,
             command=SubmitFormOnClick)
         self.button.pack(side="left")
 
@@ -86,16 +86,16 @@ class AppFooterDisplay(tk.Frame):
         self.tab_frame = tk.Frame(self)
         self.tab_list: list[str] = (nameof(self.vector_editor_display), nameof(self.circle_form_display))
 
-        theme_service: ThemeService = StoreModule.Get(ThemeService())
+        theme_state: ThemeState = StoreModule.Get(ThemeState())
 
         for tab in self.tab_list:
             is_active = tab == self.tab_active
 
-            bg = theme_service.theme_current.button_background_color
-            if is_active: bg = theme_service.theme_current.button_active_background_color
+            bg = theme_state.theme_current.button_background_color
+            if is_active: bg = theme_state.theme_current.button_active_background_color
 
-            fg = theme_service.theme_current.button_foreground_color
-            if is_active: fg = theme_service.theme_current.button_active_foreground_color
+            fg = theme_state.theme_current.button_foreground_color
+            if is_active: fg = theme_state.theme_current.button_active_foreground_color
             
             button = tk.Button(
                 self.tab_frame,

@@ -3,7 +3,7 @@ from VectorVisualizationModule import VectorVisualization
 from Vectors.VectorModelModule import VectorModel
 from CoordinatesVisualizationModule import CoordinatesVisualization
 
-class VisualizationService:
+class VisualizationState:
     def __init__(self):
         self.vector_visualization_list: list[VectorVisualization] = []
         self.state_changed: EventModel = EventModel()
