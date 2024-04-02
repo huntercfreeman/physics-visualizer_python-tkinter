@@ -48,5 +48,5 @@ class ThemeState():
 
     def SetTheme(self, theme: ThemeModel):
         self.theme_current = theme
-        self.state_changed.trigger(theme)
+        self.state_changed.trigger({"theme":theme})
         

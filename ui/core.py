@@ -20,7 +20,7 @@ def main():
 
     theme_state: ThemeState = StoreModule.Get(ThemeState())
 
-    theme_state.state_changed.addListener(reload_ui)
+    theme_state.state_changed.addListener(OnThemeState_StateChanged)
 
     render_ui(root)
     root.mainloop()
@@ -87,6 +87,9 @@ def RegisterState():
     StoreModule.Register(VisualizationState())
     StoreModule.Register(ThemeState())
     StoreModule.Register(DialogState())
+
+def OnThemeState_StateChanged(*args):
+    reload_ui()
 
 root: tk.Tk = None
 

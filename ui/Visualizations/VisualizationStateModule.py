@@ -18,4 +18,7 @@ class VisualizationState:
         vector_visualization = VectorVisualization(vector, coordinates)
         self.vector_visualization_list.append(vector_visualization)
 
-        self.state_changed.trigger(vector_visualization)
+        self.state_changed.trigger({"vector_visualization":vector_visualization})
+
+    def SetVectorEditorTarget(self, vector: VectorModel | None):
+        self.state_changed.trigger({"vector":vector})

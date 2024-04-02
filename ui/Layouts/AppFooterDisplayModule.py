@@ -29,6 +29,10 @@ class AppFooterDisplay(tk.Frame):
 
         self.tab_active = nameof(self.vector_editor_display)
 
+        visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
+        visualization_state.state_changed.addListener(
+            self.OnVisualizationState_StateChanged)
+
         self.Render()
         
     def Render(self):
@@ -133,3 +137,22 @@ class AppFooterDisplay(tk.Frame):
         if self.circle_form_display != None:
             self.circle_form_display.destroy()
             self.circle_form_display = None
+
+    def OnVisualizationState_StateChanged(self, *args):
+        if "vector_model" in args:
+            vector_model = args["vector_model"]
+            if isinstance(vector_model, VectorModel):
+                self.Render()
+
+    def __del__(self):
+        """The usage of '__del__()' can have some quirks as described in this link:
+        https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
+        
+        visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
+
+        local_visualization_state = visualization_state
+
+        if local_visualization_state != None:
+            if hasattr(local_visualization_state, 'state_changed'):
+                if hasattr(local_visualization_state.state_changed, 'removeListener'):
+                    local_visualization_state.state_changed.removeListener(self.OnVisualizationState_StateChanged)

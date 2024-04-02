@@ -9,7 +9,7 @@ class DialogInitializerDisplay:
         self.__dialog_display_list: list[DialogDisplay] = []
 
         dialog_state: DialogState = StoreModule.Get(DialogState())
-        dialog_state.state_changed.addListener(self.Render)
+        dialog_state.state_changed.addListener(self.OnDialogState_StateChanged)
         
         # Force an initial render
         self.Render()
@@ -28,6 +28,9 @@ class DialogInitializerDisplay:
             dialog_display.destroy()
             self.__dialog_display_list.remove(dialog_display)
 
+    def OnDialogState_StateChanged(self, *args):
+        self.Render()
+
     def __del__(self):
         """The usage of '__del__()' can have some quirks as described in this link:
         https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
@@ -39,4 +42,4 @@ class DialogInitializerDisplay:
         if local_dialog_state != None:
             if hasattr(local_dialog_state, 'state_changed'):
                 if hasattr(local_dialog_state.state_changed, 'removeListener'):
-                    local_dialog_state.state_changed.removeListener(self.Render)
+                    local_dialog_state.state_changed.removeListener(self.OnDialogState_StateChanged)

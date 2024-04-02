@@ -20,5 +20,5 @@ class EventModel():
         # Run all the functions that are saved.
         if args is None:
             args = []
-        for func in self.__listeners: func() #func(*args)
+        for func in self.__listeners: func(*args)
 

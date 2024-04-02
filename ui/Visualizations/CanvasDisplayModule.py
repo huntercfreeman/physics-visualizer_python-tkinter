@@ -23,7 +23,7 @@ class CanvasDisplay(tk.Canvas):
 
         visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
         
-        visualization_state.state_changed.addListener(self.Render)
+        visualization_state.state_changed.addListener(self.OnVisualizationState_StateChanged)
 
         # Force initial rendering of the vectors
         self.Render()
@@ -177,6 +177,9 @@ class CanvasDisplay(tk.Canvas):
             width=2,
             tags=self.canvas_tags_vector)
         
+    def OnVisualizationState_StateChanged(self, *args):
+        self.Render()
+        
     def __del__(self):
         """The usage of '__del__()' can have some quirks as described in this link:
         https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
@@ -188,6 +191,6 @@ class CanvasDisplay(tk.Canvas):
         if local_visualization_state != None:
             if hasattr(local_visualization_state, 'state_changed'):
                 if hasattr(local_visualization_state.state_changed, 'removeListener'):
-                    local_visualization_state.state_changed.removeListener(self.Render)
+                    local_visualization_state.state_changed.removeListener(self.OnVisualizationState_StateChanged)
 
         self.destroy()
