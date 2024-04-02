@@ -139,9 +139,8 @@ class AppFooterDisplay(tk.Frame):
             self.circle_form_display = None
 
     def OnVisualizationState_StateChanged(self, *args):
-        if "vector_model" in args:
-            vector_model = args["vector_model"]
-            if isinstance(vector_model, VectorModel):
+        if len(args) > 0:
+            if isinstance(args[0], VectorModel):
                 self.Render()
 
     def __del__(self):

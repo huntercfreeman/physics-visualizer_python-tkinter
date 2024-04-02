@@ -1,5 +1,7 @@
 import tkinter as tk
 from VisualizationStateModule import VisualizationState
+from VectorVisualizationModule import VectorVisualization
+from Vectors.VectorModelModule import VectorModel
 from Themes.ThemeStateModule import ThemeState
 from Dispatchers import StoreModule
 
@@ -39,8 +41,8 @@ class ToolbarDisplay(tk.Frame):
         theme_state: ThemeState = StoreModule.Get(ThemeState())
 
         for i,vector_visualization in enumerate(visualization_state.vector_visualization_list):
-            def SetVectorEditorTargetOnClick(vector_visualization):
-                visualization_state.vector_editor_target
+            def SetVectorEditorTargetOnClick(vector_visualization: VectorVisualization):
+                visualization_state.SetVectorEditorTarget(VectorModel(vector_visualization.components))
 
             label = tk.Label(
                 self,
