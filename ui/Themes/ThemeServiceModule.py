@@ -49,5 +49,4 @@ class ThemeService():
     def SetTheme(self, theme: ThemeModel):
         self.theme_current = theme
         self.state_changed.trigger(theme)
-
-theme_service: ThemeService = ThemeService()
+        

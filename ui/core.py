@@ -1,22 +1,24 @@
 import tkinter as tk
-from Layouts import LayoutServiceModule
+from Layouts.LayoutServiceModule import LayoutService
 from Layouts.AppHeaderDisplayModule import AppHeaderDisplay
 from Layouts.AppBodyDisplayModule import AppBodyDisplay
 from Layouts.AppFooterDisplayModule import AppFooterDisplay
 from Dialogs.DialogInitializerDisplayModule import DialogInitializerDisplay
-from Themes.ThemeServiceModule import theme_service
+from Themes.ThemeServiceModule import ThemeService
+from Dialogs.DialogServiceModule import DialogService
 from Dispatchers.DispatcherModule import Dispatcher
 from Dispatchers import StoreModule
+from Visualizations.VisualizationServiceModule import VisualizationService
 
 def main():
 
-    StoreModule.Register(
-        StoreModule.fullname(LayoutServiceModule),
-        LayoutServiceModule.LayoutService())
+    RegisterState()
 
     global root
     root = tk.Tk()
     style_root(root)
+
+    theme_service: ThemeService = StoreModule.Get(ThemeService())
 
     theme_service.state_changed.addListener(reload_ui)
 
@@ -79,6 +81,12 @@ def destroy_ui():
     if app_header_display != None: app_header_display.destroy()
     if app_body_display != None: app_body_display.destroy()
     if app_footer_display != None: app_footer_display.destroy()
+
+def RegisterState():
+    StoreModule.Register(LayoutService())
+    StoreModule.Register(VisualizationService())
+    StoreModule.Register(ThemeService())
+    StoreModule.Register(DialogService())
 
 root: tk.Tk = None
 

@@ -1,10 +1,14 @@
 import tkinter as tk
-from VisualizationServiceModule import visualization_service
+from VisualizationServiceModule import VisualizationService
 from VectorVisualizationModule import VectorVisualization
-from Themes.ThemeServiceModule import theme_service
+from Themes.ThemeServiceModule import ThemeService
+from Dispatchers import StoreModule
 
 class CanvasDisplay(tk.Canvas):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
+
+        theme_service: ThemeService = StoreModule.Get(ThemeService())
+
         super().__init__(
             parent,
             bg=theme_service.theme_current.primary_background_color,
@@ -17,6 +21,8 @@ class CanvasDisplay(tk.Canvas):
         self.update()
         self.InitializeCoordinateSystem()
 
+        visualization_service: VisualizationService = StoreModule.Get(VisualizationService())
+        
         visualization_service.state_changed.addListener(self.Render)
 
         # Force initial rendering of the vectors
@@ -33,6 +39,8 @@ class CanvasDisplay(tk.Canvas):
         width_midpoint = canvas_width / 2.0
         height_midpoint = canvas_height / 2.0
         
+        theme_service: ThemeService = StoreModule.Get(ThemeService())
+
         def InitializeAxisX():
             # Create the axis itself
             self.create_line(
@@ -141,6 +149,9 @@ class CanvasDisplay(tk.Canvas):
 
     def Render(self):
         self.delete(self.canvas_tags_vector)
+
+        visualization_service: VisualizationService = StoreModule.Get(VisualizationService())
+        
         for vector_visualization in visualization_service.vector_visualization_list:
             self.DrawVectorVisualization(vector_visualization)
 
@@ -153,6 +164,8 @@ class CanvasDisplay(tk.Canvas):
 
         initial_x = canvas_width_halfway + vector_visualization.coordinates[0]
         initial_y = canvas_height_halfway - vector_visualization.coordinates[1]
+
+        theme_service: ThemeService = StoreModule.Get(ThemeService())
 
         self.create_line(
             initial_x,
@@ -168,6 +181,8 @@ class CanvasDisplay(tk.Canvas):
         """The usage of '__del__()' can have some quirks as described in this link:
         https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
 
+        visualization_service: VisualizationService = StoreModule.Get(VisualizationService())
+        
         local_visualization_service = visualization_service
 
         if local_visualization_service != None:

@@ -1,10 +1,14 @@
 import tkinter as tk
 from CanvasDisplayModule import CanvasDisplay
 from ToolbarDisplayModule import ToolbarDisplay
-from Themes.ThemeServiceModule import theme_service
+from Themes.ThemeServiceModule import ThemeService
+from Dispatchers import StoreModule
 
 class MainDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
+
+        theme_service: ThemeService = StoreModule.Get(ThemeService())
+
         super().__init__(
             parent,
             bg=theme_service.theme_current.primary_background_color,

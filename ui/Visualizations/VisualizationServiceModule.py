@@ -16,5 +16,3 @@ class VisualizationService:
         self.vector_visualization_list.append(vector_visualization)
 
         self.state_changed.trigger(vector_visualization)
-
-visualization_service: VisualizationService = VisualizationService()

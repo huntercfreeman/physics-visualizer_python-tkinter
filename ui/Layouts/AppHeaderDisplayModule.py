@@ -1,14 +1,20 @@
 import tkinter as tk
-from Themes.ThemeServiceModule import theme_service
-from Dialogs.DialogServiceModule import dialog_service
+from Themes.ThemeServiceModule import ThemeService
+from Dialogs.DialogServiceModule import DialogService
+from Dispatchers import StoreModule
 
 class AppHeaderDisplay(tk.Frame):
     """Render the 'header' aka: 'navigation bar', or 'toolbar'."""
     def __init__(self, root: tk.Tk):
+
+        theme_service: ThemeService = StoreModule.Get(ThemeService())
+
         super().__init__(root, bg=theme_service.theme_current.header_background_color)
         self.place(relx=0, rely=0, relwidth=1, relheight=0.08)
         self.pack_propagate(tk.FALSE)
         
+        dialog_service: DialogService = StoreModule.Get(DialogService())
+
         def show_settings_dialog():
             dialog_service.register_dialog("Settings")
 

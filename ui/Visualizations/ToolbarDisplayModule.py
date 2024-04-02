@@ -1,9 +1,13 @@
 import tkinter as tk
-from VisualizationServiceModule import visualization_service
-from Themes.ThemeServiceModule import theme_service
+from VisualizationServiceModule import VisualizationService
+from Themes.ThemeServiceModule import ThemeService
+from Dispatchers import StoreModule
 
 class ToolbarDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk):
+
+        theme_service: ThemeService = StoreModule.Get(ThemeService())
+
         super().__init__(
             parent,
             bg=theme_service.theme_current.visualization_toolbar_background_color,
@@ -21,6 +25,7 @@ class ToolbarDisplay(tk.Frame):
             font=("Monospace 20 underline"))
         label.pack()
 
+        visualization_service: VisualizationService = StoreModule.Get(VisualizationService())
         visualization_service.state_changed.addListener(self.Render)
 
         # Force initial rendering of the vectors
@@ -29,6 +34,9 @@ class ToolbarDisplay(tk.Frame):
     def Render(self):
         for label in self.vector_visualization_label_list:
             label.destroy()
+
+        visualization_service: VisualizationService = StoreModule.Get(VisualizationService())
+        theme_service: ThemeService = StoreModule.Get(ThemeService())
 
         for vector_visualization in visualization_service.vector_visualization_list:
             label = tk.Label(
@@ -49,6 +57,7 @@ class ToolbarDisplay(tk.Frame):
         """The usage of '__del__()' can have some quirks as described in this link:
         https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
 
+        visualization_service: VisualizationService = StoreModule.Get(VisualizationService())
         local_visualization_service = visualization_service
 
         if local_visualization_service != None:

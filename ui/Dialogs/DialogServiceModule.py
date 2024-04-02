@@ -21,5 +21,3 @@ class DialogService:
 
     def DestroyDialogModule(self):
         pass
-
-dialog_service: DialogService = DialogService()

@@ -1,7 +1,7 @@
 import tkinter as tk
 from CoordinatesVisualizationModule import CoordinatesVisualization
-from Themes.ThemeServiceModule import theme_service
-from Layouts import LayoutServiceModule
+from Themes.ThemeServiceModule import ThemeService
+from Layouts.LayoutServiceModule import LayoutService
 from Dispatchers import StoreModule
 
 class CoordinatesEditorDisplay(tk.Frame):
@@ -28,11 +28,14 @@ class CoordinatesEditorDisplay(tk.Frame):
                     -To update, one can either overwrite the existing coordinates object
                         or construct a new coordinates object.
         """
+
+        theme_service: ThemeService = StoreModule.Get(ThemeService())
+
         super().__init__(parent, bg=theme_service.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
         self.coordinates = coordinates
 
-        layout_service: LayoutServiceModule.LayoutService = StoreModule.Get(StoreModule.fullname(LayoutServiceModule))
+        layout_service: LayoutService = StoreModule.Get(LayoutService())
 
         layout_service.coordinates_editor_x_string_var = tk.StringVar()
         layout_service.coordinates_editor_y_string_var = tk.StringVar()

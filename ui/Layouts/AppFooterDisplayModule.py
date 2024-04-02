@@ -1,8 +1,8 @@
 import tkinter as tk
 from varname import nameof
-import LayoutServiceModule
-from Themes.ThemeServiceModule import theme_service
-from Visualizations.VisualizationServiceModule import visualization_service
+from LayoutServiceModule import LayoutService
+from Themes.ThemeServiceModule import ThemeService
+from Visualizations.VisualizationServiceModule import VisualizationService
 from Visualizations.CoordinatesVisualizationModule import CoordinatesVisualization
 from Visualizations.CoordinatesEditorDisplayModule import CoordinatesEditorDisplay
 from Visualizations.CircleFormDisplayModule import CircleFormDisplay 
@@ -13,6 +13,9 @@ from Dispatchers import StoreModule
 
 class AppFooterDisplay(tk.Frame):
     def __init__(self, root: tk.Tk):
+
+        theme_service: ThemeService = StoreModule.Get(ThemeService())
+
         super().__init__(root, bg=theme_service.theme_current.footer_background_color)
         self.place(relx=0, rely=0.88, relwidth=1, relheight=0.12)
         self.pack_propagate(tk.FALSE)
@@ -37,15 +40,19 @@ class AppFooterDisplay(tk.Frame):
 
         self.CreateTabFrame()
 
+        theme_service: ThemeService = StoreModule.Get(ThemeService())
+
         def SubmitFormOnClick():
             try:
-                layout_service: LayoutServiceModule.LayoutService = StoreModule.Get(StoreModule.fullname(LayoutServiceModule))
-
+                layout_service: LayoutService = StoreModule.Get(LayoutService())
+                
                 component_x = int(layout_service.vector_editor_x_string_var.get())
                 component_y = int(layout_service.vector_editor_y_string_var.get())
 
                 coordinate_x = int(layout_service.coordinates_editor_x_string_var.get())
                 coordinate_y = int(layout_service.coordinates_editor_y_string_var.get())
+
+                visualization_service: VisualizationService = StoreModule.Get(VisualizationService())
 
                 visualization_service.AddVector(
                     VectorModel([component_x, component_y]),
@@ -78,6 +85,8 @@ class AppFooterDisplay(tk.Frame):
 
         self.tab_frame = tk.Frame(self)
         self.tab_list: list[str] = (nameof(self.vector_editor_display), nameof(self.circle_form_display))
+
+        theme_service: ThemeService = StoreModule.Get(ThemeService())
 
         for tab in self.tab_list:
             is_active = tab == self.tab_active

@@ -1,7 +1,7 @@
 import tkinter as tk
 from VectorModelModule import VectorModel
-from Themes.ThemeServiceModule import theme_service
-from Layouts import LayoutServiceModule
+from Themes.ThemeServiceModule import ThemeService
+from Layouts.LayoutServiceModule import LayoutService
 from Dispatchers import StoreModule
 
 class VectorEditorDisplay(tk.Frame):
@@ -28,11 +28,14 @@ class VectorEditorDisplay(tk.Frame):
                     -To update, one can either overwrite the existing vector object
                         or construct a new vector object.
         """
+
+        theme_service: ThemeService = StoreModule.Get(ThemeService())
+
         super().__init__(parent, bg=theme_service.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
         self.vector = vector
 
-        layout_service: LayoutServiceModule.LayoutService = StoreModule.Get(StoreModule.fullname(LayoutServiceModule))
+        layout_service: LayoutService = StoreModule.Get(LayoutService())
 
         layout_service.vector_editor_x_string_var = tk.StringVar()
         layout_service.vector_editor_y_string_var = tk.StringVar()
