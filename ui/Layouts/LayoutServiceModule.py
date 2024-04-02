@@ -12,5 +12,3 @@ class LayoutService:
         self.coordinates_editor_y_string_var: tk.StringVar = None
 
         self.state_changed: EventModel = EventModel()
-
-layout_service: LayoutService = LayoutService()

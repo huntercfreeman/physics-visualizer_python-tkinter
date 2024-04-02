@@ -1,6 +1,6 @@
 import tkinter as tk
 from varname import nameof
-from LayoutServiceModule import layout_service
+import LayoutServiceModule
 from Themes.ThemeServiceModule import theme_service
 from Visualizations.VisualizationServiceModule import visualization_service
 from Visualizations.CoordinatesVisualizationModule import CoordinatesVisualization
@@ -9,6 +9,7 @@ from Visualizations.CircleFormDisplayModule import CircleFormDisplay
 from Vectors.VectorEditorDisplayModule import VectorEditorDisplay
 from Vectors.VectorModelModule import VectorModel
 from PanelModelModule import PanelModel
+from Dispatchers import StoreModule
 
 class AppFooterDisplay(tk.Frame):
     def __init__(self, root: tk.Tk):
@@ -38,6 +39,8 @@ class AppFooterDisplay(tk.Frame):
 
         def SubmitFormOnClick():
             try:
+                layout_service: LayoutServiceModule.LayoutService = StoreModule.Get(StoreModule.fullname(LayoutServiceModule))
+
                 component_x = int(layout_service.vector_editor_x_string_var.get())
                 component_y = int(layout_service.vector_editor_y_string_var.get())
 

@@ -1,11 +1,19 @@
 import tkinter as tk
+from Layouts import LayoutServiceModule
 from Layouts.AppHeaderDisplayModule import AppHeaderDisplay
 from Layouts.AppBodyDisplayModule import AppBodyDisplay
 from Layouts.AppFooterDisplayModule import AppFooterDisplay
 from Dialogs.DialogInitializerDisplayModule import DialogInitializerDisplay
 from Themes.ThemeServiceModule import theme_service
+from Dispatchers.DispatcherModule import Dispatcher
+from Dispatchers import StoreModule
 
 def main():
+
+    StoreModule.Register(
+        StoreModule.fullname(LayoutServiceModule),
+        LayoutServiceModule.LayoutService())
+
     global root
     root = tk.Tk()
     style_root(root)

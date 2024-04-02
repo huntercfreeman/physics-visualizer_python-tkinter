@@ -1,7 +1,8 @@
 import tkinter as tk
 from VectorModelModule import VectorModel
 from Themes.ThemeServiceModule import theme_service
-from Layouts.LayoutServiceModule import layout_service
+from Layouts import LayoutServiceModule
+from Dispatchers import StoreModule
 
 class VectorEditorDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk, vector: VectorModel | None):
@@ -30,6 +31,8 @@ class VectorEditorDisplay(tk.Frame):
         super().__init__(parent, bg=theme_service.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
         self.vector = vector
+
+        layout_service: LayoutServiceModule.LayoutService = StoreModule.Get(StoreModule.fullname(LayoutServiceModule))
 
         layout_service.vector_editor_x_string_var = tk.StringVar()
         layout_service.vector_editor_y_string_var = tk.StringVar()

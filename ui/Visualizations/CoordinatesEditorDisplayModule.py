@@ -1,7 +1,8 @@
 import tkinter as tk
 from CoordinatesVisualizationModule import CoordinatesVisualization
 from Themes.ThemeServiceModule import theme_service
-from Layouts.LayoutServiceModule import layout_service
+from Layouts import LayoutServiceModule
+from Dispatchers import StoreModule
 
 class CoordinatesEditorDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk, coordinates: CoordinatesVisualization | None):
@@ -30,6 +31,8 @@ class CoordinatesEditorDisplay(tk.Frame):
         super().__init__(parent, bg=theme_service.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
         self.coordinates = coordinates
+
+        layout_service: LayoutServiceModule.LayoutService = StoreModule.Get(StoreModule.fullname(LayoutServiceModule))
 
         layout_service.coordinates_editor_x_string_var = tk.StringVar()
         layout_service.coordinates_editor_y_string_var = tk.StringVar()
