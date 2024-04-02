@@ -21,4 +21,5 @@ class VisualizationState:
         self.state_changed.trigger({"vector_visualization":vector_visualization})
 
     def SetVectorEditorTarget(self, vector: VectorModel | None):
+        self.vector_editor_target = vector
         self.state_changed.trigger([vector])
