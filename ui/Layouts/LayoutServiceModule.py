@@ -1,5 +1,5 @@
 import tkinter as tk
-import Events
+from Events.EventModelModule import EventModel
 
 class LayoutService:
     def __init__(self):
@@ -11,7 +11,7 @@ class LayoutService:
         self.coordinates_editor_x_string_var: tk.StringVar = None
         self.coordinates_editor_y_string_var: tk.StringVar = None
 
-        self.state_changed: Events.EventModelModule.EventModel = Events.EventModelModule.EventModel()
+        self.state_changed: EventModel = EventModel()
 
 def InjectLayoutService(injectedLayoutService: LayoutService):
     global layout_service

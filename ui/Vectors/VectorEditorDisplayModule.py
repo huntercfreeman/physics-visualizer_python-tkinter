@@ -1,19 +1,41 @@
 import tkinter as tk
-import VectorModelModule
-import Themes
-import Layouts
+from VectorModelModule import VectorModel
+from Themes import theme_service
+from Layouts import layout_service
 
 class VectorEditorDisplay(tk.Frame):
-    def __init__(self, parent: tk.Tk, vector: VectorModelModule.VectorModel):
-        super().__init__(parent, bg=Themes.theme_service.theme_current.footer_background_color)
+    def __init__(self, parent: tk.Tk, vector: VectorModel | None):
+        """
+        Constructor takes an existing vector object, or 'None'.
+        
+        If provided an existing vector object, then map the vector's attributes
+        to the corresponding editor's attributes. The form is populated with the provided
+        vector's attributes, however, the provided vector is treated as immutable.
+
+        If provided 'None', then the editor's attributes are set to their type's default value.
+
+        No submit button is provided, one must make their own.
+
+        Completion of the form is expected to be done in the following way:
+            -Read the attributes on the editor class.
+            -Pass these attributes to the vector object constructor.
+            -The user of this form can check the 'self.vector' attribute on this class
+                to determine whether an update, or creation is being performed.
+                -If 'self.vector' is 'None', then a creation is being performed
+                -If 'self.vector' has a vector object instance, then an update is
+                    being performed.
+                    -To update, one can either overwrite the existing vector object
+                        or construct a new vector object.
+        """
+        super().__init__(parent, bg=theme_service.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
         self.vector = vector
 
-        Layouts.layout_service.vector_editor_x_string_var = tk.StringVar()
-        Layouts.layout_service.vector_editor_y_string_var = tk.StringVar()
+        layout_service.vector_editor_x_string_var = tk.StringVar()
+        layout_service.vector_editor_y_string_var = tk.StringVar()
 
-        Layouts.layout_service.vector_editor_x_string_var.set(self.vector.components[0])
-        Layouts.layout_service.vector_editor_y_string_var.set(self.vector.components[1])
+        layout_service.vector_editor_x_string_var.set(self.vector.components[0])
+        layout_service.vector_editor_y_string_var.set(self.vector.components[1])
         
         componentsLength = len(self.vector.components)
 
@@ -27,8 +49,8 @@ class VectorEditorDisplay(tk.Frame):
         label = tk.Label(
             header_frame,
             text='Vector Components:',
-            bg=Themes.theme_service.theme_current.footer_background_color,
-            fg=Themes.theme_service.theme_current.primary_foreground_color)
+            bg=theme_service.theme_current.footer_background_color,
+            fg=theme_service.theme_current.primary_foreground_color)
         label.pack()
         
         # Body content
@@ -36,25 +58,25 @@ class VectorEditorDisplay(tk.Frame):
             label = tk.Label(
                 body_frame,
                 text=f'{componentsLength} dimensions are not supported.',
-                bg=Themes.theme_service.theme_current.footer_background_color,
-                fg=Themes.theme_service.theme_current.primary_foreground_color)
+                bg=theme_service.theme_current.footer_background_color,
+                fg=theme_service.theme_current.primary_foreground_color)
             label.pack()
         else:
             x_label = tk.Label(
                 body_frame,
                 text='Ax*i',
-                bg=Themes.theme_service.theme_current.header_background_color,
-                fg=Themes.theme_service.theme_current.primary_foreground_color)
+                bg=theme_service.theme_current.header_background_color,
+                fg=theme_service.theme_current.primary_foreground_color)
             
-            x_entry = tk.Entry(body_frame, textvariable = Layouts.layout_service.vector_editor_x_string_var)
+            x_entry = tk.Entry(body_frame, textvariable = layout_service.vector_editor_x_string_var)
             
             y_label = tk.Label(
                 body_frame,
                 text='Ay*j',
-                bg=Themes.theme_service.theme_current.header_background_color,
-                fg=Themes.theme_service.theme_current.primary_foreground_color)
+                bg=theme_service.theme_current.header_background_color,
+                fg=theme_service.theme_current.primary_foreground_color)
             
-            y_entry=tk.Entry(body_frame, textvariable = Layouts.layout_service.vector_editor_y_string_var)
+            y_entry=tk.Entry(body_frame, textvariable = layout_service.vector_editor_y_string_var)
 
             x_label.grid(row=0,column=0)
             x_entry.grid(row=0,column=1)

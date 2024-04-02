@@ -1,12 +1,12 @@
-import ThemeModelModule
-import Events
+from ThemeModelModule import ThemeModel
+from Events.EventModelModule import EventModel
 
 class ThemeService():
     def __init__(self) -> None:
-        self.state_changed: Events.EventModelModule.EventModel = Events.EventModelModule.EventModel()
+        self.state_changed: EventModel = EventModel()
 
         self.theme_list = [
-            ThemeModelModule.ThemeModel(
+            ThemeModel(
                 display_name='dark',
                 primary_background_color='#1e1e1e',
                 primary_foreground_color='#dcdcdc',
@@ -24,7 +24,7 @@ class ThemeService():
                 button_active_background_color='#753282',
                 button_active_foreground_color='#d2d2d2',
                 danger_background_color='#b35252'),
-            ThemeModelModule.ThemeModel(
+            ThemeModel(
                 display_name='light',
                 primary_background_color='#fdfdfd',
                 primary_foreground_color='black',
@@ -46,7 +46,7 @@ class ThemeService():
 
         self.theme_current = self.theme_list[0]
 
-    def SetTheme(self, theme: ThemeModelModule.ThemeModel):
+    def SetTheme(self, theme: ThemeModel):
         self.theme_current = theme
         self.state_changed.trigger(theme)
 

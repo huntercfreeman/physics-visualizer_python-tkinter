@@ -1,5 +1,5 @@
 import tkinter as tk
-import LayoutServiceModule
+from LayoutServiceModule import LayoutService
 import Themes
 import Visualizations
 import HorizontalRules
@@ -16,8 +16,8 @@ class AppBodyDisplay(tk.Frame):
 
         HorizontalRules.HorizontalRuleDisplayModule.HorizontalRuleDisplay(self, anchor='s')
 
-def InjectLayoutService(injectedLayoutService: LayoutServiceModule.LayoutService):
+def InjectLayoutService(injectedLayoutService: LayoutService):
     global layout_service
     layout_service = injectedLayoutService
 
-layout_service: LayoutServiceModule.LayoutService = None
+layout_service: LayoutService = None

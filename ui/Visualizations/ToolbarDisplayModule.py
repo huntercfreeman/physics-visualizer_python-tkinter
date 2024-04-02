@@ -1,13 +1,12 @@
 import tkinter as tk
-import VisualizationServiceModule
-import VectorVisualizationModule
-import Themes
+from VisualizationServiceModule import VisualizationService
+from Themes import theme_service
 
 class ToolbarDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk):
         super().__init__(
             parent,
-            bg=Themes.theme_service.theme_current.visualization_toolbar_background_color,
+            bg=theme_service.theme_current.visualization_toolbar_background_color,
             width="300")
         self.place(relx=0, rely=0, relwidth=0.15, relheight=1)
         self.pack_propagate(tk.FALSE)
@@ -17,8 +16,8 @@ class ToolbarDisplay(tk.Frame):
         label = tk.Label(
             self,
             text='Vectors:',
-            bg=Themes.theme_service.theme_current.visualization_toolbar_background_color,
-            fg=Themes.theme_service.theme_current.visualization_toolbar_foreground_color,
+            bg=theme_service.theme_current.visualization_toolbar_background_color,
+            fg=theme_service.theme_current.visualization_toolbar_foreground_color,
             font=("Monospace 20 underline"))
         label.pack()
 
@@ -40,8 +39,8 @@ class ToolbarDisplay(tk.Frame):
                      f'{vector_visualization.components[1]}j,'
                      f'{vector_visualization.coordinates[0]}x,'
                      f'{vector_visualization.coordinates[1]}y,',
-                bg=Themes.theme_service.theme_current.visualization_toolbar_background_color,
-                fg=Themes.theme_service.theme_current.visualization_toolbar_foreground_color,
+                bg=theme_service.theme_current.visualization_toolbar_background_color,
+                fg=theme_service.theme_current.visualization_toolbar_foreground_color,
                 font=("Monospace", 18))
             label.pack()
             self.vector_visualization_label_list.append(label)
@@ -59,8 +58,8 @@ class ToolbarDisplay(tk.Frame):
 
         self.destroy()
 
-def InjectVisualizationService(injectedVisualizationService: VisualizationServiceModule.VisualizationService):
+def InjectVisualizationService(injectedVisualizationService: VisualizationService):
     global visualization_service
     visualization_service = injectedVisualizationService
 
-visualization_service: VisualizationServiceModule.VisualizationService = None
+visualization_service: VisualizationService = None

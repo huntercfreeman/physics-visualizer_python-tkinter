@@ -1,11 +1,33 @@
 import tkinter as tk
 import VisualizationServiceModule
-import CoordinatesVisualizationModule
+from CoordinatesVisualizationModule import CoordinatesVisualization
 import Themes
 import Layouts
 
 class CoordinatesEditorDisplay(tk.Frame):
-    def __init__(self, parent: tk.Tk, coordinates: CoordinatesVisualizationModule.CoordinatesVisualization):
+    def __init__(self, parent: tk.Tk, coordinates: CoordinatesVisualization | None):
+        """
+        Constructor takes an existing coordinates object, or 'None'.
+        
+        If provided an existing coordinates object, then map the coordinate's attributes
+        to the corresponding editor's attributes. The form is populated with the provided
+        coordinates object's attributes, however, the provided coordinates object is treated as immutable.
+
+        If provided 'None', then the editor's attributes are set to their type's default value.
+
+        No submit button is provided, one must make their own.
+
+        Completion of the form is expected to be done in the following way:
+            -Read the attributes on the editor class.
+            -Pass these attributes to the coordinates object constructor.
+            -The user of this form can check the 'self.coordinates' attribute on this class
+                to determine whether an update, or creation is being performed.
+                -If 'self.coordinates' is 'None', then a creation is being performed
+                -If 'self.coordinates' has a coordinates object instance, then an update is
+                    being performed.
+                    -To update, one can either overwrite the existing coordinates object
+                        or construct a new coordinates object.
+        """
         super().__init__(parent, bg=Themes.theme_service.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
         self.coordinates = coordinates

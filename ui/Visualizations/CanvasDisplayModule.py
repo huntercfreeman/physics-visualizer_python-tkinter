@@ -1,13 +1,13 @@
 import tkinter as tk
-import VisualizationServiceModule
-import VectorVisualizationModule
-import Themes
+from VisualizationServiceModule import VisualizationService
+from VectorVisualizationModule import VectorVisualization
+from Themes import theme_service
 
 class CanvasDisplay(tk.Canvas):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
         super().__init__(
             parent,
-            bg=Themes.theme_service.theme_current.primary_background_color,
+            bg=theme_service.theme_current.primary_background_color,
             highlightthickness=0)
         self.place(relx=0.15, rely=0, relwidth=0.85, relheight=1)
         self.pack_propagate(tk.FALSE)
@@ -40,7 +40,7 @@ class CanvasDisplay(tk.Canvas):
                 height_midpoint,
                 canvas_width,
                 height_midpoint,
-                fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color,
+                fill=theme_service.theme_current.coordinate_system_axis_fill_color,
                 tags=self.canvas_tags_axis_x)
 
             # Create 'ticks' for positive-values along the axis for visually determining coordinate positions
@@ -56,13 +56,13 @@ class CanvasDisplay(tk.Canvas):
                     height_midpoint - tick_height,
                     tick_pos_x,
                     height_midpoint + tick_height,
-                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color,
+                    fill=theme_service.theme_current.coordinate_system_axis_fill_color,
                     tags=self.canvas_tags_axis_x)
                 self.create_text(
                     tick_pos_x,
                     height_midpoint + tick_height + height_of_text,
                     text=f'{int(offset)}',
-                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color)
+                    fill=theme_service.theme_current.coordinate_system_axis_fill_color)
 
             # Create 'ticks' for negative-values along the axis for visually determining coordinate positions
             counter_magnitude = (canvas_width / 2) * 0.1
@@ -77,13 +77,13 @@ class CanvasDisplay(tk.Canvas):
                     height_midpoint - tick_height,
                     tick_pos_x,
                     height_midpoint + tick_height,
-                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color,
+                    fill=theme_service.theme_current.coordinate_system_axis_fill_color,
                     tags=self.canvas_tags_axis_x)
                 self.create_text(
                     tick_pos_x,
                     height_midpoint + tick_height + height_of_text,
                     text=f'{int(offset)}',
-                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color)
+                    fill=theme_service.theme_current.coordinate_system_axis_fill_color)
         InitializeAxisX()
 
         def InitializeAxisY():
@@ -93,7 +93,7 @@ class CanvasDisplay(tk.Canvas):
                 0,
                 width_midpoint,
                 canvas_height,
-                fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color,
+                fill=theme_service.theme_current.coordinate_system_axis_fill_color,
                 tags=self.canvas_tags_axis_y)
             
             # Create 'ticks' for positive-values along the axis for visually determining coordinate positions
@@ -109,13 +109,13 @@ class CanvasDisplay(tk.Canvas):
                     tick_pos_y,
                     width_midpoint + tick_width,
                     tick_pos_y,
-                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color,
+                    fill=theme_service.theme_current.coordinate_system_axis_fill_color,
                     tags=self.canvas_tags_axis_x)
                 self.create_text(
                     width_midpoint + tick_width + text_offset,
                     tick_pos_y,
                     text=f'{int(offset)}',
-                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color)
+                    fill=theme_service.theme_current.coordinate_system_axis_fill_color)
                 
             # Create 'ticks' for negative-values along the axis for visually determining coordinate positions
             counter_magnitude = (canvas_height / 2) * 0.1
@@ -130,13 +130,13 @@ class CanvasDisplay(tk.Canvas):
                     tick_pos_y,
                     width_midpoint + tick_width,
                     tick_pos_y,
-                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color,
+                    fill=theme_service.theme_current.coordinate_system_axis_fill_color,
                     tags=self.canvas_tags_axis_x)
                 self.create_text(
                     width_midpoint + tick_width + text_offset,
                     tick_pos_y,
                     text=f'{int(offset)}',
-                    fill=Themes.theme_service.theme_current.coordinate_system_axis_fill_color)
+                    fill=theme_service.theme_current.coordinate_system_axis_fill_color)
         InitializeAxisY()
 
     def Render(self):
@@ -144,7 +144,7 @@ class CanvasDisplay(tk.Canvas):
         for vector_visualization in visualization_service.vector_visualization_list:
             self.DrawVectorVisualization(vector_visualization)
 
-    def DrawVectorVisualization(self, vector_visualization: VectorVisualizationModule.VectorVisualization):
+    def DrawVectorVisualization(self, vector_visualization: VectorVisualization):
         canvas_width = self.winfo_width()
         canvas_height = self.winfo_height()
 
@@ -159,7 +159,7 @@ class CanvasDisplay(tk.Canvas):
             initial_y,
             initial_x + vector_visualization.components[0],
             initial_y + (-1 * vector_visualization.components[1]),
-            fill=Themes.theme_service.theme_current.primary_foreground_color,
+            fill=theme_service.theme_current.primary_foreground_color,
             arrow='last',
             width=2,
             tags=self.canvas_tags_vector)
@@ -177,8 +177,8 @@ class CanvasDisplay(tk.Canvas):
 
         self.destroy()
 
-def InjectVisualizationService(injectedVisualizationService: VisualizationServiceModule.VisualizationService):
+def InjectVisualizationService(injectedVisualizationService: VisualizationService):
     global visualization_service
     visualization_service = injectedVisualizationService
 
-visualization_service: VisualizationServiceModule.VisualizationService = None
+visualization_service: VisualizationService = None

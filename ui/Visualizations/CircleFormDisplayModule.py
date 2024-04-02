@@ -1,22 +1,22 @@
 import tkinter as tk
-import Themes
-import VisualizationServiceModule
+from Themes import theme_service
+from VisualizationServiceModule import VisualizationService
 
 class CircleFormDisplay(tk.Frame):
     def __init__(self, root: tk.Tk):
-        super().__init__(root, bg=Themes.theme_service.theme_current.footer_background_color)
+        super().__init__(root, bg=theme_service.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
 
         label = tk.Label(
             self,
             text='CircleFormDisplay',
-            bg=Themes.theme_service.theme_current.visualization_toolbar_background_color,
-            fg=Themes.theme_service.theme_current.visualization_toolbar_foreground_color,
+            bg=theme_service.theme_current.visualization_toolbar_background_color,
+            fg=theme_service.theme_current.visualization_toolbar_foreground_color,
             font=("Monospace 20 underline"))
         label.pack()
 
-def InjectVisualizationService(injectedVisualizationService: VisualizationServiceModule.VisualizationService):
+def InjectVisualizationService(injectedVisualizationService: VisualizationService):
     global visualization_service
     visualization_service = injectedVisualizationService
 
-visualization_service: VisualizationServiceModule.VisualizationService = None
+visualization_service: VisualizationService = None

@@ -1,18 +1,18 @@
-import Events
-import Vectors
+from Events.EventModelModule import EventModel
+from VectorVisualizationModule import VectorVisualization
+from Vectors.VectorModelModule import VectorModel
 import CoordinatesVisualizationModule
-import VectorVisualizationModule
 
 class VisualizationService:
     def __init__(self):
-        self.vector_visualization_list: list[VectorVisualizationModule.VectorVisualization] = []
-        self.state_changed: Events.EventModelModule.EventModel = Events.EventModelModule.EventModel()
+        self.vector_visualization_list: list[VectorVisualization] = []
+        self.state_changed: EventModel = EventModel()
 
     def AddVector(self,
-                  vector: Vectors.VectorModelModule.VectorModel,
+                  vector: VectorModel,
                   coordinates: CoordinatesVisualizationModule.CoordinatesVisualization):
         
-        vector_visualization = VectorVisualizationModule.VectorVisualization(vector, coordinates)
+        vector_visualization = VectorVisualization(vector, coordinates)
         self.vector_visualization_list.append(vector_visualization)
 
         self.state_changed.trigger(vector_visualization)

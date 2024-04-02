@@ -1,21 +1,25 @@
 import tkinter as tk
-import LayoutServiceModule
-import Themes
-import Visualizations
-import Vectors
+from LayoutServiceModule import LayoutService
+from Themes import theme_service
+from Visualizations import visualization_service
+from Visualizations.CoordinatesVisualizationModule import CoordinatesVisualization
+from Visualizations.CoordinatesEditorDisplayModule import CoordinatesEditorDisplay
+from Visualizations.CircleFormDisplayModule import CircleFormDisplay 
+from Vectors.VectorEditorDisplayModule import VectorEditorDisplay
+from Vectors.VectorModelModule import VectorModel
 import PanelModelModule
 from varname import nameof
 
 class AppFooterDisplay(tk.Frame):
     def __init__(self, root: tk.Tk):
-        super().__init__(root, bg=Themes.theme_service.theme_current.footer_background_color)
+        super().__init__(root, bg=theme_service.theme_current.footer_background_color)
         self.place(relx=0, rely=0.88, relwidth=1, relheight=0.12)
         self.pack_propagate(tk.FALSE)
         
         self.panel_model_active: PanelModelModule.PanelModel = None
-        self.vector_editor_display: Vectors.VectorEditorDisplayModule.VectorEditorDisplay = None
-        self.coordinates_editor_display: Visualizations.CoordinatesEditorDisplayModule.CoordinatesEditorDisplay= None
-        self.circle_form_display: Visualizations.CircleFormDisplayModule.CircleFormDisplay = None
+        self.vector_editor_display: VectorEditorDisplay = None
+        self.coordinates_editor_display: CoordinatesEditorDisplay= None
+        self.circle_form_display: CircleFormDisplay = None
         self.tab_frame: tk.Frame = None
         self.button: tk.Button = None
 
@@ -40,17 +44,17 @@ class AppFooterDisplay(tk.Frame):
                 coordinate_x = int(layout_service.coordinates_editor_x_string_var.get())
                 coordinate_y = int(layout_service.coordinates_editor_y_string_var.get())
 
-                Visualizations.visualization_service.AddVector(
-                    Vectors.VectorModelModule.VectorModel([component_x, component_y]),
-                    Visualizations.CoordinatesVisualizationModule.CoordinatesVisualization([coordinate_x, coordinate_y]))
+                visualization_service.AddVector(
+                    VectorModel([component_x, component_y]),
+                    CoordinatesVisualization([coordinate_x, coordinate_y]))
             except ValueError:
                 print("some_variable did not contain a number!")
         
         self.button = tk.Button(
             self,
             text="New Vector",
-            bg=Themes.theme_service.theme_current.button_background_color,
-            fg=Themes.theme_service.theme_current.button_foreground_color,
+            bg=theme_service.theme_current.button_background_color,
+            fg=theme_service.theme_current.button_foreground_color,
             command=SubmitFormOnClick)
         self.button.pack(side="left")
 
@@ -75,11 +79,11 @@ class AppFooterDisplay(tk.Frame):
         for tab in self.tab_list:
             is_active = tab == self.tab_active
 
-            bg = Themes.theme_service.theme_current.button_background_color
-            if is_active: bg = Themes.theme_service.theme_current.button_active_background_color
+            bg = theme_service.theme_current.button_background_color
+            if is_active: bg = theme_service.theme_current.button_active_background_color
 
-            fg = Themes.theme_service.theme_current.button_foreground_color
-            if is_active: fg = Themes.theme_service.theme_current.button_active_foreground_color
+            fg = theme_service.theme_current.button_foreground_color
+            if is_active: fg = theme_service.theme_current.button_active_foreground_color
             
             button = tk.Button(
                 self.tab_frame,
@@ -96,8 +100,8 @@ class AppFooterDisplay(tk.Frame):
         self.Render()
 
     def CreateVectorForm(self):
-        self.vector_editor_display = Vectors.VectorEditorDisplayModule.VectorEditorDisplay(self, Vectors.VectorModelModule.VectorModel([50, 50]))
-        self.coordinates_editor_display = Visualizations.CoordinatesEditorDisplayModule.CoordinatesEditorDisplay(self, Visualizations.CoordinatesVisualizationModule.CoordinatesVisualization([0, 0]))
+        self.vector_editor_display = VectorEditorDisplay(self, VectorModel([50, 50]))
+        self.coordinates_editor_display = CoordinatesEditorDisplay(self, CoordinatesVisualization([0, 0]))
     
     def DestroyVectorForm(self):
         if self.vector_editor_display != None:
@@ -109,15 +113,15 @@ class AppFooterDisplay(tk.Frame):
             self.coordinates_editor_display = None
 
     def CreateCircleForm(self):
-        self.circle_form_display = Visualizations.CircleFormDisplayModule.CircleFormDisplay(self)
+        self.circle_form_display = CircleFormDisplay(self)
 
     def DestroyCircleForm(self):
         if self.circle_form_display != None:
             self.circle_form_display.destroy()
             self.circle_form_display = None
 
-def InjectLayoutService(injectedLayoutService: LayoutServiceModule.LayoutService):
+def InjectLayoutService(injectedLayoutService: LayoutService):
     global layout_service
     layout_service = injectedLayoutService
 
-layout_service: LayoutServiceModule.LayoutService = None
+layout_service: LayoutService = None
