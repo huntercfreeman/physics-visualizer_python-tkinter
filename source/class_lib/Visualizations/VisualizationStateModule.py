@@ -14,6 +14,7 @@ class VisualizationState(StatefulModel):
         self.state_changed: EventModel = EventModel()
 
         self.vector_editor_target: VectorModel = None
+
         self.coordinates_editor_target: CoordinatesModel = None
 
     def AddVector(self,
@@ -28,3 +29,7 @@ class VisualizationState(StatefulModel):
     def SetVectorEditorTarget(self, vector: VectorModel | None):
         self.vector_editor_target = vector
         self.state_changed.trigger([vector])
+
+    def SetCoordinatesEditorTarget(self, coordinates: CoordinatesModel | None):
+        self.coordinates_editor_target = coordinates
+        self.state_changed.trigger([coordinates])

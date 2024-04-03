@@ -11,7 +11,6 @@ from ui_lib.Layouts.AppFooterDisplayModule import AppFooterDisplay
 from ui_lib.Dialogs.DialogInitializerModule import DialogInitializer
 
 def main():
-
     RegisterState()
 
     global root
@@ -19,7 +18,6 @@ def main():
     style_root(root)
 
     theme_state = StoreModule.Get(ThemeState)
-
     theme_state.state_changed.addListener(OnThemeState_StateChanged)
 
     render_ui(root)

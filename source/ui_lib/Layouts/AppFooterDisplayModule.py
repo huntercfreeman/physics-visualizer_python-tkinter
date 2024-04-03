@@ -118,8 +118,8 @@ class AppFooterDisplay(tk.Frame):
     def CreateVectorForm(self):
         visualization_state = StoreModule.Get(VisualizationState)
 
-        self.vector_editor_display = VectorEditorDisplay(self, visualization_state.vector_editor_target)
-        self.coordinates_editor_display = CoordinatesEditorDisplay(self, visualization_state.coordinates_editor_target)
+        self.vector_editor_display = VectorEditorDisplay(self)
+        self.coordinates_editor_display = CoordinatesEditorDisplay(self)
     
     def DestroyVectorForm(self):
         if self.vector_editor_display != None:
@@ -151,9 +151,7 @@ class AppFooterDisplay(tk.Frame):
         """The usage of '__del__()' can have some quirks as described in this link:
         https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
         
-        visualization_state = StoreModule.Get(VisualizationState)
-
-        local_visualization_state = visualization_state
+        local_visualization_state = StoreModule.Get(VisualizationState)
 
         if local_visualization_state != None:
             if hasattr(local_visualization_state, 'state_changed'):

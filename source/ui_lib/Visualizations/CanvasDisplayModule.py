@@ -22,7 +22,6 @@ class CanvasDisplay(tk.Canvas):
         self.InitializeCoordinateSystem()
 
         visualization_state = StoreModule.Get(VisualizationState)
-        
         visualization_state.state_changed.addListener(self.OnVisualizationState_StateChanged)
 
         # Force initial rendering of the vectors

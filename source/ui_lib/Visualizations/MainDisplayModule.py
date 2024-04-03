@@ -1,7 +1,7 @@
 import tkinter as tk
-from class_lib.Visualizations.ToolbarDisplayModule import ToolbarDisplay
 from class_lib.Themes.ThemeStateModule import ThemeState
 from class_lib.States import StoreModule
+from ui_lib.Visualizations.ToolbarDisplayModule import ToolbarDisplay
 from ui_lib.Visualizations.CanvasDisplayModule import CanvasDisplay
 
 class MainDisplay(tk.Frame):

@@ -1,6 +1,7 @@
 import tkinter as tk
 from class_lib.Visualizations.VisualizationStateModule import VisualizationState
 from class_lib.Visualizations.VectorVisualizationModule import VectorVisualization
+from class_lib.Visualizations.VisualizationStateModule import CoordinatesModel
 from class_lib.Vectors.VectorModelModule import VectorModel
 from class_lib.Themes.ThemeStateModule import ThemeState
 from class_lib.States import StoreModule
@@ -30,7 +31,6 @@ class ToolbarDisplay(tk.Frame):
         visualization_state = StoreModule.Get(VisualizationState)
         visualization_state.state_changed.addListener(self.OnVisualizationState_StateChanged)
 
-        # Force initial rendering of the vectors
         self.Render()
 
     def Render(self):
@@ -41,8 +41,9 @@ class ToolbarDisplay(tk.Frame):
         theme_state = StoreModule.Get(ThemeState)
 
         for i,vector_visualization in enumerate(visualization_state.vector_visualization_list):
-            def SetVectorEditorTargetOnClick(vector_visualization: VectorVisualization):
+            def SetVectorEditorTargetOnClick(e: any, vector_visualization: VectorVisualization):
                 visualization_state.SetVectorEditorTarget(VectorModel(vector_visualization.components))
+                visualization_state.SetCoordinatesEditorTarget(CoordinatesModel(vector_visualization.coordinates))
 
             label = tk.Label(
                 self,
@@ -53,7 +54,7 @@ class ToolbarDisplay(tk.Frame):
                 bg=theme_state.theme_current.visualization_toolbar_background_color,
                 fg=theme_state.theme_current.visualization_toolbar_foreground_color,
                 font=("Monospace", 18))
-            label.bind("<Button-1>",lambda e,vector_visualization=vector_visualization:SetVectorEditorTargetOnClick(vector_visualization))
+            label.bind("<Button-1>",lambda e,vector_visualization=vector_visualization:SetVectorEditorTargetOnClick(e, vector_visualization))
             label.pack()
 
             self.vector_visualization_label_list.append(label)

@@ -1,11 +1,12 @@
 import tkinter as tk
+from class_lib.Visualizations.VisualizationStateModule import VisualizationState
 from class_lib.Visualizations.CoordinatesModelModule import CoordinatesModel
 from class_lib.Themes.ThemeStateModule import ThemeState
 from class_lib.Layouts.LayoutStateModule import LayoutState
 from class_lib.States import StoreModule
 
 class CoordinatesEditorDisplay(tk.Frame):
-    def __init__(self, parent: tk.Tk, coordinates: CoordinatesModel | None):
+    def __init__(self, parent: tk.Tk):
         """
         Constructor takes an existing coordinates object, or 'None'.
         
@@ -33,12 +34,35 @@ class CoordinatesEditorDisplay(tk.Frame):
 
         super().__init__(parent, bg=theme_state.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
-        self.coordinates = coordinates
+
+        visualization_state = StoreModule.Get(VisualizationState)
+        visualization_state.state_changed.addListener(self.OnVisualizationState_StateChanged)
+
+        self.coordinates: CoordinatesModel = None
 
         layout_state = StoreModule.Get(LayoutState)
 
         layout_state.coordinates_editor_x_string_var = tk.StringVar()
         layout_state.coordinates_editor_y_string_var = tk.StringVar()
+
+        self.parameters_changed_key = None
+        self.Render()
+
+    def Render(self):
+
+        visualization_state = StoreModule.Get(VisualizationState)
+
+        # If the vector_editor_target parameter has NOT changed, then return
+        if (id(visualization_state.coordinates_editor_target) == self.parameters_changed_key):
+            return
+
+        self.coordinates = visualization_state.coordinates_editor_target
+        self.parameters_changed_key = id(self.coordinates)
+
+        for c in list(self.children.values()): c.destroy()
+
+        theme_state = StoreModule.Get(ThemeState)
+        layout_state = StoreModule.Get(LayoutState)
 
         if self.coordinates is None:
             layout_state.coordinates_editor_x_string_var.set(0)
@@ -93,3 +117,24 @@ class CoordinatesEditorDisplay(tk.Frame):
             
             y_label.grid(row=1,column=0)
             y_entry.grid(row=1,column=1)
+
+
+    def OnVisualizationState_StateChanged(self, *args):
+        if len(args) > 0:
+            if isinstance(args[0], CoordinatesModel):
+                self.Render()
+
+    def destroy(self):
+        self.__del__()
+        super().destroy()
+
+    def __del__(self):
+        """The usage of '__del__()' can have some quirks as described in this link:
+        https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
+        
+        local_visualization_state = StoreModule.Get(VisualizationState)
+
+        if local_visualization_state != None:
+            if hasattr(local_visualization_state, 'state_changed'):
+                if hasattr(local_visualization_state.state_changed, 'removeListener'):
+                    local_visualization_state.state_changed.removeListener(self.OnVisualizationState_StateChanged)

@@ -1,11 +1,12 @@
 import tkinter as tk
+from class_lib.Visualizations.VisualizationStateModule import VisualizationState
 from class_lib.Vectors.VectorModelModule import VectorModel
 from class_lib.Themes.ThemeStateModule import ThemeState
 from class_lib.Layouts.LayoutStateModule import LayoutState
 from class_lib.States import StoreModule
 
 class VectorEditorDisplay(tk.Frame):
-    def __init__(self, parent: tk.Tk, vector: VectorModel | None):
+    def __init__(self, parent: tk.Tk):
         """
         Constructor takes an existing vector object, or 'None'.
         
@@ -33,12 +34,34 @@ class VectorEditorDisplay(tk.Frame):
 
         super().__init__(parent, bg=theme_state.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
-        self.vector = vector
+
+        visualization_state = StoreModule.Get(VisualizationState)
+        visualization_state.state_changed.addListener(self.OnVisualizationState_StateChanged)
+
+        self.vector: VectorModel = None
 
         layout_state = StoreModule.Get(LayoutState)
 
         layout_state.vector_editor_x_string_var = tk.StringVar()
         layout_state.vector_editor_y_string_var = tk.StringVar()
+
+        self.parameters_changed_key = None
+        self.Render()
+
+    def Render(self):
+
+        visualization_state = StoreModule.Get(VisualizationState)
+
+        # If the vector_editor_target parameter has NOT changed, then return
+        if (id(visualization_state.vector_editor_target) == self.parameters_changed_key):
+            return
+        
+        self.vector: VectorModel = visualization_state.vector_editor_target
+        self.parameters_changed_key = id(self.vector)
+
+        for c in list(self.children.values()): c.destroy()
+
+        layout_state = StoreModule.Get(LayoutState)
 
         if self.vector is None:
             layout_state.vector_editor_x_string_var.set(50)
@@ -54,6 +77,8 @@ class VectorEditorDisplay(tk.Frame):
 
         header_frame.pack(side='left')
         body_frame.pack(side='left')
+
+        theme_state = StoreModule.Get(ThemeState)
 
         # Header content
         label = tk.Label(
@@ -98,3 +123,23 @@ class VectorEditorDisplay(tk.Frame):
                 bg=theme_state.theme_current.header_background_color,
                 fg=theme_state.theme_current.primary_foreground_color)
             x_label.pack(side='left')
+
+    def OnVisualizationState_StateChanged(self, *args):
+        if len(args) > 0:
+            if isinstance(args[0], VectorModel):
+                self.Render()
+
+    def destroy(self):
+        self.__del__()
+        super().destroy()
+
+    def __del__(self):
+        """The usage of '__del__()' can have some quirks as described in this link:
+        https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
+        
+        local_visualization_state = StoreModule.Get(VisualizationState)
+
+        if local_visualization_state != None:
+            if hasattr(local_visualization_state, 'state_changed'):
+                if hasattr(local_visualization_state.state_changed, 'removeListener'):
+                    local_visualization_state.state_changed.removeListener(self.OnVisualizationState_StateChanged)
