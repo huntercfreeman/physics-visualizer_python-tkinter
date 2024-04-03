@@ -61,6 +61,10 @@ class ToolbarDisplay(tk.Frame):
     def OnVisualizationState_StateChanged(self, *args):
         self.Render()
 
+    def destroy(self):
+        self.__del__()
+        super().destroy()
+
     def __del__(self):
         """The usage of '__del__()' can have some quirks as described in this link:
         https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
@@ -72,5 +76,3 @@ class ToolbarDisplay(tk.Frame):
             if hasattr(local_visualization_state, 'state_changed'):
                 if hasattr(local_visualization_state.state_changed, 'removeListener'):
                     local_visualization_state.state_changed.removeListener(self.OnVisualizationState_StateChanged)
-
-        self.destroy()
