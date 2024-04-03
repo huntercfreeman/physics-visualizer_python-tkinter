@@ -1,10 +1,15 @@
 from Events.EventModelModule import EventModel
-from VectorVisualizationModule import VectorVisualization
+from Visualizations.VectorVisualizationModule import VectorVisualization
 from Vectors.VectorModelModule import VectorModel
-from CoordinatesModelModule import CoordinatesModel
+from Visualizations.CoordinatesModelModule import CoordinatesModel
+from States.StatefulModelModule import StatefulModel
 
-class VisualizationState:
+class VisualizationState(StatefulModel):
+
+    store_key = None
+
     def __init__(self):
+        super().__init__()
         self.vector_visualization_list: list[VectorVisualization] = []
         self.state_changed: EventModel = EventModel()
 

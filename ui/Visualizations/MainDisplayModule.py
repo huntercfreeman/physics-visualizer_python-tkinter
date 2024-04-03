@@ -1,13 +1,13 @@
 import tkinter as tk
-from CanvasDisplayModule import CanvasDisplay
-from ToolbarDisplayModule import ToolbarDisplay
+from Visualizations.CanvasDisplayModule import CanvasDisplay
+from Visualizations.ToolbarDisplayModule import ToolbarDisplay
 from Themes.ThemeStateModule import ThemeState
-from Dispatchers import StoreModule
+from States import StoreModule
 
 class MainDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
 
-        theme_state: ThemeState = StoreModule.Get(ThemeState())
+        theme_state: ThemeState = StoreModule.Get(ThemeState)
 
         super().__init__(
             parent,

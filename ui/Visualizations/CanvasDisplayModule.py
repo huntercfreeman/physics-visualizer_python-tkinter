@@ -1,13 +1,13 @@
 import tkinter as tk
-from VisualizationStateModule import VisualizationState
-from VectorVisualizationModule import VectorVisualization
+from Visualizations.VisualizationStateModule import VisualizationState
+from Visualizations.VectorVisualizationModule import VectorVisualization
 from Themes.ThemeStateModule import ThemeState
-from Dispatchers import StoreModule
+from States import StoreModule
 
 class CanvasDisplay(tk.Canvas):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
 
-        theme_state: ThemeState = StoreModule.Get(ThemeState())
+        theme_state: ThemeState = StoreModule.Get(ThemeState)
 
         super().__init__(
             parent,
@@ -21,7 +21,7 @@ class CanvasDisplay(tk.Canvas):
         self.update()
         self.InitializeCoordinateSystem()
 
-        visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
+        visualization_state: VisualizationState = StoreModule.Get(VisualizationState)
         
         visualization_state.state_changed.addListener(self.OnVisualizationState_StateChanged)
 
@@ -39,7 +39,7 @@ class CanvasDisplay(tk.Canvas):
         width_midpoint = canvas_width / 2.0
         height_midpoint = canvas_height / 2.0
         
-        theme_state: ThemeState = StoreModule.Get(ThemeState())
+        theme_state: ThemeState = StoreModule.Get(ThemeState)
 
         def InitializeAxisX():
             # Create the axis itself
@@ -150,7 +150,7 @@ class CanvasDisplay(tk.Canvas):
     def Render(self):
         self.delete(self.canvas_tags_vector)
 
-        visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
+        visualization_state: VisualizationState = StoreModule.Get(VisualizationState)
         
         for vector_visualization in visualization_state.vector_visualization_list:
             self.DrawVectorVisualization(vector_visualization)
@@ -165,7 +165,7 @@ class CanvasDisplay(tk.Canvas):
         initial_x = canvas_width_halfway + vector_visualization.coordinates[0]
         initial_y = canvas_height_halfway - vector_visualization.coordinates[1]
 
-        theme_state: ThemeState = StoreModule.Get(ThemeState())
+        theme_state: ThemeState = StoreModule.Get(ThemeState)
 
         self.create_line(
             initial_x,
@@ -184,7 +184,7 @@ class CanvasDisplay(tk.Canvas):
         """The usage of '__del__()' can have some quirks as described in this link:
         https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
 
-        visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
+        visualization_state: VisualizationState = StoreModule.Get(VisualizationState)
         
         local_visualization_state = visualization_state
 

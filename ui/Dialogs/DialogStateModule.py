@@ -1,10 +1,16 @@
 import tkinter as tk
-from DialogModelModule import DialogModel
+from Dialogs.DialogModelModule import DialogModel
 from Events.EventModelModule import EventModel
+from States.StatefulModelModule import StatefulModel
 
-class DialogState:
+class DialogState(StatefulModel):
     """Provides API to render a dialog"""
+
+    store_key = None
+
     def __init__(self):
+        super().__init__()
+        DialogState.store_key = self
         self.dialog_map = {}
         self.state_changed: EventModel = EventModel()
         self.root: tk.Tk = None

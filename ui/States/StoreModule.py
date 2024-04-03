@@ -4,18 +4,17 @@ class Store:
 
 __store: Store = Store()
 
-def Register(obj):
+def Register(class_obj):
 
-    key = fullname(obj)
+    obj = class_obj()
 
-    if key in __store.state_map:
+    if class_obj.store_key in __store.state_map:
         raise Exception("Duplicate key exception")
     else:
-        __store.state_map[key] = obj
+        __store.state_map[class_obj.store_key] = obj
 
-def Get(obj) -> any:
-    key = fullname(obj)
-    return __store.state_map[key]
+def Get(class_obj) -> any:
+    return __store.state_map[class_obj.store_key]
 
 def fullname(o):
     """Goal of this function is to have a unique identifier for a type.

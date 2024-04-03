@@ -1,8 +1,8 @@
 import tkinter as tk
-from CoordinatesModelModule import CoordinatesModel
+from Visualizations.CoordinatesModelModule import CoordinatesModel
 from Themes.ThemeStateModule import ThemeState
 from Layouts.LayoutStateModule import LayoutState
-from Dispatchers import StoreModule
+from States import StoreModule
 
 class CoordinatesEditorDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk, coordinates: CoordinatesModel | None):
@@ -29,13 +29,13 @@ class CoordinatesEditorDisplay(tk.Frame):
                         or construct a new coordinates object.
         """
 
-        theme_state: ThemeState = StoreModule.Get(ThemeState())
+        theme_state: ThemeState = StoreModule.Get(ThemeState)
 
         super().__init__(parent, bg=theme_state.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
         self.coordinates = coordinates
 
-        layout_state: LayoutState = StoreModule.Get(LayoutState())
+        layout_state: LayoutState = StoreModule.Get(LayoutState)
 
         layout_state.coordinates_editor_x_string_var = tk.StringVar()
         layout_state.coordinates_editor_y_string_var = tk.StringVar()

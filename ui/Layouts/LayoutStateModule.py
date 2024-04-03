@@ -1,8 +1,13 @@
 import tkinter as tk
 from Events.EventModelModule import EventModel
+from States.StatefulModelModule import StatefulModel
 
-class LayoutState:
+class LayoutState(StatefulModel):
+
+    store_key = None
+
     def __init__(self):
+        super().__init__()
         self.existing_root: tk.Tk = None
 
         self.vector_editor_x_string_var: tk.StringVar = None

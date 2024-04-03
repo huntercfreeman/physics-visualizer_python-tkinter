@@ -1,6 +1,6 @@
 import tkinter as tk
 from varname import nameof
-from LayoutStateModule import LayoutState
+from Layouts.LayoutStateModule import LayoutState
 from Themes.ThemeStateModule import ThemeState
 from Visualizations.VisualizationStateModule import VisualizationState
 from Visualizations.CoordinatesModelModule import CoordinatesModel
@@ -8,13 +8,13 @@ from Visualizations.CoordinatesEditorDisplayModule import CoordinatesEditorDispl
 from Visualizations.CircleFormDisplayModule import CircleFormDisplay 
 from Vectors.VectorEditorDisplayModule import VectorEditorDisplay
 from Vectors.VectorModelModule import VectorModel
-from PanelModelModule import PanelModel
-from Dispatchers import StoreModule
+from Layouts.PanelModelModule import PanelModel
+from States import StoreModule
 
 class AppFooterDisplay(tk.Frame):
     def __init__(self, root: tk.Tk):
 
-        theme_state: ThemeState = StoreModule.Get(ThemeState())
+        theme_state: ThemeState = StoreModule.Get(ThemeState)
 
         super().__init__(root, bg=theme_state.theme_current.footer_background_color)
         self.place(relx=0, rely=0.88, relwidth=1, relheight=0.12)
@@ -29,7 +29,7 @@ class AppFooterDisplay(tk.Frame):
 
         self.tab_active = nameof(self.vector_editor_display)
 
-        visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
+        visualization_state: VisualizationState = StoreModule.Get(VisualizationState)
         visualization_state.state_changed.addListener(
             self.OnVisualizationState_StateChanged)
 
@@ -44,11 +44,11 @@ class AppFooterDisplay(tk.Frame):
 
         self.CreateTabFrame()
 
-        theme_state: ThemeState = StoreModule.Get(ThemeState())
+        theme_state: ThemeState = StoreModule.Get(ThemeState)
 
         def SubmitFormOnClick():
             try:
-                layout_state: LayoutState = StoreModule.Get(LayoutState())
+                layout_state: LayoutState = StoreModule.Get(LayoutState)
                 
                 component_x = int(layout_state.vector_editor_x_string_var.get())
                 component_y = int(layout_state.vector_editor_y_string_var.get())
@@ -56,7 +56,7 @@ class AppFooterDisplay(tk.Frame):
                 coordinate_x = int(layout_state.coordinates_editor_x_string_var.get())
                 coordinate_y = int(layout_state.coordinates_editor_y_string_var.get())
 
-                visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
+                visualization_state: VisualizationState = StoreModule.Get(VisualizationState)
 
                 visualization_state.AddVector(
                     VectorModel([component_x, component_y]),
@@ -90,7 +90,7 @@ class AppFooterDisplay(tk.Frame):
         self.tab_frame = tk.Frame(self)
         self.tab_list: list[str] = (nameof(self.vector_editor_display), nameof(self.circle_form_display))
 
-        theme_state: ThemeState = StoreModule.Get(ThemeState())
+        theme_state: ThemeState = StoreModule.Get(ThemeState)
 
         for tab in self.tab_list:
             is_active = tab == self.tab_active
@@ -116,7 +116,7 @@ class AppFooterDisplay(tk.Frame):
         self.Render()
 
     def CreateVectorForm(self):
-        visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
+        visualization_state: VisualizationState = StoreModule.Get(VisualizationState)
 
         self.vector_editor_display = VectorEditorDisplay(self, visualization_state.vector_editor_target)
         self.coordinates_editor_display = CoordinatesEditorDisplay(self, visualization_state.coordinates_editor_target)
@@ -147,7 +147,7 @@ class AppFooterDisplay(tk.Frame):
         """The usage of '__del__()' can have some quirks as described in this link:
         https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
         
-        visualization_state: VisualizationState = StoreModule.Get(VisualizationState())
+        visualization_state: VisualizationState = StoreModule.Get(VisualizationState)
 
         local_visualization_state = visualization_state
 

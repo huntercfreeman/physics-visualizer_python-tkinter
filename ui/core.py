@@ -6,8 +6,8 @@ from Layouts.AppFooterDisplayModule import AppFooterDisplay
 from Dialogs.DialogInitializerDisplayModule import DialogInitializerDisplay
 from Themes.ThemeStateModule import ThemeState
 from Dialogs.DialogStateModule import DialogState
-from Dispatchers.DispatcherModule import Dispatcher
-from Dispatchers import StoreModule
+from States.DispatcherModule import Dispatcher
+from States import StoreModule
 from Visualizations.VisualizationStateModule import VisualizationState
 
 def main():
@@ -18,7 +18,7 @@ def main():
     root = tk.Tk()
     style_root(root)
 
-    theme_state: ThemeState = StoreModule.Get(ThemeState())
+    theme_state: ThemeState = StoreModule.Get(ThemeState)
 
     theme_state.state_changed.addListener(OnThemeState_StateChanged)
 
@@ -83,10 +83,10 @@ def destroy_ui():
     if app_footer_display != None: app_footer_display.destroy()
 
 def RegisterState():
-    StoreModule.Register(LayoutState())
-    StoreModule.Register(VisualizationState())
-    StoreModule.Register(ThemeState())
-    StoreModule.Register(DialogState())
+    StoreModule.Register(LayoutState)
+    StoreModule.Register(VisualizationState)
+    StoreModule.Register(ThemeState)
+    StoreModule.Register(DialogState)
 
 def OnThemeState_StateChanged(*args):
     reload_ui()

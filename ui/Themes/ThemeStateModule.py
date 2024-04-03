@@ -1,8 +1,13 @@
-from ThemeModelModule import ThemeModel
+from Themes.ThemeModelModule import ThemeModel
 from Events.EventModelModule import EventModel
+from States.StatefulModelModule import StatefulModel
 
-class ThemeState():
+class ThemeState(StatefulModel):
+
+    store_key = None
+
     def __init__(self) -> None:
+        super().__init__()
         self.state_changed: EventModel = EventModel()
 
         self.theme_list = [
