@@ -1,14 +1,14 @@
 import tkinter as tk
-from Layouts.LayoutStateModule import LayoutState
-from Layouts.AppHeaderDisplayModule import AppHeaderDisplay
-from Layouts.AppBodyDisplayModule import AppBodyDisplay
-from Layouts.AppFooterDisplayModule import AppFooterDisplay
-from Dialogs.DialogInitializerModule import DialogInitializer
-from Themes.ThemeStateModule import ThemeState
-from Dialogs.DialogStateModule import DialogState
-from States.DispatcherModule import Dispatcher
-from States import StoreModule
-from Visualizations.VisualizationStateModule import VisualizationState
+from class_lib.Layouts.LayoutStateModule import LayoutState
+from class_lib.Themes.ThemeStateModule import ThemeState
+from class_lib.Dialogs.DialogStateModule import DialogState
+from class_lib.States.DispatcherModule import Dispatcher
+from class_lib.States import StoreModule
+from class_lib.Visualizations.VisualizationStateModule import VisualizationState
+from ui_lib.Layouts.AppHeaderDisplayModule import AppHeaderDisplay
+from ui_lib.Layouts.AppBodyDisplayModule import AppBodyDisplay
+from ui_lib.Layouts.AppFooterDisplayModule import AppFooterDisplay
+from ui_lib.Dialogs.DialogInitializerModule import DialogInitializer
 
 def main():
 

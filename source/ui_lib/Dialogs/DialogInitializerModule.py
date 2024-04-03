@@ -1,7 +1,7 @@
 import tkinter as tk
-from Dialogs.DialogStateModule import DialogState
-from Dialogs.DialogDisplayModule import DialogDisplay
-from States import StoreModule
+from class_lib.Dialogs.DialogStateModule import DialogState
+from class_lib.States import StoreModule
+from ui_lib.Dialogs.DialogDisplayModule import DialogDisplay
 
 class DialogInitializer:
     def __init__(self, root: tk.Tk):

@@ -1,6 +1,6 @@
-from Dialogs.DialogModelModule import DialogModel
-from Events.EventModelModule import EventModel
-from States.StatefulModelModule import StatefulModel
+from class_lib.Dialogs.DialogModelModule import DialogModel
+from class_lib.Events.EventModelModule import EventModel
+from class_lib.States.StatefulModelModule import StatefulModel
 
 class DialogState(StatefulModel):
     """Provides API to render a dialog"""
@@ -15,12 +15,12 @@ class DialogState(StatefulModel):
     def register_dialog(self, display_name: str):
         if display_name not in self.dialog_map:
             self.dialog_map[display_name] = DialogModel(display_name)
-            self.state_changed.trigger({"display_name":display_name})
+            self.state_changed.trigger([display_name])
 
     def dispose_dialog(self, display_name: str):
         if display_name in self.dialog_map:
             del self.dialog_map[display_name]
-            self.state_changed.trigger({"display_name":display_name})
+            self.state_changed.trigger([display_name])
 
     def DestroyDialogModule(self):
         pass

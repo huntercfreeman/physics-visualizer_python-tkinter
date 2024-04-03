@@ -1,7 +1,7 @@
 import tkinter as tk
-from Themes.ThemeStateModule import ThemeState
-from Dialogs.DialogStateModule import DialogState
-from States import StoreModule
+from class_lib.Themes.ThemeStateModule import ThemeState
+from class_lib.Dialogs.DialogStateModule import DialogState
+from class_lib.States import StoreModule
 
 class AppHeaderDisplay(tk.Frame):
     """Render the 'header' aka: 'navigation bar', or 'toolbar'."""

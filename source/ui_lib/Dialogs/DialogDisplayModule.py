@@ -1,10 +1,9 @@
 import tkinter as tk
-from varname import nameof
-from Themes.ThemeStateModule import ThemeState
-from Themes.ThemeModelModule import ThemeModel
-from Dialogs.DialogModelModule import DialogModel
-from Dialogs.DialogStateModule import DialogState
-from States import StoreModule
+from class_lib.Themes.ThemeStateModule import ThemeState
+from class_lib.Themes.ThemeModelModule import ThemeModel
+from class_lib.Dialogs.DialogModelModule import DialogModel
+from class_lib.Dialogs.DialogStateModule import DialogState
+from class_lib.States import StoreModule
 
 class DialogDisplay(tk.Frame):
     def __init__(self, root: tk.Tk, dialog: DialogModel):

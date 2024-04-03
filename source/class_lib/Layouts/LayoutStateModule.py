@@ -1,6 +1,6 @@
 import tkinter as tk
-from Events.EventModelModule import EventModel
-from States.StatefulModelModule import StatefulModel
+from class_lib.Events.EventModelModule import EventModel
+from class_lib.States.StatefulModelModule import StatefulModel
 
 class LayoutState(StatefulModel):
 

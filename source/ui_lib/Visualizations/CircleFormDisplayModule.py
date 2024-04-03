@@ -1,6 +1,6 @@
 import tkinter as tk
-from Themes.ThemeStateModule import ThemeState
-from States import StoreModule
+from class_lib.Themes.ThemeStateModule import ThemeState
+from class_lib.States import StoreModule
 
 class CircleFormDisplay(tk.Frame):
     def __init__(self, root: tk.Tk):

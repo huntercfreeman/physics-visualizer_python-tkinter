@@ -1,5 +1,5 @@
-from Vectors.VectorModelModule import VectorModel
-from Visualizations.CoordinatesModelModule import CoordinatesModel
+from class_lib.Vectors.VectorModelModule import VectorModel
+from class_lib.Visualizations.CoordinatesModelModule import CoordinatesModel
 
 class VectorVisualization:
     def __init__(self, vector: VectorModel, coordinates: CoordinatesModel):

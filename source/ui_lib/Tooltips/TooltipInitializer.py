@@ -1,7 +1,7 @@
 import tkinter as tk
-from States import StoreModule
-from Tooltips.TooltipDisplayModule import TooltipDisplay
-from Tooltips.TooltipStateModule import TooltipState
+from class_lib.States import StoreModule
+from class_lib.Tooltips.TooltipStateModule import TooltipState
+from ui_lib.Tooltips.TooltipDisplayModule import TooltipDisplay
 
 class TooltipInitializer:
     def __init__(self, root: tk.Tk):

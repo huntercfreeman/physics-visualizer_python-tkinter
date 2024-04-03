@@ -1,15 +1,15 @@
 import tkinter as tk
 from varname import nameof
-from Layouts.LayoutStateModule import LayoutState
-from Themes.ThemeStateModule import ThemeState
-from Visualizations.VisualizationStateModule import VisualizationState
-from Visualizations.CoordinatesModelModule import CoordinatesModel
-from Visualizations.CoordinatesEditorDisplayModule import CoordinatesEditorDisplay
-from Visualizations.CircleFormDisplayModule import CircleFormDisplay 
-from Vectors.VectorEditorDisplayModule import VectorEditorDisplay
-from Vectors.VectorModelModule import VectorModel
-from Layouts.PanelModelModule import PanelModel
-from States import StoreModule
+from class_lib.Layouts.LayoutStateModule import LayoutState
+from class_lib.Themes.ThemeStateModule import ThemeState
+from class_lib.Visualizations.VisualizationStateModule import VisualizationState
+from class_lib.Visualizations.CoordinatesModelModule import CoordinatesModel
+from class_lib.Vectors.VectorModelModule import VectorModel
+from class_lib.Layouts.PanelModelModule import PanelModel
+from class_lib.States import StoreModule
+from ui_lib.Visualizations.CoordinatesEditorDisplayModule import CoordinatesEditorDisplay
+from ui_lib.Visualizations.CircleFormDisplayModule import CircleFormDisplay 
+from ui_lib.Vectors.VectorEditorDisplayModule import VectorEditorDisplay
 
 class AppFooterDisplay(tk.Frame):
     def __init__(self, root: tk.Tk):

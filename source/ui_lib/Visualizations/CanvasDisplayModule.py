@@ -1,8 +1,8 @@
 import tkinter as tk
-from Visualizations.VisualizationStateModule import VisualizationState
-from Visualizations.VectorVisualizationModule import VectorVisualization
-from Themes.ThemeStateModule import ThemeState
-from States import StoreModule
+from class_lib.Visualizations.VisualizationStateModule import VisualizationState
+from class_lib.Visualizations.VectorVisualizationModule import VectorVisualization
+from class_lib.Themes.ThemeStateModule import ThemeState
+from class_lib.States import StoreModule
 
 class CanvasDisplay(tk.Canvas):
     def __init__(self, parent: tk.Tk, root: tk.Tk):

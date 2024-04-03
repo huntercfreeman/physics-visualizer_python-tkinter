@@ -1,6 +1,6 @@
-from Themes.ThemeModelModule import ThemeModel
-from Events.EventModelModule import EventModel
-from States.StatefulModelModule import StatefulModel
+from class_lib.Themes.ThemeModelModule import ThemeModel
+from class_lib.Events.EventModelModule import EventModel
+from class_lib.States.StatefulModelModule import StatefulModel
 
 class ThemeState(StatefulModel):
 
@@ -53,5 +53,5 @@ class ThemeState(StatefulModel):
 
     def SetTheme(self, theme: ThemeModel):
         self.theme_current = theme
-        self.state_changed.trigger({"theme":theme})
+        self.state_changed.trigger([theme])
         

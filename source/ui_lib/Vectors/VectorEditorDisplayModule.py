@@ -1,8 +1,8 @@
 import tkinter as tk
-from Vectors.VectorModelModule import VectorModel
-from Themes.ThemeStateModule import ThemeState
-from Layouts.LayoutStateModule import LayoutState
-from States import StoreModule
+from class_lib.Vectors.VectorModelModule import VectorModel
+from class_lib.Themes.ThemeStateModule import ThemeState
+from class_lib.Layouts.LayoutStateModule import LayoutState
+from class_lib.States import StoreModule
 
 class VectorEditorDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk, vector: VectorModel | None):

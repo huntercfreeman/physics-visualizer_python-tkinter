@@ -1,8 +1,8 @@
 import tkinter as tk
-from Themes.ThemeStateModule import ThemeState
-from Visualizations.MainDisplayModule import MainDisplay
-from HorizontalRules.HorizontalRuleDisplayModule import HorizontalRuleDisplay
-from States import StoreModule
+from class_lib.Themes.ThemeStateModule import ThemeState
+from class_lib.States import StoreModule
+from ui_lib.Visualizations.MainDisplayModule import MainDisplay
+from ui_lib.HorizontalRules.HorizontalRuleDisplayModule import HorizontalRuleDisplay
 
 class AppBodyDisplay(tk.Frame):
     def __init__(self, root: tk.Tk):

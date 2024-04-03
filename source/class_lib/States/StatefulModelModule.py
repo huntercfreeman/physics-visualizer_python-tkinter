@@ -1,4 +1,4 @@
-from States import StoreModule
+from class_lib.States import StoreModule
 
 class StatefulModel:
     """
