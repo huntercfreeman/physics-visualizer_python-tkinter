@@ -25,7 +25,7 @@ class AppFooterDisplay(tk.Frame):
         self.coordinates_editor_display: CoordinatesEditorDisplay= None
         self.circle_form_display: CircleFormDisplay = None
         self.tab_frame: tk.Frame = None
-        self.button: tk.Button = None
+        self.form_frame: tk.Frame = None
 
         self.tab_active = nameof(self.vector_editor_display)
 
@@ -39,38 +39,76 @@ class AppFooterDisplay(tk.Frame):
         if self.panel_model_active != None:
             self.panel_model_active.destroy_func()
 
-        if self.button != None:
-            self.button.destroy()
+        if self.form_frame != None:
+            self.form_frame.destroy()
 
         self.CreateTabFrame()
 
         theme_state = StoreModule.Get(ThemeState)
 
-        def SubmitFormOnClick():
-            try:
-                layout_state = StoreModule.Get(LayoutState)
-                
-                component_x = int(layout_state.vector_editor_x_string_var.get())
-                component_y = int(layout_state.vector_editor_y_string_var.get())
-
-                coordinate_x = int(layout_state.coordinates_editor_x_string_var.get())
-                coordinate_y = int(layout_state.coordinates_editor_y_string_var.get())
-
-                visualization_state = StoreModule.Get(VisualizationState)
-
-                visualization_state.AddVector(
-                    VectorModel([component_x, component_y]),
-                    CoordinatesModel([coordinate_x, coordinate_y]))
-            except ValueError:
-                print("some_variable did not contain a number!")
-        
-        self.button = tk.Button(
+        self.form_frame = tk.Frame(
             self,
-            text="New Vector",
-            bg=theme_state.theme_current.button_background_color,
-            fg=theme_state.theme_current.button_foreground_color,
-            command=SubmitFormOnClick)
-        self.button.pack(side="left")
+            bg=theme_state.theme_current.footer_background_color)
+        self.form_frame.pack(side="top", fill="x")
+
+        self.form_left_frame = tk.Frame(
+            self.form_frame,
+            bg=theme_state.theme_current.footer_background_color)
+        self.form_left_frame.pack(side="left")
+        
+        self.form_right_frame = tk.Frame(
+            self.form_frame,
+            bg=theme_state.theme_current.footer_background_color)
+        self.form_right_frame.pack(side="left", fill="both")
+        
+        visualization_state = StoreModule.Get(VisualizationState)
+
+        if visualization_state.vector_visualization_target == None:
+            def DrawVectorOnClick():
+                try:
+                    layout_state = StoreModule.Get(LayoutState)
+                    
+                    component_x = int(layout_state.vector_editor_x_string_var.get())
+                    component_y = int(layout_state.vector_editor_y_string_var.get())
+
+                    coordinate_x = int(layout_state.coordinates_editor_x_string_var.get())
+                    coordinate_y = int(layout_state.coordinates_editor_y_string_var.get())
+
+                    visualization_state = StoreModule.Get(VisualizationState)
+
+                    visualization_state.DrawVector(
+                        VectorModel([component_x, component_y]),
+                        CoordinatesModel([coordinate_x, coordinate_y]))
+                except ValueError:
+                    print("some_variable did not contain a number!")
+
+            self.button = tk.Button(
+                self.form_left_frame,
+                text="Draw Vector",
+                bg=theme_state.theme_current.button_background_color,
+                fg=theme_state.theme_current.button_foreground_color,
+                command=DrawVectorOnClick)
+            self.button.pack(side="top")
+        else:
+            def ApplyChangesOnClick():
+                pass
+            self.button = tk.Button(
+                self.form_left_frame,
+                text="Apply",
+                bg=theme_state.theme_current.button_background_color,
+                fg=theme_state.theme_current.button_foreground_color,
+                command=ApplyChangesOnClick)
+            self.button.pack(side="top")
+
+            def CancelChangesOnClick():
+                pass
+            self.button = tk.Button(
+                self.form_left_frame,
+                text="Cancel",
+                bg=theme_state.theme_current.danger_background_color,
+                fg=theme_state.theme_current.button_foreground_color,
+                command=CancelChangesOnClick)
+            self.button.pack(side="top")
 
         if self.tab_active == nameof(self.vector_editor_display):
             self.panel_model_active = PanelModel(
@@ -118,8 +156,8 @@ class AppFooterDisplay(tk.Frame):
     def CreateVectorForm(self):
         visualization_state = StoreModule.Get(VisualizationState)
 
-        self.vector_editor_display = VectorEditorDisplay(self)
-        self.coordinates_editor_display = CoordinatesEditorDisplay(self)
+        self.vector_editor_display = VectorEditorDisplay(self.form_right_frame)
+        self.coordinates_editor_display = CoordinatesEditorDisplay(self.form_right_frame)
     
     def DestroyVectorForm(self):
         if self.vector_editor_display != None:
@@ -131,7 +169,7 @@ class AppFooterDisplay(tk.Frame):
             self.coordinates_editor_display = None
 
     def CreateCircleForm(self):
-        self.circle_form_display = CircleFormDisplay(self)
+        self.circle_form_display = CircleFormDisplay(self.form_right_frame)
 
     def DestroyCircleForm(self):
         if self.circle_form_display != None:

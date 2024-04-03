@@ -14,7 +14,5 @@ class AppBodyDisplay(tk.Frame):
         self.pack_propagate(tk.FALSE)
         
         HorizontalRuleDisplay(self, anchor='n')
-
         main_display = MainDisplay(self, root)
-
         HorizontalRuleDisplay(self, anchor='s')

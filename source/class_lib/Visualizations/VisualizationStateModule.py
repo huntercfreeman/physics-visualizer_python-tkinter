@@ -17,7 +17,7 @@ class VisualizationState(StatefulModel):
         self.vector_editor_target: VectorModel = None
         self.coordinates_editor_target: CoordinatesModel = None
 
-    def AddVector(self,
+    def DrawVector(self,
                   vector: VectorModel,
                   coordinates: CoordinatesModel):
         
