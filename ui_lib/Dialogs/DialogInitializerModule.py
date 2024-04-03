@@ -3,7 +3,7 @@ from Dialogs.DialogStateModule import DialogState
 from Dialogs.DialogDisplayModule import DialogDisplay
 from States import StoreModule
 
-class DialogInitializerDisplay:
+class DialogInitializer:
     def __init__(self, root: tk.Tk):
         self.root = root
         self.__dialog_display_list: list[DialogDisplay] = []
@@ -24,7 +24,7 @@ class DialogInitializerDisplay:
                 self.root, value))
             
     def destroy(self):
-        for dialog_display in self.__dialog_display_list:
+        for dialog_display in self.__dialog_display_list.copy():
             dialog_display.destroy()
             self.__dialog_display_list.remove(dialog_display)
 

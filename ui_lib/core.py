@@ -3,7 +3,7 @@ from Layouts.LayoutStateModule import LayoutState
 from Layouts.AppHeaderDisplayModule import AppHeaderDisplay
 from Layouts.AppBodyDisplayModule import AppBodyDisplay
 from Layouts.AppFooterDisplayModule import AppFooterDisplay
-from Dialogs.DialogInitializerDisplayModule import DialogInitializerDisplay
+from Dialogs.DialogInitializerModule import DialogInitializer
 from Themes.ThemeStateModule import ThemeState
 from Dialogs.DialogStateModule import DialogState
 from States.DispatcherModule import Dispatcher
@@ -62,7 +62,7 @@ def render_ui(root: tk.Tk):
 
     global dialog_initializer_display
     if dialog_initializer_display == None:
-        dialog_initializer_display = DialogInitializerDisplay(root)
+        dialog_initializer_display = DialogInitializer(root)
     else:
         dialog_initializer_display.root = root
         dialog_initializer_display.Render()
@@ -89,7 +89,7 @@ def OnThemeState_StateChanged(*args):
 
 root: tk.Tk = None
 
-dialog_initializer_display: DialogInitializerDisplay = None
+dialog_initializer_display: DialogInitializer = None
 app_header_display: AppHeaderDisplay = None
 app_body_display: AppBodyDisplay = None
 app_footer_display: AppFooterDisplay = None

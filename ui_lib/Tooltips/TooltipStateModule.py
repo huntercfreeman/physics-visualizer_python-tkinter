@@ -1,3 +1,4 @@
+from Events.EventModelModule import EventModel
 from States.StatefulModelModule import StatefulModel
 
 class TooltipState(StatefulModel):
@@ -6,3 +7,4 @@ class TooltipState(StatefulModel):
 
     def __init__(self) -> None:
         super().__init__()
+        self.state_changed: EventModel = EventModel()
