@@ -13,8 +13,8 @@ class VisualizationState(StatefulModel):
         self.vector_visualization_list: list[VectorVisualization] = []
         self.state_changed: EventModel = EventModel()
 
+        self.vector_visualization_target: VectorVisualization = None
         self.vector_editor_target: VectorModel = None
-
         self.coordinates_editor_target: CoordinatesModel = None
 
     def AddVector(self,
@@ -26,10 +26,10 @@ class VisualizationState(StatefulModel):
 
         self.state_changed.trigger([vector_visualization])
 
-    def SetVectorEditorTarget(self, vector: VectorModel | None):
-        self.vector_editor_target = vector
-        self.state_changed.trigger([vector])
-
-    def SetCoordinatesEditorTarget(self, coordinates: CoordinatesModel | None):
-        self.coordinates_editor_target = coordinates
-        self.state_changed.trigger([coordinates])
+    def SetVectorVisualizationTarget(self, vector_visualization: VectorVisualization | None):
+        self.vector_visualization_target = vector_visualization
+        self.vector_editor_target = VectorModel(vector_visualization.components)
+        self.coordinates_editor_target = CoordinatesModel(vector_visualization.coordinates)
+        
+        self.state_changed.trigger([self.vector_editor_target])
+        self.state_changed.trigger([self.coordinates_editor_target])

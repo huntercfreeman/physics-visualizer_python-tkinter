@@ -42,8 +42,12 @@ class ToolbarDisplay(tk.Frame):
 
         for i,vector_visualization in enumerate(visualization_state.vector_visualization_list):
             def SetVectorEditorTargetOnClick(e: any, vector_visualization: VectorVisualization):
-                visualization_state.SetVectorEditorTarget(VectorModel(vector_visualization.components))
-                visualization_state.SetCoordinatesEditorTarget(CoordinatesModel(vector_visualization.coordinates))
+                visualization_state.SetVectorVisualizationTarget(vector_visualization)
+
+            bg = theme_state.theme_current.visualization_toolbar_background_color
+
+            if id(visualization_state.vector_visualization_target) == id(vector_visualization):
+                bg = theme_state.theme_current.active_with_focus_background_color
 
             label = tk.Label(
                 self,
@@ -51,7 +55,7 @@ class ToolbarDisplay(tk.Frame):
                      f'{vector_visualization.components[0]}, '
                      f'{vector_visualization.components[1]}'
                      ')',
-                bg=theme_state.theme_current.visualization_toolbar_background_color,
+                bg=bg,
                 fg=theme_state.theme_current.visualization_toolbar_foreground_color,
                 font=("Monospace", 18))
             label.bind("<Button-1>",lambda e,vector_visualization=vector_visualization:SetVectorEditorTargetOnClick(e, vector_visualization))

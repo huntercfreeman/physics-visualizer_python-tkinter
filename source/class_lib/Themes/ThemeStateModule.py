@@ -28,7 +28,8 @@ class ThemeState(StatefulModel):
                 button_foreground_color='#DCDCDC',
                 button_active_background_color='#753282',
                 button_active_foreground_color='#d2d2d2',
-                danger_background_color='#b35252'),
+                danger_background_color='#b35252',
+                active_with_focus_background_color='#415d90'),
             ThemeModel(
                 display_name='light',
                 primary_background_color='#fdfdfd',
@@ -46,7 +47,8 @@ class ThemeState(StatefulModel):
                 button_foreground_color='#f0f0f0',
                 button_active_background_color='#d889e8',
                 button_active_foreground_color='black',
-                danger_background_color='#b35252'),
+                danger_background_color='#b35252',
+                active_with_focus_background_color='#add6ff'),
         ]
 
         self.theme_current = self.theme_list[0]

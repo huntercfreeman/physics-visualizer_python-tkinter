@@ -17,7 +17,8 @@ class ThemeModel:
                  button_foreground_color: str,
                  button_active_background_color: str,
                  button_active_foreground_color: str,
-                 danger_background_color: str):
+                 danger_background_color: str,
+                 active_with_focus_background_color: str):
         self.display_name = display_name
         self.primary_background_color = primary_background_color
         self.primary_foreground_color = primary_foreground_color
@@ -35,3 +36,4 @@ class ThemeModel:
         self.button_active_background_color = button_active_background_color
         self.button_active_foreground_color = button_active_foreground_color
         self.danger_background_color = danger_background_color
+        self.active_with_focus_background_color = active_with_focus_background_color
