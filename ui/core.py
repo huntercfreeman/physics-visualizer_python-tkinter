@@ -50,11 +50,7 @@ def style_root(root: tk.Tk):
     
     root.geometry(f'{width}x{height}+{left}+{top}')
     root.pack_propagate(tk.FALSE)
-
-    # If the red background of 'root' is visible, then something is wrong.
-    # The inner frames should cover 100% of the 'root', and their background color
-    # therefore should be rendered instead of the root's red background color.
-    root["bg"]='red'
+    root["bg"] = StoreModule.Get(ThemeState).theme_current.primary_background_color
 
 def render_ui(root: tk.Tk):
     global app_header_display
