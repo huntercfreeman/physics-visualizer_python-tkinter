@@ -18,7 +18,7 @@ def main():
     root = tk.Tk()
     style_root(root)
 
-    theme_state: ThemeState = StoreModule.Get(ThemeState)
+    theme_state = StoreModule.Get(ThemeState)
 
     theme_state.state_changed.addListener(OnThemeState_StateChanged)
 

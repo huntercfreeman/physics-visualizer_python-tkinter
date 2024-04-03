@@ -1,3 +1,7 @@
+from typing import TypeVar, Type
+
+T = TypeVar('T')
+
 class Store:
     def __init__(self):
         self.state_map = {}
@@ -13,7 +17,7 @@ def Register(class_obj):
     else:
         __store.state_map[class_obj.store_key] = obj
 
-def Get(class_obj) -> any:
+def Get(class_obj: Type[T]) -> T:
     return __store.state_map[class_obj.store_key]
 
 def fullname(o):

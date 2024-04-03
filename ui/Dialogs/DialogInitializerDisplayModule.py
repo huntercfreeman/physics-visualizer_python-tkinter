@@ -8,7 +8,7 @@ class DialogInitializerDisplay:
         self.root = root
         self.__dialog_display_list: list[DialogDisplay] = []
 
-        dialog_state: DialogState = StoreModule.Get(DialogState)
+        dialog_state = StoreModule.Get(DialogState)
         dialog_state.state_changed.addListener(self.OnDialogState_StateChanged)
         
         # Force an initial render
@@ -17,7 +17,7 @@ class DialogInitializerDisplay:
     def Render(self):
         self.destroy()
 
-        dialog_state: DialogState = StoreModule.Get(DialogState)
+        dialog_state = StoreModule.Get(DialogState)
 
         for value in dialog_state.dialog_map.values():
             self.__dialog_display_list.append(DialogDisplay(
@@ -35,7 +35,7 @@ class DialogInitializerDisplay:
         """The usage of '__del__()' can have some quirks as described in this link:
         https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
         
-        dialog_state: DialogState = StoreModule.Get(DialogState)
+        dialog_state = StoreModule.Get(DialogState)
 
         local_dialog_state = dialog_state
 

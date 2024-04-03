@@ -8,7 +8,7 @@ from States import StoreModule
 class ToolbarDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk):
 
-        theme_state: ThemeState = StoreModule.Get(ThemeState)
+        theme_state = StoreModule.Get(ThemeState)
 
         super().__init__(
             parent,
@@ -27,7 +27,7 @@ class ToolbarDisplay(tk.Frame):
             font=("Monospace 20 underline"))
         label.pack()
 
-        visualization_state: VisualizationState = StoreModule.Get(VisualizationState)
+        visualization_state = StoreModule.Get(VisualizationState)
         visualization_state.state_changed.addListener(self.OnVisualizationState_StateChanged)
 
         # Force initial rendering of the vectors
@@ -37,8 +37,8 @@ class ToolbarDisplay(tk.Frame):
         for label in self.vector_visualization_label_list:
             label.destroy()
 
-        visualization_state: VisualizationState = StoreModule.Get(VisualizationState)
-        theme_state: ThemeState = StoreModule.Get(ThemeState)
+        visualization_state = StoreModule.Get(VisualizationState)
+        theme_state = StoreModule.Get(ThemeState)
 
         for i,vector_visualization in enumerate(visualization_state.vector_visualization_list):
             def SetVectorEditorTargetOnClick(vector_visualization: VectorVisualization):
@@ -69,7 +69,7 @@ class ToolbarDisplay(tk.Frame):
         """The usage of '__del__()' can have some quirks as described in this link:
         https://www.andy-pearce.com/blog/posts/2013/Apr/python-destructor-drawbacks/."""
 
-        visualization_state: VisualizationState = StoreModule.Get(VisualizationState)
+        visualization_state = StoreModule.Get(VisualizationState)
         local_visualization_state = visualization_state
 
         if local_visualization_state != None:

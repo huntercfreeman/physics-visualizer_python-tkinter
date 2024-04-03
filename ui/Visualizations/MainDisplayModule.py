@@ -7,7 +7,7 @@ from States import StoreModule
 class MainDisplay(tk.Frame):
     def __init__(self, parent: tk.Tk, root: tk.Tk):
 
-        theme_state: ThemeState = StoreModule.Get(ThemeState)
+        theme_state = StoreModule.Get(ThemeState)
 
         super().__init__(
             parent,

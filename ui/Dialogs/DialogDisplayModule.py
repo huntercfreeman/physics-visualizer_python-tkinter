@@ -9,7 +9,7 @@ from States import StoreModule
 class DialogDisplay(tk.Frame):
     def __init__(self, root: tk.Tk, dialog: DialogModel):
         
-        theme_state: ThemeState = StoreModule.Get(ThemeState)
+        theme_state = StoreModule.Get(ThemeState)
         
         super().__init__(root, bg=theme_state.theme_current.secondary_background_color)
         self.place(relx=.2, rely=0.2, relwidth=0.6, relheight=0.6)
@@ -48,7 +48,7 @@ class DialogDisplay(tk.Frame):
     class TitleDisplay(tk.Frame):
         def __init__(self, parent: tk.Tk, dialog: DialogModel):
 
-            theme_state: ThemeState = StoreModule.Get(ThemeState)
+            theme_state = StoreModule.Get(ThemeState)
 
             super().__init__(parent, bg=theme_state.theme_current.dialog_toolbar_background_color)
             self.pack(side='top', fill='both')
@@ -61,7 +61,7 @@ class DialogDisplay(tk.Frame):
                 fg=theme_state.theme_current.secondary_foreground_color)
             label.pack(side='left', fill='y')
 
-            dialog_state: DialogState = StoreModule.Get(DialogState)
+            dialog_state = StoreModule.Get(DialogState)
 
             close_button = tk.Button(
                 self,

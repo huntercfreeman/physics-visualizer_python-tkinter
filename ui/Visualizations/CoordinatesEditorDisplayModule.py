@@ -29,13 +29,13 @@ class CoordinatesEditorDisplay(tk.Frame):
                         or construct a new coordinates object.
         """
 
-        theme_state: ThemeState = StoreModule.Get(ThemeState)
+        theme_state = StoreModule.Get(ThemeState)
 
         super().__init__(parent, bg=theme_state.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
         self.coordinates = coordinates
 
-        layout_state: LayoutState = StoreModule.Get(LayoutState)
+        layout_state = StoreModule.Get(LayoutState)
 
         layout_state.coordinates_editor_x_string_var = tk.StringVar()
         layout_state.coordinates_editor_y_string_var = tk.StringVar()

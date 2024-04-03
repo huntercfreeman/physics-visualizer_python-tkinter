@@ -29,13 +29,13 @@ class VectorEditorDisplay(tk.Frame):
                         or construct a new vector object.
         """
 
-        theme_state: ThemeState = StoreModule.Get(ThemeState)
+        theme_state = StoreModule.Get(ThemeState)
 
         super().__init__(parent, bg=theme_state.theme_current.footer_background_color)
         self.pack(side="left", fill="both", expand=1)
         self.vector = vector
 
-        layout_state: LayoutState = StoreModule.Get(LayoutState)
+        layout_state = StoreModule.Get(LayoutState)
 
         layout_state.vector_editor_x_string_var = tk.StringVar()
         layout_state.vector_editor_y_string_var = tk.StringVar()
